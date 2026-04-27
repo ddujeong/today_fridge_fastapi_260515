@@ -438,7 +438,7 @@ async def recognize_ingredient_image(
             candidates = recognize_packaged_food_by_ocr(temp_path, topK)
 
         elif route == "raw_ingredient":
-            pipeline_stage = "raw_ingredient_classifier"
+            pipeline_stage = "rawIngredientClassifier"
             candidates = recognize_raw_ingredient_by_classifier(temp_path, topK)
 
         else:

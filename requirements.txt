@@ -17,3 +17,5 @@ selenium
 pandas
 mlflow
 python-multipart
+python-dotenv
+psycopg
