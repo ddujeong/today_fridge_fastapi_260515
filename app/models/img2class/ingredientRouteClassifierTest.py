@@ -12,7 +12,7 @@ classifier = IngredientRouteClassifier(
     model_path="app/models/img2class/best.pt",
     confidence_threshold=0.60,
     device=None,
-    imgsz=224,\
+    imgsz=224,
 )
 
 imagePath = "app/models/img2class/apple.jpg"
