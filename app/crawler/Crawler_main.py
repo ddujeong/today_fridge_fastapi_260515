@@ -2,7 +2,7 @@ import Crawler_tool
 import pandas as pd
 from selenium.webdriver.common.by import By
 
-page = 7
+page = 8
 target_url = f"https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page={page}"
 crawler = Crawler_tool.Crawler(target_url=target_url)
 crawler.set_target_url(target_url)
