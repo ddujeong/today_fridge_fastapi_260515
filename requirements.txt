@@ -18,5 +18,4 @@ pandas
 mlflow
 python-multipart
 python-dotenv
-psycopg
-hashlib
+psycopg[binary]
