@@ -2,7 +2,7 @@ import Crawler_tool
 import pandas as pd
 from selenium.webdriver.common.by import By
 
-page = 8
+page = 16
 target_url = f"https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page={page}"
 crawler = Crawler_tool.Crawler(target_url=target_url)
 crawler.set_target_url(target_url)
@@ -163,7 +163,7 @@ def main():
     crawler.wait(0.1, 0.3)
 
   print(recipe_list_per_page)
-  pd.DataFrame(recipe_list_per_page).to_csv(f"./recipes_result/recipes{page}.csv", index=False, encoding='utf-8-sig')
+  pd.DataFrame(recipe_list_per_page).to_csv(f"app/crawler/recipes_result/recipes{page}.csv", index=False, encoding='utf-8-sig')
 
 
 if __name__ == "__main__":
