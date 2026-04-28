@@ -48,10 +48,21 @@ def main():
 
     crawler._close_ad_overlays()
 
-    list_url = crawler.current_url()
-    clicked = crawler.click(current_items[idx])
-    if not clicked:
-      print(f"[MK2] skip index={idx} due to click failure")
+    list_url = crawler.target_url
+    try:
+      link = current_items[idx].find_element(By.CSS_SELECTOR, "a.common_sp_link")
+      detail_url = link.get_attribute("href")
+
+      if not detail_url:
+        print(f"[MK2] skip index={idx} because detail url is empty")
+        continue
+
+      print(f"[MK2] open detail url={detail_url}")
+      crawler.go(detail_url)
+
+    except Exception as e:
+      print(f"[MK2] skip index={idx} due to detail navigation failure: {e}")
+      crawler.ensure_list_page(list_url)
       continue
 
     crawler._close_ad_overlays()
@@ -70,7 +81,8 @@ def main():
     except Exception as e:
       print(f"[WARN] Failed to read summary: {e}")
       try:
-        crawler.back(fallback_url=list_url)
+        crawler.go(list_url)
+        crawler.dismiss_ads()
       except Exception as back_error:
         print(f"[WARN] back failed after summary error: {back_error}")
       continue

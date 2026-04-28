@@ -2,6 +2,15 @@
 """
 오늘냉장고 레시피 CSV -> PostgreSQL 적재 스크립트
 
+1. 루트폴더에서 pip install -r requirements.txt로 의존성 다운로드
+2. 아래 명령어 터미널에서 실행
+python app/crawler/import_recipe_csvs_to_postgres_v3.py \
+--input app/crawler/recipes_result/ \
+--db-url "postgresql://postgres:1234@localhost:5432/today_fridge" \
+--schema "public" \
+--source-site "MyCrawler" \
+--allow-empty-steps \
+
 대상 CSV 컬럼 예시:
 - img
 - title
@@ -35,7 +44,7 @@ def parse_args():
     parser.add_argument("--input", required=True, help="CSV 파일 또는 CSV들이 들어 있는 폴더")
     parser.add_argument("--db-url", required=True, help="예: postgresql://postgres:1234@localhost:5432/today_fridge")
     parser.add_argument("--schema", default="today_fridge")
-    parser.add_argument("--source-site", default="CRAWLED")
+    parser.add_argument("--source-site", default="10000Recipe")
     parser.add_argument("--allow-empty-steps", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
