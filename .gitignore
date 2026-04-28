@@ -10,3 +10,11 @@ __pycache__/
 
 # mac
 .DS_Store
+
+# YOLO / Ultralytics training outputs
+runs/
+data_sources/
+ml_datasets/
+*.zip
+
+
