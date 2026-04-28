@@ -411,7 +411,7 @@ def ensure_recipe(conn, meta: DbMeta, row: dict[str, Any], source_site: str) -> 
         "source_recipe_key": source_key,
         "title": title,
         "thumbnail_url": img,
-        "summary": difficulty,
+        "difficulty_level": difficulty,
         "difficulty": difficulty,
         "servings_text": servings,
         "quantity": servings,
