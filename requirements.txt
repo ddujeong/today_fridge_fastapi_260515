@@ -19,3 +19,4 @@ mlflow
 python-multipart
 python-dotenv
 psycopg
+hashlib
