@@ -19,3 +19,8 @@ mlflow
 python-multipart
 python-dotenv
 psycopg[binary]
+paddleocr
+paddlepaddle
+pillow
+opencv-python
+ultralytics
