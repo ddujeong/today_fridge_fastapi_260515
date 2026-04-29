@@ -171,7 +171,6 @@ def find_and_delete_duplicates(db_url: str, schema: str, dry_run: bool):
             sql.SQL(f"r.{recipe_pk} AS recipe_id"),
         ]
         group_key_parts = []
-
         if source_site_col:
             final_select_cols.append(sql.SQL(f"r.{source_site_col} AS source_site"))
             group_key_parts.append(q_ident(source_site_col))

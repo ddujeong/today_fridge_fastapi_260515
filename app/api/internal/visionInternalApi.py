@@ -37,6 +37,7 @@ from typing import Any, Dict, List, Optional
 from fastapi import APIRouter, File, Form, Header, HTTPException, UploadFile
 
 from app.models.img2class.ingredientRouteClassifier import IngredientRouteClassifier
+from app.models.ocr.packagedFoodOcr import recognize_packaged_food_image
 
 router = APIRouter(prefix="/internal/v1", tags=["internal-vision"])
 
@@ -47,6 +48,7 @@ ALLOWED_IMAGE_CONTENT_TYPES = {
 }
 
 DEFAULT_ROUTE_MODEL_PATH = "app/models/img2class/best.pt"
+MAX_RECOGNITION_CANDIDATES = 3
 
 _route_classifier: Optional[IngredientRouteClassifier] = None
 _route_classifier_load_error: Optional[str] = None
@@ -234,13 +236,13 @@ def recognize_raw_ingredient_by_classifier(image_path: Path, top_k: int) -> List
         }
     """
     try:
-        from app.models.ingredient.rawIngredientClassifier import recognizeRawIngredientImage
+        from app.models.ingredient.rawIngredientClassifier import recognize_raw_ingredient_image
     except ImportError as exc:
         raise RuntimeError(
             "raw_ingredient_classifier.py 또는 recognize_raw_ingredient_image 함수가 없습니다."
         ) from exc
 
-    raw_result = recognizeRawIngredientImage(image_path=image_path, top_k=top_k)
+    raw_result = recognize_raw_ingredient_image(image_path=image_path, top_k=top_k)
     return normalize_candidates(raw_result, default_category=None)
 
 
@@ -365,7 +367,7 @@ def health(
 @router.post("/vision/recognize-ingredient-image")
 async def recognize_ingredient_image(
     file: UploadFile = File(...),
-    topK: int = Form(default=5),
+    topK: int = Form(default=MAX_RECOGNITION_CANDIDATES),
     detectMultiple: bool = Form(default=False),
     source: Optional[str] = Form(default=None),
     x_internal_service: Optional[str] = Header(default=None, alias="X-Internal-Service"),
@@ -405,7 +407,7 @@ async def recognize_ingredient_image(
                 }
             ],
         )
-
+    effective_top_k = min(topK, MAX_RECOGNITION_CANDIDATES)
     # 현재 UI 정책은 단일 이미지/단일 물체 전제.
     # detectMultiple=true가 들어와도 endpoint는 단일 처리로 동작하고 meta에 기록한다.
     suffix = Path(file.filename or "").suffix.lower()
@@ -435,11 +437,11 @@ async def recognize_ingredient_image(
 
         elif route == "packaged_food":
             pipeline_stage = "packaged_food_ocr"
-            candidates = recognize_packaged_food_by_ocr(temp_path, topK)
+            candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
 
         elif route == "raw_ingredient":
-            pipeline_stage = "rawIngredientClassifier"
-            candidates = recognize_raw_ingredient_by_classifier(temp_path, topK)
+            pipeline_stage = "raw_ingredient_classifier"
+            candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
 
         else:
             pipeline_stage = "unsupported_route"
@@ -452,7 +454,7 @@ async def recognize_ingredient_image(
             message="recognized",
             request_id=request_id,
             data={
-                "recognizedCandidates": candidates[:topK],
+                "recognizedCandidates": candidates[:effective_top_k],
                 "route": {
                     "type": route,
                     "confidence": route_confidence,
@@ -465,7 +467,8 @@ async def recognize_ingredient_image(
                     "source": source,
                     "detectMultipleRequested": detectMultiple,
                     "effectiveDetectMultiple": False,
-                    "topK": topK,
+                    "requestedTopK": topK,
+                    "effectiveTopK": effective_top_k,
                 },
                 "needsReview": needs_review,
             },
