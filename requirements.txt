@@ -24,3 +24,4 @@ paddlepaddle
 pillow
 opencv-python
 ultralytics
+sentence-transformers
