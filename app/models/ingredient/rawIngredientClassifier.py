@@ -19,19 +19,35 @@ raw_ingredient 이미지용 실제 식재료 분류 모듈.
 
 필수 함수:
     recognize_raw_ingredient_image(image_path, top_k=5)
+
+적용 순서·학습 절차: README_raw_ingredient_apply.md
+팀 메모(ingredient_master 동기화 전 보류·후속 도구): cursor_documents/raw_ingredient_ingredient_master_동기화_보류_및_후속.md
+
+런타임 라벨 매핑 (우선순위):
+1) `app/models/ingredient/data/model_label_to_master.json` (있으면 내장 맵과 병합, JSON이 동일 키 덮어씀)
+2) 없거나 키 누락 시 아래 `BUILTIN_LABEL_FALLBACK` (기존 하드코딩 매핑과 동일 역할)
+
+어휘 검증(선택): `ingredient_normalized_vocab.json` + RAW_INGREDIENT_ENFORCE_VOCAB
+
+환경변수:
+- RAW_INGREDIENT_LABEL_MAP_PATH, RAW_INGREDIENT_VOCAB_PATH
+- RAW_INGREDIENT_UNMAPPED_POLICY=passthrough|skip (기본 passthrough)
+- RAW_INGREDIENT_ENFORCE_VOCAB=true|false (기본 false)
 """
 
 from __future__ import annotations
 
+import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
-
+from typing import Dict, List, Optional, Set
 
 DEFAULT_MODEL_PATH = "app/models/ingredient/weights/raw_ingredient_best.pt"
+_DATA_DIR = Path(__file__).resolve().parent / "data"
 
-INGREDIENT_LABEL_MAP: Dict[str, Dict[str, str]] = {
+# JSON이 없거나 특정 키가 없을 때 사용. 기존 INGREDIENT_LABEL_MAP 전체와 동일한 내용.
+BUILTIN_LABEL_FALLBACK: Dict[str, Dict[str, str]] = {
     "apple": {"displayName": "사과", "normalizedName": "사과", "categorySuggestion": "과일"},
     "pear": {"displayName": "배", "normalizedName": "배", "categorySuggestion": "과일"},
     "avocado": {"displayName": "아보카도", "normalizedName": "아보카도", "categorySuggestion": "과일"},
@@ -51,7 +67,6 @@ INGREDIENT_LABEL_MAP: Dict[str, Dict[str, str]] = {
     "melon": {"displayName": "멜론", "normalizedName": "멜론", "categorySuggestion": "과일"},
     "orange": {"displayName": "오렌지", "normalizedName": "오렌지", "categorySuggestion": "과일"},
     "peach": {"displayName": "복숭아", "normalizedName": "복숭아", "categorySuggestion": "과일"},
-
     "mushroom": {"displayName": "버섯", "normalizedName": "버섯", "categorySuggestion": "채소"},
     "brown_cap_mushroom": {"displayName": "양송이버섯", "normalizedName": "양송이버섯", "categorySuggestion": "채소"},
     "onion": {"displayName": "양파", "normalizedName": "양파", "categorySuggestion": "채소"},
@@ -71,6 +86,79 @@ INGREDIENT_LABEL_MAP: Dict[str, Dict[str, str]] = {
     "leek": {"displayName": "대파", "normalizedName": "대파", "categorySuggestion": "채소"},
 }
 
+# 하위 호환·문서 명칭: 예전 코드/주석에서 INGREDIENT_LABEL_MAP 이라 부르던 딕셔너리와 동일 본문.
+INGREDIENT_LABEL_MAP = BUILTIN_LABEL_FALLBACK
+
+_label_map_cache: Optional[Dict[str, Dict[str, str]]] = None
+_vocab_loaded: bool = False
+_vocab_allow_set: Optional[Set[str]] = None
+
+
+def normalize_label(label: str) -> str:
+    return str(label).strip().lower().replace("-", "_").replace(" ", "_")
+
+
+def _load_json_labels(path: Path) -> Dict[str, Dict[str, str]]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    raw = data.get("labels", {})
+    out: Dict[str, Dict[str, str]] = {}
+    for k, v in raw.items():
+        if not isinstance(v, dict):
+            continue
+        key = normalize_label(str(k))
+        out[key] = {
+            "displayName": str(v.get("displayName", v.get("display_name", k))),
+            "normalizedName": str(v.get("normalizedName", v.get("normalized_name", k))),
+            "categorySuggestion": str(v["categorySuggestion"])
+            if v.get("categorySuggestion") or v.get("category_suggestion")
+            else "",
+        }
+    return out
+
+
+def get_label_map() -> Dict[str, Dict[str, str]]:
+    global _label_map_cache
+    if _label_map_cache is not None:
+        return _label_map_cache
+
+    merged: Dict[str, Dict[str, str]] = {}
+    for k, v in BUILTIN_LABEL_FALLBACK.items():
+        merged[normalize_label(k)] = dict(v)
+
+    path = Path(os.getenv("RAW_INGREDIENT_LABEL_MAP_PATH", str(_DATA_DIR / "model_label_to_master.json")))
+    if path.exists():
+        file_labels = _load_json_labels(path)
+        merged.update(file_labels)
+
+    _label_map_cache = merged
+    return _label_map_cache
+
+
+def get_vocab_allow_set() -> Optional[Set[str]]:
+    """None = vocab 파일 없음(검증 스킵)."""
+    global _vocab_loaded, _vocab_allow_set
+    if _vocab_loaded:
+        return _vocab_allow_set
+
+    _vocab_loaded = True
+    path = Path(os.getenv("RAW_INGREDIENT_VOCAB_PATH", str(_DATA_DIR / "ingredient_normalized_vocab.json")))
+    if not path.exists():
+        _vocab_allow_set = None
+        return None
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    names = data.get("names", [])
+    _vocab_allow_set = set(str(x) for x in names)
+    return _vocab_allow_set
+
+
+def reset_ingredient_classifier_caches() -> None:
+    global _label_map_cache, _vocab_loaded, _vocab_allow_set, _classifier
+    _label_map_cache = None
+    _vocab_loaded = False
+    _vocab_allow_set = None
+    _classifier = None
+
 
 @dataclass
 class RawIngredientCandidate:
@@ -86,8 +174,8 @@ class RawIngredientCandidate:
             "displayName": self.displayName,
             "normalizedName": self.normalizedName,
             "categorySuggestion": self.categorySuggestion,
-            "confidence": self.confidence,
             "bbox": self.bbox,
+            "confidence": self.confidence,
             "modelLabel": self.modelLabel,
         }
 
@@ -104,6 +192,14 @@ class RawIngredientClassifier:
         self.confidence_threshold = confidence_threshold
         self.device = device
         self.imgsz = imgsz
+        self._label_map = get_label_map()
+        self._vocab = get_vocab_allow_set()
+        self._unmapped_policy = os.getenv("RAW_INGREDIENT_UNMAPPED_POLICY", "passthrough").strip().lower()
+        self._enforce_vocab = os.getenv("RAW_INGREDIENT_ENFORCE_VOCAB", "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+        )
 
         if not self.model_path.exists():
             raise FileNotFoundError(
@@ -148,6 +244,13 @@ class RawIngredientClassifier:
         candidates = self._topk_candidates(probs=probs, names=names, top_k=top_k)
         return [candidate.to_dict() for candidate in candidates]
 
+    def _lookup_meta(self, label: str) -> Optional[Dict[str, str]]:
+        key = normalize_label(label)
+        meta = self._label_map.get(key)
+        if meta:
+            return meta
+        return self._label_map.get(normalize_label(label.replace("__", "_")))
+
     def _topk_candidates(self, probs: Any, names: Any, top_k: int) -> List[RawIngredientCandidate]:
         prob_values = self._prob_values(probs)
         if not prob_values:
@@ -157,6 +260,7 @@ class RawIngredientClassifier:
         indexed.sort(key=lambda item: item[1], reverse=True)
 
         candidates: List[RawIngredientCandidate] = []
+        vocab = self._vocab
 
         for class_id, confidence in indexed[:top_k]:
             confidence = float(confidence)
@@ -165,17 +269,33 @@ class RawIngredientClassifier:
                 continue
 
             label = self._label_from_id(names, class_id)
-            normalized_label = normalize_label(label)
-            meta = INGREDIENT_LABEL_MAP.get(normalized_label)
+            meta = self._lookup_meta(label)
 
             if meta:
                 display_name = meta["displayName"]
                 normalized_name = meta["normalizedName"]
-                category = meta["categorySuggestion"]
+                category = meta["categorySuggestion"] or None
             else:
-                display_name = label
-                normalized_name = label
-                category = None
+                if self._unmapped_policy == "skip":
+                    continue
+                nl = normalize_label(label)
+                identity_nn: Optional[str] = None
+                if vocab is not None:
+                    if label in vocab:
+                        identity_nn = label
+                    elif nl in vocab:
+                        identity_nn = nl
+                if identity_nn is not None:
+                    display_name = identity_nn
+                    normalized_name = identity_nn
+                    category = None
+                else:
+                    display_name = label
+                    normalized_name = label
+                    category = None
+
+            if vocab is not None and self._enforce_vocab and normalized_name not in vocab:
+                continue
 
             candidates.append(
                 RawIngredientCandidate(
@@ -247,13 +367,8 @@ def recognize_raw_ingredient_image(
     return classifier.recognize(image_path=image_path, top_k=top_k)
 
 
-def normalize_label(label: str) -> str:
-    return str(label).strip().lower().replace("-", "_").replace(" ", "_")
-
-
 if __name__ == "__main__":
     import argparse
-    import json
 
     parser = argparse.ArgumentParser(description="raw ingredient image classifier")
     parser.add_argument("--image", required=True, help="입력 이미지 경로")

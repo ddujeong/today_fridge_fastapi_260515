@@ -222,7 +222,7 @@ def recognize_raw_ingredient_by_classifier(image_path: Path, top_k: int) -> List
 
     아래 함수가 구현되어 있다고 가정한다.
 
-        app.models.ingredient.rawIngredientClassifier.recognizeRawIngredientImage(
+        app.models.ingredient.rawIngredientClassifier.recognize_raw_ingredient_image(
             image_path: str | Path,
             top_k: int = 5,
         ) -> list[dict] | dict | str
@@ -344,6 +344,16 @@ def health(
     route_model_path = os.getenv("INGREDIENT_ROUTE_MODEL_PATH", DEFAULT_ROUTE_MODEL_PATH)
     route_model_exists = Path(route_model_path).exists()
 
+    raw_model_path = os.getenv("RAW_INGREDIENT_MODEL_PATH", "app/models/ingredient/weights/raw_ingredient_best.pt")
+    raw_vocab_path = os.getenv(
+        "RAW_INGREDIENT_VOCAB_PATH",
+        "app/models/ingredient/data/ingredient_normalized_vocab.json",
+    )
+    raw_label_map_path = os.getenv(
+        "RAW_INGREDIENT_LABEL_MAP_PATH",
+        "app/models/ingredient/data/model_label_to_master.json",
+    )
+
     return common_success(
         code="OK",
         message="service healthy" if route_model_exists else "service degraded",
@@ -356,8 +366,14 @@ def health(
                 "ingredientRouteModelExists": route_model_exists,
                 "ingredientRouteModelLoaded": _route_classifier is not None,
                 "ingredientRouteModelLoadError": _route_classifier_load_error,
-                "packagedFoodOcrAdapter": "app.models.ocr.packaged_food_ocr.recognize_packaged_food_image",
-                "rawIngredientClassifierAdapter": "app.models.ingredient.rawIngredientClassifier.recognizeRawIngredientImage",
+                "rawIngredientModelPath": raw_model_path,
+                "rawIngredientModelExists": Path(raw_model_path).exists(),
+                "rawIngredientVocabPath": raw_vocab_path,
+                "rawIngredientVocabExists": Path(raw_vocab_path).exists(),
+                "rawIngredientLabelMapPath": raw_label_map_path,
+                "rawIngredientLabelMapExists": Path(raw_label_map_path).exists(),
+                "packagedFoodOcrAdapter": "app.models.ocr.packagedFoodOcr.recognize_packaged_food_image",
+                "rawIngredientClassifierAdapter": "app.models.ingredient.rawIngredientClassifier.recognize_raw_ingredient_image",
             },
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },
