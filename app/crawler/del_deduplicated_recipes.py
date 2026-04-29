@@ -11,7 +11,6 @@ from typing import Any, Optional
 import psycopg
 from psycopg import sql
 
-
 # --- Helper classes/functions adapted from app/crawler/import_recipe_csvs_to_postgres_v3.py ---
 
 class DbMeta:
