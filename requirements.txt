@@ -24,3 +24,5 @@ paddlepaddle
 pillow
 opencv-python
 ultralytics
+pytest
+httpx
