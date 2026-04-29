@@ -13,6 +13,29 @@
 
 BEGIN;
 
+-- A) 알파벳(영문) 포함 재료 완전 삭제 (참조 데이터 포함)
+CREATE TEMP TABLE tmp_alpha_ing_ids AS
+SELECT ingredient_id
+FROM today_fridge.ingredient_master
+WHERE normalized_name ~ '[A-Za-z]'
+   OR canonical_name ~ '[A-Za-z]';
+
+DELETE FROM today_fridge.recipe_ingredient
+WHERE ingredient_master_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
+
+DELETE FROM today_fridge.user_ingredient
+WHERE ingredient_master_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
+
+DELETE FROM today_fridge.shopping_item_mcp
+WHERE ingredient_master_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
+
+DELETE FROM today_fridge.substitute_graph
+WHERE base_ingredient_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids)
+   OR sub_ingredient_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
+
+DELETE FROM today_fridge.ingredient_master
+WHERE ingredient_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
+
 UPDATE today_fridge.ingredient_master AS im
 SET normalized_name = v.final_name
 FROM (
