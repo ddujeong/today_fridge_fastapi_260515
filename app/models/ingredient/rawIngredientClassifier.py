@@ -41,7 +41,7 @@ import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 
 DEFAULT_MODEL_PATH = "app/models/ingredient/weights/raw_ingredient_best.pt"
 _DATA_DIR = Path(__file__).resolve().parent / "data"
@@ -106,13 +106,20 @@ def _load_json_labels(path: Path) -> Dict[str, Dict[str, str]]:
         if not isinstance(v, dict):
             continue
         key = normalize_label(str(k))
-        out[key] = {
+        entry = {
             "displayName": str(v.get("displayName", v.get("display_name", k))),
             "normalizedName": str(v.get("normalizedName", v.get("normalized_name", k))),
             "categorySuggestion": str(v["categorySuggestion"])
             if v.get("categorySuggestion") or v.get("category_suggestion")
             else "",
         }
+        iid = v.get("ingredientId", v.get("ingredient_id"))
+        if iid is not None:
+            try:
+                entry["ingredientId"] = int(iid)
+            except (TypeError, ValueError):
+                pass
+        out[key] = entry
     return out
 
 
@@ -168,9 +175,10 @@ class RawIngredientCandidate:
     confidence: float
     bbox: None = None
     modelLabel: Optional[str] = None
+    ingredientMasterId: Optional[int] = None
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        out: Dict[str, Any] = {
             "displayName": self.displayName,
             "normalizedName": self.normalizedName,
             "categorySuggestion": self.categorySuggestion,
@@ -178,6 +186,9 @@ class RawIngredientCandidate:
             "confidence": self.confidence,
             "modelLabel": self.modelLabel,
         }
+        if self.ingredientMasterId is not None:
+            out["ingredientMasterId"] = self.ingredientMasterId
+        return out
 
 
 class RawIngredientClassifier:
@@ -244,7 +255,7 @@ class RawIngredientClassifier:
         candidates = self._topk_candidates(probs=probs, names=names, top_k=top_k)
         return [candidate.to_dict() for candidate in candidates]
 
-    def _lookup_meta(self, label: str) -> Optional[Dict[str, str]]:
+    def _lookup_meta(self, label: str) -> Optional[Dict[str, Any]]:
         key = normalize_label(label)
         meta = self._label_map.get(key)
         if meta:
@@ -271,10 +282,17 @@ class RawIngredientClassifier:
             label = self._label_from_id(names, class_id)
             meta = self._lookup_meta(label)
 
+            master_id: Optional[int] = None
             if meta:
                 display_name = meta["displayName"]
                 normalized_name = meta["normalizedName"]
                 category = meta["categorySuggestion"] or None
+                raw_mid = meta.get("ingredientId")
+                if raw_mid is not None:
+                    try:
+                        master_id = int(raw_mid)
+                    except (TypeError, ValueError):
+                        master_id = None
             else:
                 if self._unmapped_policy == "skip":
                     continue
@@ -305,6 +323,7 @@ class RawIngredientClassifier:
                     confidence=confidence,
                     bbox=None,
                     modelLabel=label,
+                    ingredientMasterId=master_id,
                 )
             )
 

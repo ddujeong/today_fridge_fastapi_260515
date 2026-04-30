@@ -323,7 +323,7 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
     except (TypeError, ValueError):
         confidence = 0.0
 
-    return {
+    out: Dict[str, Any] = {
         "displayName": str(display_name),
         "normalizedName": str(normalized_name),
         "categorySuggestion": item.get("categorySuggestion")
@@ -333,6 +333,13 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
         "confidence": confidence,
         "bbox": item.get("bbox"),
     }
+    imid = item.get("ingredientMasterId", item.get("ingredient_master_id", item.get("ingredientId")))
+    if imid is not None:
+        try:
+            out["ingredientMasterId"] = int(imid)
+        except (TypeError, ValueError):
+            pass
+    return out
 
 
 @router.get("/system/health")

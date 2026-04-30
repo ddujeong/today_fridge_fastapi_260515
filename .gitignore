@@ -14,8 +14,11 @@ __pycache__/
 
 # YOLO / Ultralytics training outputs
 runs/
-data_sources/
-ml_datasets/
+data_sources/**
+!data_sources/README.md
+ml_datasets/**
+!ml_datasets/.gitkeep
 *.zip
-
+scripsts/**
+tests/**
 
