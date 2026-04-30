@@ -24,3 +24,7 @@ paddlepaddle
 pillow
 opencv-python
 ultralytics
+sentence-transformers
+google-generativeai
+pytest
+httpx

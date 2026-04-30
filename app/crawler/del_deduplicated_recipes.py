@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """
 데이터베이스에서 중복 레시피를 제거하는 스크립트
+
+실행 명령어
+.venv/bin/python app/crawler/del_deduplicated_recipes.py \
+  --db-url "postgresql://postgres:1234@localhost:5432/today_fridge" \
+  --schema "today_fridge" \
+
 """
 
 import argparse
@@ -128,7 +134,7 @@ def get_tables(conn, schema: str) -> set[str]:
 def parse_args():
     parser = argparse.ArgumentParser(description="Remove duplicate recipes from the database.")
     parser.add_argument("--db-url", required=True, help="Database connection URL (e.g., postgresql://user:password@host:port/dbname)")
-    parser.add_argument("--schema", default="public", help="Database schema to use (default: public)")
+    parser.add_argument("--schema", default="today_fridge", help="Database schema to use (default: today_fridge)")
     parser.add_argument("--dry-run", action="store_true", help="If set, only report duplicates without deleting them.")
     return parser.parse_args()
 
@@ -190,9 +196,9 @@ def find_and_delete_duplicates(db_url: str, schema: str, dry_run: bool):
         else:
             final_select_cols.append(sql.SQL(f"r.{recipe_pk} AS keep_value")) # Fallback to PK
 
-        query_all_recipes_data = sql.SQL("SELECT {} FROM {}.recipes r").format(
-            sql.SQL(", ").join(final_select_cols),
-            schema=q_ident(schema)
+        query_all_recipes_data = sql.SQL("SELECT {cols} FROM {schema}.recipes r").format(
+            cols=sql.SQL(", ").join(final_select_cols),
+            schema=q_ident(schema),
         )
 
         all_recipe_data = conn.execute(query_all_recipes_data).fetchall()
@@ -248,8 +254,7 @@ def find_and_delete_duplicates(db_url: str, schema: str, dry_run: bool):
         print(f"Found {total_recipes_in_duplicate_groups} recipes in duplicate groups. Identified {total_recipes_to_delete} recipes for deletion.")
 
         if dry_run:
-            print("
---- Dry Run ---")
+            print("\n--- Dry Run ---")
             print("The following recipe IDs would be deleted:")
             for i, recipe_id in enumerate(ids_to_delete):
                 print(f"  - {recipe_id}")
@@ -260,8 +265,7 @@ def find_and_delete_duplicates(db_url: str, schema: str, dry_run: bool):
             return
 
         # Proceed with deletion
-        print(f"
-Deleting {total_recipes_to_delete} duplicate recipes...")
+        print(f"\nDeleting {total_recipes_to_delete} duplicate recipes...")
 
         # Prepare delete statements
         delete_recipe_query_template = sql.SQL("DELETE FROM {schema}.recipes WHERE {pk_col} = %s").format(
