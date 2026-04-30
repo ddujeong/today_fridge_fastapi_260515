@@ -28,3 +28,6 @@ sentence-transformers
 google-generativeai
 pytest
 httpx
+psycopg2-binary 
+sentence-transformers 
+numpy
