@@ -1,25 +1,31 @@
 -- today_fridge 재료명 정규화 (보수적 규칙)
 -- 대상: today_fridge.ingredient_master.normalized_name
 -- 규칙:
--- 0) 줄바꿈(\n) 이후 제거
+-- 0) 줄바꿈() 이후 제거
 -- 1) 공백(띄어쓰기/탭) 제거
 -- 2) 수식어 제거: 고운/가는/갈은/굵은
 -- 3) 맨 앞 '꽃' 제거
--- 4) 표기 통일: 후추가루/후춧가루/후추 -> 후추
--- 5) 표기 통일: 달걀/계란 -> 달걀
--- 6) 표기 통일: 중력분/박력분/밀가루 -> 밀가루
--- 7) 잘못 과통합된 '장' 복구: normalized_name='장'이면 canonical_name 기반으로 재생성
--- 8) 과통합 방지: 결과가 '장'/'파'/'가루'이면 원형 유지
+-- 4) 맨 앞 '깐' 제거
+-- 5) 표기 통일: 후추가루/후춧가루/후추 -> 후추
+-- 6) 표기 통일: 달걀/계란 -> 달걀
+-- 7) 표기 통일: 중력분/박력분/밀가루 -> 밀가루
+-- 8) 잘못 과통합된 '장' 복구: normalized_name='장'이면 canonical_name 기반으로 재생성
+-- 9) 과통합 방지: 결과가 '장'/'파'/'가루'이면 원형 유지
 
 BEGIN;
 
--- A) 알파벳(영문) 포함 재료 완전 삭제 (참조 데이터 포함)
+-- Drop temporary tables if they exist from previous runs
+DROP TABLE IF EXISTS tmp_alpha_ing_ids;
+DROP TABLE IF EXISTS tmp_ing_merge_map;
+
+-- Temporary table for ingredients with alphabet characters
 CREATE TEMP TABLE tmp_alpha_ing_ids AS
 SELECT ingredient_id
 FROM today_fridge.ingredient_master
 WHERE normalized_name ~ '[A-Za-z]'
    OR canonical_name ~ '[A-Za-z]';
 
+-- Deletions based on tmp_alpha_ing_ids
 DELETE FROM today_fridge.recipe_ingredient
 WHERE ingredient_master_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
 
@@ -36,6 +42,7 @@ WHERE base_ingredient_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids)
 DELETE FROM today_fridge.ingredient_master
 WHERE ingredient_id IN (SELECT ingredient_id FROM tmp_alpha_ing_ids);
 
+-- Update normalized_name based on transformations
 UPDATE today_fridge.ingredient_master AS im
 SET normalized_name = v.final_name
 FROM (
@@ -62,39 +69,37 @@ FROM (
             SELECT
                 ingredient_id,
                 normalized_name AS original_normalized_name,
-                TRIM(
+                REGEXP_REPLACE(
                     REGEXP_REPLACE(
                         REGEXP_REPLACE(
-                            REGEXP_REPLACE(
-                                SPLIT_PART(normalized_name, E'\n', 1),
-                                '\\s+',
-                                '',
-                                'g'
-                            ),
-                            '(고운|가는|갈은|굵은)',
+                            SPLIT_PART(normalized_name, E'\n', 1),
+                            '(고운|가는|갈은|굵은|노란|빨간|편으로 썬|시원한|작은것|녹색부분|삶은|흰부분|범일|데친 것|다진 것|단단한|채썬|데쳐서|물기짠|작은거)',
                             '',
                             'g'
                         ),
-                        '^꽃+',
-                        ''
-                    )
+                        '^(깐|꽃)+',
+                        '',
+                        'g'
+                    ),
+                    '\s+',
+                    '',
+                    'g'
                 ) AS base_name,
-                TRIM(
+                REGEXP_REPLACE(
                     REGEXP_REPLACE(
                         REGEXP_REPLACE(
-                            REGEXP_REPLACE(
-                                SPLIT_PART(canonical_name, E'\n', 1),
-                                '\\s+',
-                                '',
-                                'g'
-                            ),
-                            '(고운|가는|갈은|굵은)',
+                            SPLIT_PART(canonical_name, E'\n', 1),
+                            '(고운|가는|갈은|굵은|노란|빨간|편으로 썬|시원한|작은것|녹색부분|삶은|흰부분|범일|데친 것|다진 것|단단한|채썬|데쳐서|물기짠|작은거|간 것|다짐육|다진|찰보리)',
                             '',
                             'g'
                         ),
-                        '^꽃+',
-                        ''
-                    )
+                        '^(깐|꽃)+',
+                        '',
+                        'g'
+                    ),
+                    '\s+',
+                    '',
+                    'g'
                 ) AS canonical_base_name
             FROM today_fridge.ingredient_master
         ) s1
@@ -103,15 +108,14 @@ FROM (
 WHERE im.ingredient_id = v.ingredient_id
   AND im.normalized_name IS DISTINCT FROM v.final_name;
 
--- 9) normalized_name 기준 중복 ingredient_master 통합
--- keep_id: 동일 normalized_name 그룹의 최소 ingredient_id
+-- Temporary table for merging based on normalized_name
 CREATE TEMP TABLE tmp_ing_merge_map AS
 SELECT
     ingredient_id AS old_id,
     MIN(ingredient_id) OVER (PARTITION BY normalized_name) AS keep_id
 FROM today_fridge.ingredient_master;
 
--- 참조 FK 재매핑
+-- Remap FK references
 UPDATE today_fridge.recipe_ingredient ri
 SET ingredient_master_id = m.keep_id
 FROM tmp_ing_merge_map m
@@ -142,7 +146,7 @@ FROM tmp_ing_merge_map m
 WHERE sg.sub_ingredient_id = m.old_id
   AND m.old_id <> m.keep_id;
 
--- substitute_graph 유니크 제약(uq_sub_pair) 충돌 정리
+-- Clean up duplicate entries in substitute_graph
 DELETE FROM today_fridge.substitute_graph t
 USING (
     SELECT ctid
@@ -159,7 +163,7 @@ USING (
 ) dup
 WHERE t.ctid = dup.ctid;
 
--- 중복 master 삭제
+-- Delete duplicate master entries
 DELETE FROM today_fridge.ingredient_master im
 USING tmp_ing_merge_map m
 WHERE im.ingredient_id = m.old_id
