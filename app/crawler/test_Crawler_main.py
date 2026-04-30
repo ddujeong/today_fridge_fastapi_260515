@@ -1,149 +1,149 @@
-import pytest
-from unittest.mock import MagicMock, patch
-import pandas as pd
-import os
-from app.crawler.Crawler_main import main
+import importlib.util
+import sys
+import types
+from pathlib import Path
+from unittest.mock import MagicMock
 
-@pytest.fixture
-def mock_crawler():
-    with patch('app.crawler.Crawler_main.Crawler_tool.Crawler') as mock_crawler_class:
-        mock_crawler = MagicMock()
-        mock_crawler_class.return_value = mock_crawler
-        # Mock the driver to prevent actual browser opening
-        mock_driver = MagicMock()
-        mock_crawler.driver = mock_driver
-        yield mock_crawler
 
-@pytest.fixture
-def mock_pandas_to_csv():
-    with patch('pandas.DataFrame.to_csv') as mock_to_csv:
-        yield mock_to_csv
+ROOT = Path(__file__).resolve().parents[2]
+MODULE_PATH = ROOT / "app" / "crawler" / "Crawler_main.py"
 
-@pytest.fixture
-def mock_os_path_exists():
-    with patch('os.path.exists') as mock_exists:
-        yield mock_exists
 
-def test_main_success(mock_crawler, mock_pandas_to_csv):
-    # Setup mocks for the crawler and its elements
-    mock_crawler.target_url = "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7"
-    mock_crawler.current_url.return_value = "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7"
-    
-    # Mock the list page elements
-    mock_ul = MagicMock()
-    mock_crawler.get_elem_class.return_value = mock_ul
-    
-    # Mock recipe items
-    mock_item = MagicMock()
-    mock_ul.find_elements.return_value = [mock_item]
-    
-    # Mock clicking the item and navigating to the recipe page
-    mock_crawler.click.return_value = True
-    mock_crawler.current_url.side_effect = [
-        "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7", # initial
-        "https://www.10000recipe.com/recipe/12345.html", # after click
-        "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7"  # after back
-    ]
+def _load_module_with_mocks(mock_crawler):
+    """Load Crawler_main.py with mocked dependencies before module execution."""
+    fake_crawler_tool = types.SimpleNamespace(Crawler=MagicMock(return_value=mock_crawler))
 
-    # Mock summary box elements
-    mock_summary = MagicMock()
-    mock_crawler.get_elem_class.side_effect = [mock_ul, mock_summary]
-    
-    # Mock summary details
-    mock_summary.find_element.side_effect = [
-        MagicMock(text="Recipe Title"), # h3
-        MagicMock(), # quantity span
-        MagicMock(), # time span
-        MagicMock()  # difficulty span
-    ]
-    
-    # Mock quantity, time, difficulty text
-    mock_summary.find_element.side_effect = [
-        MagicMock(text="Recipe Title"), # h3
-        MagicMock(text="2 servings"), # quantity
-        MagicMock(text="30 mins"), # time
-        MagicMock(text="Easy") # difficulty
-    ]
-    # Re-patching the side_effect for the actual calls in the loop
-    # This is getting complex because of how many times find_element is called.
-    # Let's simplify the mock for the test.
+    class _DummyDataFrame:
+        def __init__(self, *_args, **_kwargs):
+            pass
 
-    # Let's try a more robust approach for the mock
-    pass
+        def to_csv(self, *_args, **_kwargs):
+            pass
 
-def test_main_simplified(mock_crawler, mock_pandas_to_csv):
-    # Mocking the crawler behavior
-    mock_crawler.target_url = "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7"
-    mock_crawler.current_url.return_value = "https://www.10000recipe/recipe/list.html"
-    
-    # Mock the list page structure
-    mock_ul = MagicMock()
-    mock_crawler.get_elem_class.return_value = mock_ul
-    
-    # Mock one recipe item
-    mock_item = MagicMock()
-    mock_ul.find_elements.return_value = [mock_item]
-    
-    # Mock click success
-    mock_crawler.click.return_value = True
-    
-    # Mock the sequence of URLs: list -> recipe -> list
-    mock_crawler.current_url.side_effect = [
-        "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7",
-        "https://www.10000recipe.com/recipe/12345.html",
-        "https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page=7"
-    ]
-    mock_crawler.on_list_page.return_value = True
-    # Mock summary content
-    # h3
+    fake_pandas = types.SimpleNamespace(DataFrame=_DummyDataFrame)
+
+    old_crawler_tool = sys.modules.get("Crawler_tool")
+    old_pandas = sys.modules.get("pandas")
+
+    sys.modules["Crawler_tool"] = fake_crawler_tool
+    sys.modules["pandas"] = fake_pandas
+
+    try:
+        spec = importlib.util.spec_from_file_location("crawler_main_under_test", MODULE_PATH)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+    finally:
+        if old_crawler_tool is None:
+            sys.modules.pop("Crawler_tool", None)
+        else:
+            sys.modules["Crawler_tool"] = old_crawler_tool
+
+        if old_pandas is None:
+            sys.modules.pop("pandas", None)
+        else:
+            sys.modules["pandas"] = old_pandas
+
+    return module
+
+
+def test_main_success_writes_expected_csv():
+    mock_crawler = MagicMock()
+    mock_crawler.target_url = "https://example.com/list?page=32"
+
+    list_container = MagicMock()
+    list_item = MagicMock()
+    detail_link = MagicMock()
+    detail_link.get_attribute.return_value = "https://example.com/recipe/1"
+    list_item.find_element.return_value = detail_link
+    list_container.find_elements.return_value = [list_item]
+
+    summary_box = MagicMock()
     h3 = MagicMock()
-    h3.text = "Test Recipe"
-    # spans
+    h3.text = "Kimchi Fried Rice"
     span1 = MagicMock()
-    span1.text = "2 servings"
+    span1.text = "1 serving"
     span2 = MagicMock()
-    span2.text = "30 mins"
+    span2.text = "20 min"
     span3 = MagicMock()
     span3.text = "Easy"
-    
-    mock_summary.find_element.side_effect = [h3, span1, span2, span3]
+    summary_box.find_element.side_effect = [h3, span1, span2, span3]
 
-    # Mock ingredients
-    mock_ingredient_area = MagicMock()
-    mock_crawler.get_elem_id.return_value = mock_ingredient_area
-    mock_li = MagicMock()
-    mock_li.find_element.side_effect = [
-        MagicMock(text="Ingredient 1"), # name
-        MagicMock(text="10g"),          # quantity
-    ]
-    mock_ingredient_area.find_elements.return_value = [mock_li]
+    ingredient_area = MagicMock()
+    ingredient_li = MagicMock()
+    ingredient_name = MagicMock()
+    ingredient_name.text = "Rice"
+    ingredient_qty = MagicMock()
+    ingredient_qty.text = "1 bowl"
+    ingredient_li.find_element.side_effect = [ingredient_name, ingredient_qty]
+    ingredient_area.find_elements.return_value = [ingredient_li]
 
-    # Mock steps
-    mock_step_start = MagicMock()
-    mock_crawler.get_elem_id.side_effect = [mock_ingredient_area, mock_step_start]
-    mock_step_div = MagicMock()
-    mock_step_div.find_element.side_effect = [
-        MagicMock(text="Step 1"), # description
-        MagicMock(get_attribute=MagicMock(return_value="http://image.com/1.jpg")) # image
-    ]
-    mock_step_start.find_elements.return_value = [MagicMock(), mock_step_div]
+    step_root = MagicMock()
+    step_header = MagicMock()
+    step_item = MagicMock()
+    step_desc = MagicMock()
+    step_desc.text = "Stir fry all ingredients"
+    step_img = MagicMock()
+    step_img.get_attribute.return_value = "https://example.com/step1.jpg"
+    step_item.find_element.side_effect = [step_desc, step_img]
+    step_root.find_elements.return_value = [step_header, step_item]
 
-    # Mock title image
-    mock_main_thumbs = MagicMock()
-    mock_main_thumbs.get_attribute.return_value = "http://image.com/title.jpg"
-    mock_crawler.get_elem_id.side_effect = [mock_ingredient_area, mock_step_start, mock_main_thumbs]
+    thumb = MagicMock()
+    thumb.get_attribute.return_value = "https://example.com/thumb.jpg"
 
-    # Mock back and other methods
-    mock_crawler.back.return_value = None
-    mock_crawler._close_ad_overlays.return_value = None
-    mock_crawler.dismiss_ads.return_value = None
-    mock_crawler.wait.return_value = None
+    mock_crawler.get_elem_class.side_effect = [list_container, list_container, summary_box]
+    mock_crawler.get_elem_id.side_effect = [ingredient_area, step_root, thumb]
+    mock_crawler.current_url.return_value = "https://example.com/list?page=32"
 
-    # Run the main function
-    main()
+    module = _load_module_with_mocks(mock_crawler)
 
-    # Assertions
-    assert mock_pandas_to_csv.called
-    # Check if the CSV filename is correct
-    args, kwargs = mock_pandas_to_csv.call_args
-    assert "recipes7.csv" in args[0]
+    df_mock = MagicMock()
+    module.pd.DataFrame = MagicMock(return_value=df_mock)
+    module.os.makedirs = MagicMock()
+
+    module.main()
+
+    module.os.makedirs.assert_called_once_with("./recipes_result", exist_ok=True)
+    module.pd.DataFrame.assert_called_once()
+    df_mock.to_csv.assert_called_once()
+
+    to_csv_args, to_csv_kwargs = df_mock.to_csv.call_args
+    assert to_csv_args[0].endswith("recipes32.csv")
+    assert to_csv_kwargs["index"] is False
+    assert to_csv_kwargs["encoding"] == "utf-8-sig"
+
+
+def test_main_skips_item_when_detail_url_missing():
+    mock_crawler = MagicMock()
+    mock_crawler.target_url = "https://example.com/list?page=32"
+
+    list_container = MagicMock()
+    list_item = MagicMock()
+    detail_link = MagicMock()
+    detail_link.get_attribute.return_value = ""
+    list_item.find_element.return_value = detail_link
+    list_container.find_elements.return_value = [list_item]
+
+    mock_crawler.get_elem_class.side_effect = [list_container, list_container]
+
+    module = _load_module_with_mocks(mock_crawler)
+
+    df_mock = MagicMock()
+    module.pd.DataFrame = MagicMock(return_value=df_mock)
+    module.os.makedirs = MagicMock()
+
+    module.main()
+
+    mock_crawler.go.assert_not_called()
+    module.pd.DataFrame.assert_called_once_with([])
+    df_mock.to_csv.assert_called_once()
+
+
+def test_safe_find_text_returns_default_on_error():
+    parent = MagicMock()
+    parent.find_element.side_effect = Exception("not found")
+
+    module = _load_module_with_mocks(MagicMock())
+
+    result = module._safe_find_text(parent, "XPATH", "//span", default="N/A")
+    assert result == "N/A"

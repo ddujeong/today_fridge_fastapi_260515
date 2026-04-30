@@ -7,7 +7,7 @@
 python app/crawler/import_recipe_csvs_to_postgres_v3.py \
 --input app/crawler/recipes_result/ \
 --db-url "postgresql://postgres:1234@localhost:5432/today_fridge" \
---schema "public" \
+--schema "today_fridge" \
 --source-site "MyCrawler" \
 --allow-empty-steps \
 
@@ -316,6 +316,42 @@ def get_tables(conn, schema: str) -> set[str]:
     return {r[0] for r in rows}
 
 
+def resolve_schema(conn, requested_schema: str, required_tables: list[str]) -> str:
+    requested_tables = get_tables(conn, requested_schema)
+    if all(t in requested_tables for t in required_tables):
+        return requested_schema
+
+    rows = conn.execute(
+        """
+        SELECT table_schema, table_name
+        FROM information_schema.tables
+        WHERE table_type = 'BASE TABLE'
+          AND table_schema NOT IN ('pg_catalog', 'information_schema')
+        """
+    ).fetchall()
+
+    by_schema: dict[str, set[str]] = {}
+    for schema_name, table_name in rows:
+        by_schema.setdefault(schema_name, set()).add(table_name)
+
+    best_schema = requested_schema
+    best_score = -1
+    for schema_name, table_names in by_schema.items():
+        score = sum(1 for t in required_tables if t in table_names)
+        if score > best_score:
+            best_schema = schema_name
+            best_score = score
+
+    if best_score > 0 and best_schema != requested_schema:
+        print(
+            f"[INFO] 요청한 schema='{requested_schema}'에서 필수 테이블을 찾지 못해 "
+            f"schema='{best_schema}'로 자동 전환합니다."
+        )
+        return best_schema
+
+    return requested_schema
+
+
 def ensure_ingredient_master(conn, meta: DbMeta, normalized_name: str, category_id: Optional[Any]) -> Optional[Any]:
     if not normalized_name:
         return None
@@ -548,14 +584,18 @@ def import_files(args):
         "steps": 0,
     }
 
+    required_tables = ["ingredient_master", "recipes", "recipe_ingredient", "recipe_step"]
+
     with psycopg.connect(args.db_url) as conn:
-        meta = DbMeta(conn, args.schema)
+        schema = resolve_schema(conn, args.schema, required_tables)
+        meta = DbMeta(conn, schema)
 
         # search_path 설정
-        conn.execute(sql.SQL("SET search_path TO {}").format(q_ident(args.schema)))
+        conn.execute(sql.SQL("SET search_path TO {}").format(q_ident(schema)))
 
         print("[SCHEMA CHECK]")
-        for table in ["ingredient_master", "recipes", "recipe_ingredient", "recipe_step"]:
+        print(f"- using schema: {schema}")
+        for table in required_tables:
             print(f"- {table}: pk={meta.pk(table)}, columns={sorted(meta.columns(table))}")
 
         category_id = ensure_unknown_category(conn, meta)

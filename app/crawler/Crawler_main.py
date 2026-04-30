@@ -1,8 +1,9 @@
 import Crawler_tool
+import os
 import pandas as pd
 from selenium.webdriver.common.by import By
 
-page = 25
+page = 32
 target_url = f"https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page={page}"
 crawler = Crawler_tool.Crawler(target_url=target_url)
 crawler.set_target_url(target_url)
@@ -163,6 +164,7 @@ def main():
     crawler.wait(0.1, 0.3)
 
   print(recipe_list_per_page)
+  os.makedirs("./recipes_result", exist_ok=True)
   pd.DataFrame(recipe_list_per_page).to_csv(f"app/crawler/recipes_result/recipes{page}.csv", index=False, encoding='utf-8-sig')
 
 
