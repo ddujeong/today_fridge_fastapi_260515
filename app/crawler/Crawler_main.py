@@ -1,8 +1,9 @@
 import Crawler_tool
+import os
 import pandas as pd
 from selenium.webdriver.common.by import By
 
-page = 7
+page = 32
 target_url = f"https://www.10000recipe.com/recipe/list.html?cat4=63&order=reco&page={page}"
 crawler = Crawler_tool.Crawler(target_url=target_url)
 crawler.set_target_url(target_url)
@@ -48,10 +49,21 @@ def main():
 
     crawler._close_ad_overlays()
 
-    list_url = crawler.current_url()
-    clicked = crawler.click(current_items[idx])
-    if not clicked:
-      print(f"[MK2] skip index={idx} due to click failure")
+    list_url = crawler.target_url
+    try:
+      link = current_items[idx].find_element(By.CSS_SELECTOR, "a.common_sp_link")
+      detail_url = link.get_attribute("href")
+
+      if not detail_url:
+        print(f"[MK2] skip index={idx} because detail url is empty")
+        continue
+
+      print(f"[MK2] open detail url={detail_url}")
+      crawler.go(detail_url)
+
+    except Exception as e:
+      print(f"[MK2] skip index={idx} due to detail navigation failure: {e}")
+      crawler.ensure_list_page(list_url)
       continue
 
     crawler._close_ad_overlays()
@@ -70,7 +82,8 @@ def main():
     except Exception as e:
       print(f"[WARN] Failed to read summary: {e}")
       try:
-        crawler.back(fallback_url=list_url)
+        crawler.go(list_url)
+        crawler.dismiss_ads()
       except Exception as back_error:
         print(f"[WARN] back failed after summary error: {back_error}")
       continue
@@ -151,7 +164,8 @@ def main():
     crawler.wait(0.1, 0.3)
 
   print(recipe_list_per_page)
-  pd.DataFrame(recipe_list_per_page).to_csv(f"./recipes_result/recipes{page}.csv", index=False, encoding='utf-8-sig')
+  os.makedirs("./recipes_result", exist_ok=True)
+  pd.DataFrame(recipe_list_per_page).to_csv(f"app/crawler/recipes_result/recipes{page}.csv", index=False, encoding='utf-8-sig')
 
 
 if __name__ == "__main__":

@@ -18,12 +18,15 @@ class Crawler:
   def __init__(self,target_url="https://www.10000recipe.com/recipe/list.html"):
     chrome_options = Options()
     # chrome_options.add_argument("--headless")
+    chrome_options.page_load_strategy = "eager"
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=chrome_options)
     self.target_url = target_url
     self.driver.get(self.target_url)
     self.debug = True
+    self.driver.set_page_load_timeout(30)
+    self.driver.set_script_timeout(30)
 
     self.speed = {
       "super slow": 2.0,
@@ -71,9 +74,50 @@ class Crawler:
 
   def go(self, url):
     self.driver.get(url)
-    WebDriverWait(self.driver, 10).until(
+    WebDriverWait(self.driver, 20).until(
       lambda d: d.execute_script("return document.readyState") == "complete"
     )
+
+  def go(self, url, timeout=15, required=None):
+    self._log(f"go() start url={url}")
+
+    try:
+      self.driver.get(url)
+
+    except TimeoutException:
+      self._log(f"go() page load timeout; trying window.stop() url={url}")
+      try:
+        self.driver.execute_script("window.stop();")
+      except Exception as stop_error:
+        self._log(f"go() window.stop failed: {type(stop_error).__name__}")
+
+    except WebDriverException as e:
+      self._log(f"go() webdriver error: {type(e).__name__} url={url}")
+      return False
+
+    try:
+      WebDriverWait(self.driver, timeout).until(
+        lambda d: d.execute_script("return document.readyState") in ("interactive", "complete")
+      )
+    except TimeoutException:
+      self._log("go() readyState wait timeout; continue with partial DOM")
+      try:
+        self.driver.execute_script("window.stop();")
+      except Exception:
+        pass
+
+    if required is not None:
+      by, value = required
+      try:
+        WebDriverWait(self.driver, timeout).until(
+          lambda d: len(d.find_elements(by, value)) > 0
+        )
+      except TimeoutException:
+        self._log(f"go() required element not found: {by}={value}")
+        return False
+
+    self._log(f"go() done url={self._safe_url()}")
+    return True
 
   def on_list_page(self):
     return "/recipe/list.html" in self.current_url()

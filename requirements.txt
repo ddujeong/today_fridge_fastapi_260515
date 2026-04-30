@@ -16,3 +16,15 @@ uvicorn==0.45.0
 selenium
 pandas
 mlflow
+python-multipart
+python-dotenv
+psycopg[binary]
+paddleocr
+paddlepaddle
+pillow
+opencv-python
+ultralytics
+sentence-transformers
+google-generativeai
+pytest
+httpx
