@@ -43,8 +43,8 @@ def main() -> None:
     parser.add_argument(
         "--max-per-class",
         type=int,
-        default=1000,
-        help="maximum images kept per ing_* folder in each split (default 1000)",
+        default=100,
+        help="maximum images kept per ing_* folder in each split (default 100)",
     )
     parser.add_argument(
         "--splits",

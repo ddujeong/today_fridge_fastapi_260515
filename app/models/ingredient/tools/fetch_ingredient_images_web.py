@@ -5,7 +5,11 @@ Uses `ingredient_image_search_aliases.json`:
   - Tries `search_en` phrases in order; if a phrase yields no saves, tries the next.
   - If `search_en` is empty, rebuilds from `synonyms_ko` + `ko_to_en_image_search_seed.json`.
 
-Writes to: <out-root>/train/<model_folder>/ddgs_<n>.<ext>
+Writes under ``<out-root>/train/<model_folder>/`` as ``ddgs_*.jpg``.
+
+**Train-only cap** (``--max-per-class``): each ``train/ing_XXX`` holds at most that many images.
+Folders already at or above the cap are skipped (no trimming). Per run, at most
+``--target-per-class`` new images are downloaded per class, capped by remaining room in train.
 
 Copyright: web images may be restricted; use only per team/license policy.
 
@@ -13,11 +17,7 @@ Usage (backend_2 root):
   pip install ddgs
   python app/models/ingredient/tools/fetch_ingredient_images_web.py --max-classes 5
 
-Full gap fill (slow, many HTTP requests). Each ing_* train folder is capped at
-``--max-per-class`` (default 1000) so totals stay bounded for YOLO train time.
-  python app/models/ingredient/tools/fetch_ingredient_images_web.py
-
-Trim folders that already exceed the cap:
+Trim folders that already exceed the cap (optional cleanup):
   python app/models/ingredient/tools/trim_ingredient_cls_split_folders.py --dataset-root ml_datasets/ingredient_master_cls
 """
 
@@ -61,7 +61,6 @@ except ImportError:
 _TOOL_DIR = Path(__file__).resolve().parent
 _DATA = _TOOL_DIR.parent / "data"
 _IMAGE_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp"}
-
 # Appended to each English base phrase so DDG hits bottles, jars, cooking shots, etc.
 _QUERY_DIVERSITY_SUFFIXES = (
     " bottle",
@@ -89,6 +88,22 @@ def load_ko_en_seed(path: Path) -> Dict[str, List[str]]:
             out[str(k)] = [str(x) for x in v]
         elif isinstance(v, str):
             out[str(k)] = [v]
+    # Also support no-space lookup (e.g. "매운고추" -> "매운 고추").
+    normalized: Dict[str, List[str]] = {}
+    for k, vals in out.items():
+        nk = re.sub(r"\s+", "", str(k)).strip()
+        if not nk:
+            continue
+        normalized.setdefault(nk, [])
+        for term in vals:
+            t = str(term).strip()
+            if t and t not in normalized[nk]:
+                normalized[nk].append(t)
+    for nk, vals in normalized.items():
+        out.setdefault(nk, [])
+        for term in vals:
+            if term not in out[nk]:
+                out[nk].append(term)
     return out
 
 
@@ -97,9 +112,18 @@ def search_terms_for_entry(entry: Dict[str, Any], seed: Dict[str, List[str]]) ->
     if isinstance(direct, list) and direct:
         return _unique_terms([str(x) for x in direct])
     syn = entry.get("synonyms_ko") or []
+    # Fallback candidates when search_en is empty.
+    fallback_ko: List[str] = [str(x) for x in syn]
+    for extra in (entry.get("visual_base_ko"), entry.get("normalized_name"), entry.get("display_name")):
+        if extra:
+            fallback_ko.append(str(extra))
     terms: List[str] = []
-    for ko in syn:
-        terms.extend(seed.get(str(ko).strip(), []))
+    for ko in fallback_ko:
+        key = str(ko).strip()
+        if not key:
+            continue
+        terms.extend(seed.get(key, []))
+        terms.extend(seed.get(re.sub(r"\s+", "", key), []))
     return _unique_terms(terms)
 
 
@@ -170,14 +194,18 @@ def ddgs_fetch_with_retry(
     return []
 
 
-def count_train_images(train_dir: Path) -> int:
-    if not train_dir.is_dir():
+def count_images_in_dir(dir_path: Path) -> int:
+    if not dir_path.is_dir():
         return 0
     n = 0
-    for p in train_dir.rglob("*"):
+    for p in dir_path.rglob("*"):
         if p.is_file() and p.suffix.lower() in _IMAGE_EXT:
             n += 1
     return n
+
+
+def train_count(out_root: Path, folder: str) -> int:
+    return count_images_in_dir(out_root / "train" / folder)
 
 
 def save_image_jpeg(body: bytes, dest_jpg: Path) -> bool:
@@ -267,6 +295,11 @@ def load_packaged_exclude_folders(path: Path) -> Set[str]:
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(line_buffering=True)
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(line_buffering=True)
+
     parser = argparse.ArgumentParser(description="Fetch ingredient images via DuckDuckGo image search")
     parser.add_argument("--aliases-json", type=Path, default=_DATA / "ingredient_image_search_aliases.json")
     parser.add_argument("--seed-json", type=Path, default=_DATA / "ko_to_en_image_search_seed.json")
@@ -274,14 +307,14 @@ def main() -> None:
     parser.add_argument(
         "--target-per-class",
         type=int,
-        default=1000,
-        help="desired images per ing_* folder under out-root/train (capped by --max-per-class)",
+        default=100,
+        help="max new images to fetch per class this run (train only; capped by room under --max-per-class)",
     )
     parser.add_argument(
         "--max-per-class",
         type=int,
-        default=1000,
-        help="hard ceiling per ing_* train folder; never download past this count (YOLO/train-time budget)",
+        default=100,
+        help="max images per train folder train/ing_XXX (no trim; folders at/over cap are skipped)",
     )
     parser.add_argument(
         "--ddgs-per-query",
@@ -358,7 +391,10 @@ def main() -> None:
     if args.max_per_class < 1:
         print("--max-per-class must be >= 1", file=sys.stderr)
         sys.exit(2)
-    eff_target = min(args.target_per_class, args.max_per_class)
+    if args.target_per_class < 0:
+        print("--target-per-class must be >= 0", file=sys.stderr)
+        sys.exit(2)
+    cap = args.max_per_class
 
     if not args.aliases_json.is_file():
         print(f"Missing {args.aliases_json} — run export_ingredient_image_alias_template.py first", file=sys.stderr)
@@ -374,6 +410,26 @@ def main() -> None:
         if pdoc.get("excludeFromWebFetch") or args.apply_packaged_exclude:
             packaged_skip = load_packaged_exclude_folders(args.packaged_exclude_json)
 
+    alias_folders = {
+        str(e.get("model_folder") or "")
+        for e in entries
+        if str(e.get("model_folder") or "").startswith("ing_")
+    }
+    if packaged_skip:
+        stale = sorted(packaged_skip - alias_folders)
+        if stale:
+            print(
+                json.dumps(
+                    {
+                        "warn": "packaged_exclude_has_stale_folders",
+                        "detail": "IDs not in ingredient_image_search_aliases (e.g. after DB merge). Regen: gen_packaged_ingredient_proposal.py",
+                        "stale": stale,
+                    },
+                    ensure_ascii=False,
+                ),
+                flush=True,
+            )
+
     stats = {"classes": 0, "downloaded": 0, "skipped_class": 0, "failed_queries": 0, "skipped_packaged": 0}
     processed = 0
     only_folders = {x.strip() for x in str(args.only_folders).split(",") if x.strip()}
@@ -388,13 +444,13 @@ def main() -> None:
             stats["skipped_packaged"] += 1
             stats["skipped_class"] += 1
             continue
-        train_dir = args.out_root / "train" / folder
-        existing = count_train_images(train_dir)
-        if args.skip_if_gte and existing >= args.skip_if_gte:
+        train_live = train_count(args.out_root, folder)
+        if args.skip_if_gte and train_live >= args.skip_if_gte:
             stats["skipped_class"] += 1
             continue
 
-        need = max(0, eff_target - existing)
+        room = max(0, cap - train_live)
+        need = min(args.target_per_class, room)
         if need <= 0:
             stats["skipped_class"] += 1
             continue
@@ -451,16 +507,32 @@ def main() -> None:
                 qh = safe_name_hint(q)
                 h = hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
                 fname = f"ddgs_{qh}_{got + 1}_{h}.jpg"
-                dest = train_dir / fname
+                dest = args.out_root / "train" / folder / fname
                 time.sleep(args.delay_download)
                 if download_one(url, dest, args.timeout):
                     got += 1
+                    train_live += 1
                     stats["downloaded"] += 1
                     wave_saved += 1
             if wave_saved == 0:
                 stagnant_waves += 1
             else:
                 stagnant_waves = 0
+
+        if got < need:
+            print(
+                json.dumps(
+                    {
+                        "warn": "class_shortfall",
+                        "folder": folder,
+                        "saved": got,
+                        "needed": need,
+                        "reason": f"no new images for {args.max_stagnant_waves} stagnant wave(s) or queries exhausted",
+                    },
+                    ensure_ascii=False,
+                ),
+                flush=True,
+            )
 
         stats["classes"] += 1
         print(
@@ -469,18 +541,20 @@ def main() -> None:
                     "folder": folder,
                     "normalized_name": entry.get("normalized_name"),
                     "saved": got,
+                    "train_count_after": train_live,
                     "queries_preview": queries[:8],
                     "n_queries": len(queries),
                 },
                 ensure_ascii=False,
-            )
+            ),
+            flush=True,
         )
 
         processed += 1
         if args.max_classes and processed >= args.max_classes:
             break
 
-    print(json.dumps({"stats": stats}, ensure_ascii=False, indent=2))
+    print(json.dumps({"done": True, "stats": stats}, ensure_ascii=False, indent=2), flush=True)
 
 
 if __name__ == "__main__":

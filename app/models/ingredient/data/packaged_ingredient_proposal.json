@@ -2,11 +2,11 @@
   "schema": "packaged_ingredient_proposal_v1",
   "status": "TEAM_REVIEW",
   "excludeFromWebFetch": true,
-  "excludeFromWebFetch_note": "true: 웹 자동수집에서 proposed_packaged + borderline_for_team(총 110개) 제외. CLI 테스트: --apply-packaged-exclude",
+  "excludeFromWebFetch_note": "팀 확정 후 true로 바꾸면 fetch_ingredient_images_web.py가 proposed_packaged 폴더를 기본 제외한다. CLI만: --apply-packaged-exclude",
   "generatedFrom": "model_label_to_master.json",
   "definition": "‘패키지(OCR 우선)’ 후보: 실사용 사진에서 **브랜드 라벨·용기(병·통·튜브·캔·비닐·팩)**가 식별의 핵이 되는 식품. 1차 라우터의 `packaged_food`와 정합되도록 잡은 초안이며, 최종 확정 전까지는 이미지 수집 제외에만 사용한다.",
   "counts": {
-    "proposed_packaged": 85,
+    "proposed_packaged": 83,
     "borderline": 25
   },
   "proposed_packaged": [
@@ -379,18 +379,10 @@
       "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
     },
     {
-      "model_folder": "ing_00220",
-      "ingredientId": 220,
-      "normalizedName": "범일 고추장",
-      "displayName": "범일 고추장",
-      "categorySuggestion": "소스",
-      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
-    },
-    {
       "model_folder": "ing_00240",
       "ingredientId": 240,
-      "normalizedName": "미니 돈까스",
-      "displayName": "미니 돈까스",
+      "normalizedName": "미니돈까스",
+      "displayName": "미니돈까스",
       "categorySuggestion": "기타",
       "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
     },
@@ -405,8 +397,8 @@
     {
       "model_folder": "ing_00265",
       "ingredientId": 265,
-      "normalizedName": "찰보리 고추장",
-      "displayName": "찰보리 고추장",
+      "normalizedName": "찰보리고추장",
+      "displayName": "찰보리고추장",
       "categorySuggestion": "소스",
       "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
     },
@@ -417,14 +409,6 @@
       "displayName": "생강즙",
       "categorySuggestion": "소스",
       "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
-    },
-    {
-      "model_folder": "ing_00291",
-      "ingredientId": 291,
-      "normalizedName": "단단한 두부",
-      "displayName": "단단한 두부",
-      "categorySuggestion": "기타",
-      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
     },
     {
       "model_folder": "ing_00313",
@@ -469,8 +453,8 @@
     {
       "model_folder": "ing_00337",
       "ingredientId": 337,
-      "normalizedName": "데칠때 생강술",
-      "displayName": "데칠때 생강술",
+      "normalizedName": "데칠때생강술",
+      "displayName": "데칠때생강술",
       "categorySuggestion": "소스",
       "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
     },
@@ -525,8 +509,8 @@
     {
       "model_folder": "ing_00385",
       "ingredientId": 385,
-      "normalizedName": "아기 간장",
-      "displayName": "아기 간장",
+      "normalizedName": "아기간장",
+      "displayName": "아기간장",
       "categorySuggestion": "소스",
       "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
     },
@@ -821,7 +805,7 @@
     {
       "model_folder": "ing_00387",
       "ingredientId": 387,
-      "normalizedName": "깨 간 것",
+      "normalizedName": "깨간것",
       "categorySuggestion": "조미료",
       "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
     },
@@ -849,14 +833,14 @@
     {
       "model_folder": "ing_01267",
       "ingredientId": 1267,
-      "normalizedName": "간 깨",
+      "normalizedName": "간깨",
       "categorySuggestion": "기타",
       "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
     },
     {
       "model_folder": "ing_01378",
       "ingredientId": 1378,
-      "normalizedName": "멸치 다시마 육수",
+      "normalizedName": "멸치다시마육수",
       "categorySuggestion": "기타",
       "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
     },
