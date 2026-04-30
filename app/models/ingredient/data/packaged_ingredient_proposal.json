@@ -1,0 +1,872 @@
+{
+  "schema": "packaged_ingredient_proposal_v1",
+  "status": "TEAM_REVIEW",
+  "excludeFromWebFetch": true,
+  "excludeFromWebFetch_note": "true: 웹 자동수집에서 proposed_packaged + borderline_for_team(총 110개) 제외. CLI 테스트: --apply-packaged-exclude",
+  "generatedFrom": "model_label_to_master.json",
+  "definition": "‘패키지(OCR 우선)’ 후보: 실사용 사진에서 **브랜드 라벨·용기(병·통·튜브·캔·비닐·팩)**가 식별의 핵이 되는 식품. 1차 라우터의 `packaged_food`와 정합되도록 잡은 초안이며, 최종 확정 전까지는 이미지 수집 제외에만 사용한다.",
+  "counts": {
+    "proposed_packaged": 85,
+    "borderline": 25
+  },
+  "proposed_packaged": [
+    {
+      "model_folder": "ing_00011",
+      "ingredientId": 11,
+      "normalizedName": "국간장",
+      "displayName": "국간장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00012",
+      "ingredientId": 12,
+      "normalizedName": "참치액젓",
+      "displayName": "참치액젓",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00013",
+      "ingredientId": 13,
+      "normalizedName": "맛술",
+      "displayName": "맛술",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00014",
+      "ingredientId": 14,
+      "normalizedName": "들기름",
+      "displayName": "들기름",
+      "categorySuggestion": "조미료",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00018",
+      "ingredientId": 18,
+      "normalizedName": "고추장",
+      "displayName": "고추장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00019",
+      "ingredientId": 19,
+      "normalizedName": "된장",
+      "displayName": "된장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00020",
+      "ingredientId": 20,
+      "normalizedName": "집고추장",
+      "displayName": "집고추장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00022",
+      "ingredientId": 22,
+      "normalizedName": "어묵",
+      "displayName": "어묵",
+      "categorySuggestion": "해산물",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00025",
+      "ingredientId": 25,
+      "normalizedName": "진간장",
+      "displayName": "진간장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00030",
+      "ingredientId": 30,
+      "normalizedName": "간장",
+      "displayName": "간장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00037",
+      "ingredientId": 37,
+      "normalizedName": "매실청",
+      "displayName": "매실청",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00038",
+      "ingredientId": 38,
+      "normalizedName": "참기름",
+      "displayName": "참기름",
+      "categorySuggestion": "조미료",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00042",
+      "ingredientId": 42,
+      "normalizedName": "식용유",
+      "displayName": "식용유",
+      "categorySuggestion": "조미료",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00043",
+      "ingredientId": 43,
+      "normalizedName": "굴소스",
+      "displayName": "굴소스",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00050",
+      "ingredientId": 50,
+      "normalizedName": "참치액",
+      "displayName": "참치액",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00055",
+      "ingredientId": 55,
+      "normalizedName": "버터",
+      "displayName": "버터",
+      "categorySuggestion": "유제품",
+      "proposal_reason": "DB category `유제품` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00056",
+      "ingredientId": 56,
+      "normalizedName": "두부",
+      "displayName": "두부",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00061",
+      "ingredientId": 61,
+      "normalizedName": "치즈",
+      "displayName": "치즈",
+      "categorySuggestion": "유제품",
+      "proposal_reason": "DB category `유제품` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00062",
+      "ingredientId": 62,
+      "normalizedName": "스리라차소스",
+      "displayName": "스리라차소스",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00066",
+      "ingredientId": 66,
+      "normalizedName": "소시지",
+      "displayName": "소시지",
+      "categorySuggestion": "육류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00070",
+      "ingredientId": 70,
+      "normalizedName": "멸치액젓",
+      "displayName": "멸치액젓",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00080",
+      "ingredientId": 80,
+      "normalizedName": "식초",
+      "displayName": "식초",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00084",
+      "ingredientId": 84,
+      "normalizedName": "매실액",
+      "displayName": "매실액",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00086",
+      "ingredientId": 86,
+      "normalizedName": "케찹",
+      "displayName": "케찹",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00103",
+      "ingredientId": 103,
+      "normalizedName": "집된장",
+      "displayName": "집된장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00104",
+      "ingredientId": 104,
+      "normalizedName": "청국장",
+      "displayName": "청국장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00106",
+      "ingredientId": 106,
+      "normalizedName": "베이컨",
+      "displayName": "베이컨",
+      "categorySuggestion": "육류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00109",
+      "ingredientId": 109,
+      "normalizedName": "라이스페이퍼",
+      "displayName": "라이스페이퍼",
+      "categorySuggestion": "곡류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00112",
+      "ingredientId": 112,
+      "normalizedName": "쌈장",
+      "displayName": "쌈장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00118",
+      "ingredientId": 118,
+      "normalizedName": "머스타드",
+      "displayName": "머스타드",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00122",
+      "ingredientId": 122,
+      "normalizedName": "스팸",
+      "displayName": "스팸",
+      "categorySuggestion": "육류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00129",
+      "ingredientId": 129,
+      "normalizedName": "맛살",
+      "displayName": "맛살",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00132",
+      "ingredientId": 132,
+      "normalizedName": "마요네즈",
+      "displayName": "마요네즈",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00141",
+      "ingredientId": 141,
+      "normalizedName": "미림",
+      "displayName": "미림",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00151",
+      "ingredientId": 151,
+      "normalizedName": "까나리액젓",
+      "displayName": "까나리액젓",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00152",
+      "ingredientId": 152,
+      "normalizedName": "크래미",
+      "displayName": "크래미",
+      "categorySuggestion": "해산물",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00157",
+      "ingredientId": 157,
+      "normalizedName": "햄",
+      "displayName": "햄",
+      "categorySuggestion": "육류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00167",
+      "ingredientId": 167,
+      "normalizedName": "꿀",
+      "displayName": "꿀",
+      "categorySuggestion": "조미료",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00168",
+      "ingredientId": 168,
+      "normalizedName": "진미채",
+      "displayName": "진미채",
+      "categorySuggestion": "해산물",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00169",
+      "ingredientId": 169,
+      "normalizedName": "치킨너겟",
+      "displayName": "치킨너겟",
+      "categorySuggestion": "육류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00180",
+      "ingredientId": 180,
+      "normalizedName": "우유",
+      "displayName": "우유",
+      "categorySuggestion": "유제품",
+      "proposal_reason": "DB category `유제품` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00185",
+      "ingredientId": 185,
+      "normalizedName": "양조간장",
+      "displayName": "양조간장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00193",
+      "ingredientId": 193,
+      "normalizedName": "홀그레인머스타드",
+      "displayName": "홀그레인머스타드",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00199",
+      "ingredientId": 199,
+      "normalizedName": "핫소스",
+      "displayName": "핫소스",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00201",
+      "ingredientId": 201,
+      "normalizedName": "젓갈",
+      "displayName": "젓갈",
+      "categorySuggestion": "해산물",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00206",
+      "ingredientId": 206,
+      "normalizedName": "카레",
+      "displayName": "카레",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00220",
+      "ingredientId": 220,
+      "normalizedName": "범일 고추장",
+      "displayName": "범일 고추장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00240",
+      "ingredientId": 240,
+      "normalizedName": "미니 돈까스",
+      "displayName": "미니 돈까스",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00246",
+      "ingredientId": 246,
+      "normalizedName": "맛간장(진간장)",
+      "displayName": "맛간장(진간장)",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00265",
+      "ingredientId": 265,
+      "normalizedName": "찰보리 고추장",
+      "displayName": "찰보리 고추장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00277",
+      "ingredientId": 277,
+      "normalizedName": "생강즙",
+      "displayName": "생강즙",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00291",
+      "ingredientId": 291,
+      "normalizedName": "단단한 두부",
+      "displayName": "단단한 두부",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00313",
+      "ingredientId": 313,
+      "normalizedName": "밥새우",
+      "displayName": "밥새우",
+      "categorySuggestion": "해산물",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00329",
+      "ingredientId": 329,
+      "normalizedName": "시판네모유부",
+      "displayName": "시판네모유부",
+      "categorySuggestion": "곡류",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00330",
+      "ingredientId": 330,
+      "normalizedName": "맛간장",
+      "displayName": "맛간장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00332",
+      "ingredientId": 332,
+      "normalizedName": "스위트콘",
+      "displayName": "스위트콘",
+      "categorySuggestion": "채소",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00334",
+      "ingredientId": 334,
+      "normalizedName": "요리술",
+      "displayName": "요리술",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00337",
+      "ingredientId": 337,
+      "normalizedName": "데칠때 생강술",
+      "displayName": "데칠때 생강술",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00343",
+      "ingredientId": 343,
+      "normalizedName": "꿀/물엿",
+      "displayName": "꿀/물엿",
+      "categorySuggestion": "조미료",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00344",
+      "ingredientId": 344,
+      "normalizedName": "국간장(조선간장)",
+      "displayName": "국간장(조선간장)",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00350",
+      "ingredientId": 350,
+      "normalizedName": "생강술",
+      "displayName": "생강술",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00351",
+      "ingredientId": 351,
+      "normalizedName": "배즙",
+      "displayName": "배즙",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00361",
+      "ingredientId": 361,
+      "normalizedName": "소주",
+      "displayName": "소주",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00371",
+      "ingredientId": 371,
+      "normalizedName": "술",
+      "displayName": "술",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00385",
+      "ingredientId": 385,
+      "normalizedName": "아기 간장",
+      "displayName": "아기 간장",
+      "categorySuggestion": "소스",
+      "proposal_reason": "DB category `소스` → 병·통·튜브 등 유통상품 비중 높음"
+    },
+    {
+      "model_folder": "ing_00498",
+      "ingredientId": 498,
+      "normalizedName": "와사비",
+      "displayName": "와사비",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00556",
+      "ingredientId": 556,
+      "normalizedName": "게맛살",
+      "displayName": "게맛살",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00559",
+      "ingredientId": 559,
+      "normalizedName": "머스터드소스",
+      "displayName": "머스터드소스",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00567",
+      "ingredientId": 567,
+      "normalizedName": "캐찹",
+      "displayName": "캐찹",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00669",
+      "ingredientId": 669,
+      "normalizedName": "해바라기유",
+      "displayName": "해바라기유",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00712",
+      "ingredientId": 712,
+      "normalizedName": "리챔",
+      "displayName": "리챔",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00864",
+      "ingredientId": 864,
+      "normalizedName": "어른치즈",
+      "displayName": "어른치즈",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00896",
+      "ingredientId": 896,
+      "normalizedName": "체더치즈",
+      "displayName": "체더치즈",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00948",
+      "ingredientId": 948,
+      "normalizedName": "뉴슈가",
+      "displayName": "뉴슈가",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00951",
+      "ingredientId": 951,
+      "normalizedName": "새우젓",
+      "displayName": "새우젓",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_00952",
+      "ingredientId": 952,
+      "normalizedName": "양파즙",
+      "displayName": "양파즙",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01125",
+      "ingredientId": 1125,
+      "normalizedName": "냉장햄",
+      "displayName": "냉장햄",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01126",
+      "ingredientId": 1126,
+      "normalizedName": "통조림햄",
+      "displayName": "통조림햄",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01172",
+      "ingredientId": 1172,
+      "normalizedName": "부침유",
+      "displayName": "부침유",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01188",
+      "ingredientId": 1188,
+      "normalizedName": "통조림참치",
+      "displayName": "통조림참치",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01190",
+      "ingredientId": 1190,
+      "normalizedName": "케챱",
+      "displayName": "케챱",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01275",
+      "ingredientId": 1275,
+      "normalizedName": "캔햄",
+      "displayName": "캔햄",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01390",
+      "ingredientId": 1390,
+      "normalizedName": "슬라이스햄",
+      "displayName": "슬라이스햄",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01391",
+      "ingredientId": 1391,
+      "normalizedName": "소세지",
+      "displayName": "소세지",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    },
+    {
+      "model_folder": "ing_01439",
+      "ingredientId": 1439,
+      "normalizedName": "꽁치통조림",
+      "displayName": "꽁치통조림",
+      "categorySuggestion": "기타",
+      "proposal_reason": "소스/유제품 외: 캔·봉지·병입 유통 단위로 촬영될 가능성이 높아 OCR 라우트 후보"
+    }
+  ],
+  "borderline_for_team": [
+    {
+      "model_folder": "ing_00002",
+      "ingredientId": 2,
+      "normalizedName": "가루",
+      "categorySuggestion": "곡류",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00003",
+      "ingredientId": 3,
+      "normalizedName": "물",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00005",
+      "ingredientId": 5,
+      "normalizedName": "소금",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00021",
+      "ingredientId": 21,
+      "normalizedName": "설탕",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00031",
+      "ingredientId": 31,
+      "normalizedName": "통깨",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00035",
+      "ingredientId": 35,
+      "normalizedName": "깨소금",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00045",
+      "ingredientId": 45,
+      "normalizedName": "검은깨",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00059",
+      "ingredientId": 59,
+      "normalizedName": "깨",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00088",
+      "ingredientId": 88,
+      "normalizedName": "페퍼론치노",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00133",
+      "ingredientId": 133,
+      "normalizedName": "파슬리가루",
+      "categorySuggestion": "채소",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00138",
+      "ingredientId": 138,
+      "normalizedName": "들깨가루",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00166",
+      "ingredientId": 166,
+      "normalizedName": "연겨자",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00179",
+      "ingredientId": 179,
+      "normalizedName": "전분",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00188",
+      "ingredientId": 188,
+      "normalizedName": "생강가루",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00223",
+      "ingredientId": 223,
+      "normalizedName": "참깨",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00233",
+      "ingredientId": 233,
+      "normalizedName": "전분가루",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00321",
+      "ingredientId": 321,
+      "normalizedName": "부침가루(밀가루)",
+      "categorySuggestion": "곡류",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00327",
+      "ingredientId": 327,
+      "normalizedName": "감자전분",
+      "categorySuggestion": "채소",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00387",
+      "ingredientId": 387,
+      "normalizedName": "깨 간 것",
+      "categorySuggestion": "조미료",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00485",
+      "ingredientId": 485,
+      "normalizedName": "찹쌀가루",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_00947",
+      "ingredientId": 947,
+      "normalizedName": "햇마늘",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_01171",
+      "ingredientId": 1171,
+      "normalizedName": "쌀부침가루",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_01267",
+      "ingredientId": 1267,
+      "normalizedName": "간 깨",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_01378",
+      "ingredientId": 1378,
+      "normalizedName": "멸치 다시마 육수",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    },
+    {
+      "model_folder": "ing_01441",
+      "ingredientId": 1441,
+      "normalizedName": "김치국물",
+      "categorySuggestion": "기타",
+      "note": "가정용 덜어낸 상태·벌크 사진과 포장 단위가 섞일 수 있어 팀 합의 필요"
+    }
+  ],
+  "not_in_this_list": "신선 채소·과일·버섯, 원물 육류·생선, 깐 달걀·메추리알, 풀·잎 채소, 다진 채소(조리 형태) 등은 기본적으로 raw_ingredient 학습 대상으로 둔다."
+}

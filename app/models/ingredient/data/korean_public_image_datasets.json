@@ -1,0 +1,70 @@
+{
+  "schema": "korean_public_image_datasets_v1",
+  "description": "국내에서 공개되는 식품·식재료 관련 이미지 학습데이터 안내. 라이선스·신청 조건은 각 사이트 최신 약관을 따른다.",
+  "sources": [
+    {
+      "id": "aihub_diabetes_food_images",
+      "name_ko": "당뇨관리 앱을 통한 음식 이미지 활용 및 환류",
+      "provider": "NIA AI-Hub",
+      "landing_url": "https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71392",
+      "access_note_ko": "내국인 신청, 온라인 안심존(원격 분석 환경) 위주. 완성 음식 이미지·바운딩박스 라벨.",
+      "suggested_local_dir": "data_sources/aihub_diabetes_food/",
+      "fit_for_project": "한식·일반 완성요리 위주. 원물 식재료 단일 클래스와 1:1은 메뉴명→재료 매핑 검수 필요."
+    },
+    {
+      "id": "aihub_health_food_images",
+      "name_ko": "건강관리를 위한 음식 이미지",
+      "provider": "NIA AI-Hub",
+      "landing_url": "https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=612",
+      "access_note_ko": "AI-Hub 표준 신청·이용약관. 한국형 다빈도 식품 이미지 대규모.",
+      "suggested_local_dir": "data_sources/aihub_health_food/",
+      "fit_for_project": "한국 소비 식품 중심. 클래스 정의가 ingredient_master 275와 다를 수 있어 라벨 매핑 테이블 필요."
+    },
+    {
+      "id": "aihub_food_vision_nutrition",
+      "name_ko": "비전영역, 음식이미지 및 정보소개 텍스트",
+      "provider": "NIA AI-Hub",
+      "landing_url": "https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71564",
+      "access_note_ko": "외식·배달 메뉴 등 다양. 영양·텍스트 메타 포함.",
+      "suggested_local_dir": "data_sources/aihub_food_vision_text/",
+      "fit_for_project": "메뉴/요리 단위. 고유 재료(장류·젓갈 등)는 텍스트 메타와 함께 매칭 검토."
+    },
+    {
+      "id": "aihub_crop_seed_phenotype",
+      "name_ko": "작물 종자 품종 표현형 데이터",
+      "provider": "NIA AI-Hub",
+      "landing_url": "https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71386",
+      "access_note_ko": "벼·밀·고추·배추·무 등 발아·품종 이미지. 원물에 가까운 촬영.",
+      "suggested_local_dir": "data_sources/aihub_crop_phenotype/",
+      "fit_for_project": "배추·무·고추 등 한국 고유 채소 품목 보강에 유리. 도메인(발아·품종)이 시장 원물과 다를 수 있음."
+    },
+    {
+      "id": "aihub_traditional_fermentation",
+      "name_ko": "전통식품 발효 융합 데이터",
+      "provider": "NIA AI-Hub",
+      "landing_url": "https://aihub.or.kr/aihubdata/data/view.do?dataSetSn=71473",
+      "access_note_ko": "발효 단계별 이미지·메타.",
+      "suggested_local_dir": "data_sources/aihub_fermentation/",
+      "fit_for_project": "김치·장류·발효식 관련 시각 정보 보강. 완제 원물 단일 클래스와는 별도 검수."
+    },
+    {
+      "id": "data_go_kr_korean_food_ai",
+      "name_ko": "한국음식 AI 학습용 이미지(공공데이터포털)",
+      "provider": "공공데이터포털(data.go.kr)",
+      "landing_url": "https://www.data.go.kr/",
+      "access_note_ko": "포털에서 '한국음식', 'AI 학습', '이미지'로 검색. 파일데이터/API별 이용허락 범위 확인.",
+      "suggested_local_dir": "data_sources/data_go_korean_food_ai/",
+      "fit_for_project": "대표 한식 요리 이미지. 요리명→재료 분해는 별도 온톨로지 또는 수동 매핑."
+    },
+    {
+      "id": "mafra_open",
+      "name_ko": "농림축산식품 공공데이터(이미지·메타)",
+      "provider": "농림축산식품공공데이터포털",
+      "landing_url": "https://data.mafra.go.kr/",
+      "access_note_ko": "축산·병해·스마트팜 등 품목별 AI 학습 이미지가 일부 공개. 채소 '원물 사진' 전용 대규모 세트는 품목마다 상이.",
+      "suggested_local_dir": "data_sources/mafra_open/",
+      "fit_for_project": "품목별로 다운로드 후 normalized_name과 수동 매핑."
+    }
+  ],
+  "integration_hint_ko": "압축 해제는 data_sources/ 아래 suggested_local_dir 에 둔다. 클래스명이 우리 DB와 다르므로 CSV/JSON으로 (데이터셋클래스 또는 폴더경로) → normalized_name 매핑을 만든 뒤 ingest_verified_path_manifest.py 또는 전용 스크립트로 ing_XXXXX 폴더에 복사한다."
+}

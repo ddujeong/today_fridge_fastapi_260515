@@ -1,7 +1,7 @@
 {
   "schema": "model_label_to_master_v2_db_export",
   "description": "YOLO class folder / model output label -> ingredient_master. Keys are zero-padded ing_XXXXX matching ingredient_id. Train/val image folders must use the same names.",
-  "generatedAt": "2026-04-30T00:34:38.144443+00:00",
+  "generatedAt": "2026-04-30T03:40:41.392579+00:00",
   "source": "postgresql today_fridge.ingredient_master export (postgresql://postgres:***@127.0.0.1:5432/today_fridge)",
   "labelKeyFormat": "ing_{:05d}",
   "labels": {
@@ -142,12 +142,6 @@
       "normalizedName": "진간장",
       "categorySuggestion": "소스",
       "ingredientId": 25
-    },
-    "ing_00027": {
-      "displayName": "연두부",
-      "normalizedName": "연두부",
-      "categorySuggestion": "기타",
-      "ingredientId": 27
     },
     "ing_00028": {
       "displayName": "다진대파 또는 쪽파",
@@ -737,12 +731,6 @@
       "categorySuggestion": "소스",
       "ingredientId": 206
     },
-    "ing_00207": {
-      "displayName": "비엔나소시지",
-      "normalizedName": "비엔나소시지",
-      "categorySuggestion": "육류",
-      "ingredientId": 207
-    },
     "ing_00208": {
       "displayName": "깐 메추리알",
       "normalizedName": "깐 메추리알",
@@ -790,12 +778,6 @@
       "normalizedName": "참깨",
       "categorySuggestion": "조미료",
       "ingredientId": 223
-    },
-    "ing_00232": {
-      "displayName": "팽이버섯",
-      "normalizedName": "팽이버섯",
-      "categorySuggestion": "채소",
-      "ingredientId": 232
     },
     "ing_00233": {
       "displayName": "전분가루",
@@ -1133,12 +1115,6 @@
       "categorySuggestion": "채소",
       "ingredientId": 368
     },
-    "ing_00369": {
-      "displayName": "표고버섯",
-      "normalizedName": "표고버섯",
-      "categorySuggestion": "채소",
-      "ingredientId": 369
-    },
     "ing_00370": {
       "displayName": "황태",
       "normalizedName": "황태",
@@ -1300,24 +1276,6 @@
       "normalizedName": "생강",
       "categorySuggestion": "채소",
       "ingredientId": 421
-    },
-    "ing_00428": {
-      "displayName": "요거트",
-      "normalizedName": "요거트",
-      "categorySuggestion": "유제품",
-      "ingredientId": 428
-    },
-    "ing_00434": {
-      "displayName": "주스",
-      "normalizedName": "주스",
-      "categorySuggestion": "기타",
-      "ingredientId": 434
-    },
-    "ing_00436": {
-      "displayName": "사워크림",
-      "normalizedName": "사워크림",
-      "categorySuggestion": "유제품",
-      "ingredientId": 436
     },
     "ing_00484": {
       "displayName": "고구마(대)",
@@ -1583,12 +1541,6 @@
       "categorySuggestion": "기타",
       "ingredientId": 1275
     },
-    "ing_01276": {
-      "displayName": "부침가루",
-      "normalizedName": "부침가루",
-      "categorySuggestion": "기타",
-      "ingredientId": 1276
-    },
     "ing_01378": {
       "displayName": "멸치 다시마 육수",
       "normalizedName": "멸치 다시마 육수",
@@ -1648,12 +1600,6 @@
       "normalizedName": "조림간장",
       "categorySuggestion": "기타",
       "ingredientId": 1476
-    },
-    "ing_01687": {
-      "displayName": "Apple",
-      "normalizedName": "Apple",
-      "categorySuggestion": "채소",
-      "ingredientId": 1687
     }
   }
 }

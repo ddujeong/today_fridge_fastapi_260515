@@ -211,3 +211,22 @@ python app/models/ingredient/tools/export_ingredient_cls_gap_checklist.py
 - **Grocery / Fruits-360**: `grocery_coarse_folder_to_normalized_name.json`, `fruits360_folder_to_normalized_name.json` 의 `map`(정확 일치)과 `prefixMap`(접두 일치, 긴 키 우선)에만 항목을 추가한다. 값은 항상 `ingredient_master`에 있는 `normalized_name` 뿐.
 - **검증한 폴더를 한번에 넣기**: `ingest_verified_path_manifest.py` + CSV(`normalized_name`, `source_dir`). `data_sources/README.md` §4 참고.
 - **한계**: “다진 당근”, “국간장” 같이 **가공·조리 형태 또는 병·포장**이 본질인 품목은 공개 전체·채소 사진으로 대체할 수 없다. 팀 촬영(또는 제품 사진)으로만 1:1을 맞출 수 있다.
+
+### 9.9 train 이미지 부족 클래스용 동의어·영문 검색어 초안
+
+```bash
+python app/models/ingredient/tools/export_ingredient_image_alias_template.py
+```
+
+- 출력: `app/models/ingredient/data/ingredient_image_search_aliases.json` — 항목별 `visual_base_ko`, `synonyms_ko`, `search_en`(시드는 `ko_to_en_image_search_seed.json`). 팀이 검토·수정 후 이미지 수집/검색 파이프라인에 연결.
+- 전체 클래스(이미 채워진 train 포함): `--include-covered`
+
+### 9.10 국내 공개 데이터셋
+
+- 요약: `data_sources/README.md` **§5**, 메타 JSON: `app/models/ingredient/data/korean_public_image_datasets.json` (AI-Hub·공공데이터포털·농식품 포털 링크 및 권장 로컬 경로).
+- **이용·승인 절차(회원가입, 일반 다운로드 vs 안심존, 공공데이터 파일/API 등)**: `app/models/ingredient/KOREAN_DATASET_APPLICATION_GUIDE.md`
+- 웹 검색 수집: `app/models/ingredient/tools/fetch_ingredient_images_web.py` (DuckDuckGo). 국내 승인 데이터와 **병행**해 한식·고유 품목 비중을 맞추는 것을 권장.
+
+### 9.11 자동 수집 후 수동 보강
+
+- `app/models/ingredient/MANUAL_IMAGE_COLLECTION_REMAINING.md` — 웹·Grocery 자동 이후 체크리스트(AI-Hub, 검수, assemble).

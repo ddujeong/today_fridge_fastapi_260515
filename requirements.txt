@@ -28,3 +28,4 @@ sentence-transformers
 google-generativeai
 pytest
 httpx
+ddgs
