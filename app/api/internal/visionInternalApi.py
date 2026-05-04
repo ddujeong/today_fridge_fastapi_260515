@@ -51,6 +51,8 @@ ALLOWED_IMAGE_CONTENT_TYPES = {
 
 DEFAULT_ROUTE_MODEL_PATH = "app/models/img2class/best.pt"
 MAX_RECOGNITION_CANDIDATES = 3
+PACKAGED_ROUTE_FALLBACK_MAX_CONF = 0.90
+RAW_OVERRIDE_MIN_CONFIDENCE = 0.45
 
 _route_classifier: Optional[IngredientRouteClassifier] = None
 _route_classifier_load_error: Optional[str] = None
@@ -253,6 +255,16 @@ def recognize_raw_ingredient_by_classifier(image_path: Path, top_k: int) -> List
 
     raw_result = recognize_raw_ingredient_image(image_path=image_path, top_k=top_k)
     return normalize_candidates(raw_result, default_category=None)
+
+
+def _env_float(name: str, default: float) -> float:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        return default
 
 
 def normalize_candidates(raw_result: Any, default_category: Optional[str]) -> List[Dict[str, Any]]:
@@ -473,6 +485,30 @@ async def recognize_ingredient_image(
         elif route == "packaged_food":
             pipeline_stage = "packaged_food_ocr"
             candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
+            packaged_route_fallback_max_conf = _env_float(
+                "PACKAGED_ROUTE_FALLBACK_MAX_CONF",
+                PACKAGED_ROUTE_FALLBACK_MAX_CONF,
+            )
+            raw_override_min_confidence = _env_float(
+                "RAW_OVERRIDE_MIN_CONFIDENCE",
+                RAW_OVERRIDE_MIN_CONFIDENCE,
+            )
+
+            should_try_raw_fallback = (
+                len(candidates) == 0 or route_confidence <= packaged_route_fallback_max_conf
+            )
+            if should_try_raw_fallback:
+                raw_candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
+                raw_top1_conf = float(raw_candidates[0].get("confidence", 0.0)) if raw_candidates else 0.0
+
+                if raw_candidates and raw_top1_conf >= raw_override_min_confidence:
+                    candidates = raw_candidates
+                    pipeline_stage = "raw_ingredient_classifier_override"
+                    route = "raw_ingredient"
+                    route_result["reason"] = (
+                        f"packaged_food route fallback applied: raw top1 confidence "
+                        f"{raw_top1_conf:.3f} >= {raw_override_min_confidence:.3f}"
+                    )
 
         elif route == "raw_ingredient":
             pipeline_stage = "raw_ingredient_classifier"

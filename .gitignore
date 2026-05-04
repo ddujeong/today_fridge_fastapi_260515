@@ -21,4 +21,6 @@ ml_datasets/**
 *.zip
 scripsts/**
 tests/**
-
+*.png
+*.jpg
+*.jpeg
