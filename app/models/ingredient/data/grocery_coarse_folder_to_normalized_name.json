@@ -1,0 +1,43 @@
+{
+  "schema": "grocery_coarse_folder_to_normalized_v1",
+  "description": "GroceryStoreDataset에서 train/<Group>/<CoarseFolder>/ 아래 첫 번째 폴더명(CoarseFolder) → ingredient_master.normalized_name. Packages 그룹은 사용하지 않음.",
+  "Fruit": {
+    "Apple": "사과",
+    "Avocado": "아보카도",
+    "Banana": "바나나",
+    "Kiwi": "키위",
+    "Lemon": "레몬",
+    "Lime": "라임",
+    "Mango": "망고",
+    "Melon": "멜론",
+    "Nectarine": "천도복숭아",
+    "Orange": "오렌지",
+    "Papaya": "파파야",
+    "Passion-Fruit": "패션프루트",
+    "Peach": "복숭아",
+    "Pear": "배",
+    "Pineapple": "파인애플",
+    "Plum": "자두",
+    "Pomegranate": "석류",
+    "Red-Grapefruit": "자몽",
+    "Satsumas": "귤"
+  },
+  "Vegetables": {
+    "Asparagus": "아스파라거스",
+    "Aubergine": "가지",
+    "Cabbage": "양배추",
+    "Carrots": "당근",
+    "Cucumber": "오이",
+    "Garlic": "마늘",
+    "Ginger": "생강",
+    "Leek": "대파",
+    "Mushroom": "버섯",
+    "Brown-Cap-Mushroom": "버섯",
+    "Onion": "양파",
+    "Pepper": "파프리카",
+    "Potato": "감자",
+    "Red-Beet": "비트",
+    "Tomato": "토마토",
+    "Zucchini": "호박"
+  }
+}

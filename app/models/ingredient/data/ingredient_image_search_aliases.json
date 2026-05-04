@@ -1,0 +1,3687 @@
+{
+  "schema": "ingredient_image_search_aliases_v1",
+  "description": "팀 검토용: 이미지 검색·데이터셋 매칭 시 normalized_name은 유지하고, visual_base_ko·synonyms_ko·search_en을 수정한다. 검색은 search_en 순서로 시도하거나, 본재료 영어가 없으면 동의어 쪽 영어를 쓴다.",
+  "generatedAt": "2026-04-30T05:07:35.092420+00:00",
+  "gapOnly": false,
+  "minTrain": 1,
+  "entries": [
+    {
+      "model_folder": "ing_00001",
+      "ingredient_id": 1,
+      "normalized_name": "알배추잎",
+      "display_name": "알배추잎",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "알배추잎",
+      "synonyms_ko": [
+        "알배추잎"
+      ],
+      "search_en": [
+        "napa cabbage leaf",
+        "cabbage leaf"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00002",
+      "ingredient_id": 2,
+      "normalized_name": "가루",
+      "display_name": "가루",
+      "category_suggestion": "곡류",
+      "train_image_count": 9,
+      "visual_base_ko": "가루",
+      "synonyms_ko": [
+        "가루"
+      ],
+      "search_en": [
+        "flour",
+        "powder ingredient"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00003",
+      "ingredient_id": 3,
+      "normalized_name": "물",
+      "display_name": "물",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "물",
+      "synonyms_ko": [
+        "물"
+      ],
+      "search_en": [
+        "water glass",
+        "bottled water"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00005",
+      "ingredient_id": 5,
+      "normalized_name": "소금",
+      "display_name": "소금",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "소금",
+      "synonyms_ko": [
+        "소금"
+      ],
+      "search_en": [
+        "salt",
+        "sea salt"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00006",
+      "ingredient_id": 6,
+      "normalized_name": "무청시래기",
+      "display_name": "무청시래기",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "무청시래기",
+      "synonyms_ko": [
+        "무청시래기"
+      ],
+      "search_en": [
+        "radish greens",
+        "dried radish leaves"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00007",
+      "ingredient_id": 7,
+      "normalized_name": "샤브용소고기목살",
+      "display_name": "샤브용소고기목살",
+      "category_suggestion": "육류",
+      "train_image_count": 10,
+      "visual_base_ko": "샤브용소고기목살",
+      "synonyms_ko": [
+        "샤브용소고기목살"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00008",
+      "ingredient_id": 8,
+      "normalized_name": "감자",
+      "display_name": "감자",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "감자",
+      "synonyms_ko": [
+        "감자"
+      ],
+      "search_en": [
+        "potato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00009",
+      "ingredient_id": 9,
+      "normalized_name": "파",
+      "display_name": "파",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "파",
+      "synonyms_ko": [
+        "파"
+      ],
+      "search_en": [
+        "green onion",
+        "scallion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00010",
+      "ingredient_id": 10,
+      "normalized_name": "육수",
+      "display_name": "육수",
+      "category_suggestion": "해산물",
+      "train_image_count": 10,
+      "visual_base_ko": "육수",
+      "synonyms_ko": [
+        "육수"
+      ],
+      "search_en": [
+        "broth",
+        "stock soup"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00011",
+      "ingredient_id": 11,
+      "normalized_name": "국간장",
+      "display_name": "국간장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "국간장",
+      "synonyms_ko": [
+        "국간장"
+      ],
+      "search_en": [
+        "Korean soup soy sauce",
+        "guk ganjang"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00012",
+      "ingredient_id": 12,
+      "normalized_name": "참치액젓",
+      "display_name": "참치액젓",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "참치액젓",
+      "synonyms_ko": [
+        "참치액젓"
+      ],
+      "search_en": [
+        "fish sauce",
+        "tuna extract"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00013",
+      "ingredient_id": 13,
+      "normalized_name": "맛술",
+      "display_name": "맛술",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "맛술",
+      "synonyms_ko": [
+        "맛술"
+      ],
+      "search_en": [
+        "mirin",
+        "cooking wine"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00014",
+      "ingredient_id": 14,
+      "normalized_name": "들기름",
+      "display_name": "들기름",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "들기름",
+      "synonyms_ko": [
+        "들기름"
+      ],
+      "search_en": [
+        "perilla oil"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00015",
+      "ingredient_id": 15,
+      "normalized_name": "마늘",
+      "display_name": "마늘",
+      "category_suggestion": "채소",
+      "train_image_count": 75,
+      "visual_base_ko": "마늘",
+      "synonyms_ko": [
+        "마늘"
+      ],
+      "search_en": [
+        "garlic"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00016",
+      "ingredient_id": 16,
+      "normalized_name": "후추",
+      "display_name": "후추",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "후추",
+      "synonyms_ko": [
+        "후추"
+      ],
+      "search_en": [
+        "black pepper",
+        "peppercorn"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00018",
+      "ingredient_id": 18,
+      "normalized_name": "고추장",
+      "display_name": "고추장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "고추장",
+      "synonyms_ko": [
+        "고추장"
+      ],
+      "search_en": [
+        "gochujang",
+        "Korean red pepper paste"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00019",
+      "ingredient_id": 19,
+      "normalized_name": "된장",
+      "display_name": "된장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "된장",
+      "synonyms_ko": [
+        "된장"
+      ],
+      "search_en": [
+        "doenjang",
+        "miso paste"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00020",
+      "ingredient_id": 20,
+      "normalized_name": "집고추장",
+      "display_name": "집고추장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "고추장",
+      "synonyms_ko": [
+        "집고추장",
+        "고추장"
+      ],
+      "search_en": [
+        "gochujang",
+        "homemade chili paste",
+        "Korean red pepper paste"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00021",
+      "ingredient_id": 21,
+      "normalized_name": "설탕",
+      "display_name": "설탕",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "설탕",
+      "synonyms_ko": [
+        "설탕"
+      ],
+      "search_en": [
+        "sugar",
+        "white sugar"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00022",
+      "ingredient_id": 22,
+      "normalized_name": "어묵",
+      "display_name": "어묵",
+      "category_suggestion": "해산물",
+      "train_image_count": 10,
+      "visual_base_ko": "어묵",
+      "synonyms_ko": [
+        "어묵"
+      ],
+      "search_en": [
+        "fish cake",
+        "eomuk"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00023",
+      "ingredient_id": 23,
+      "normalized_name": "달걀",
+      "display_name": "달걀",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "달걀",
+      "synonyms_ko": [
+        "달걀"
+      ],
+      "search_en": [
+        "egg",
+        "chicken egg"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00024",
+      "ingredient_id": 24,
+      "normalized_name": "다시마",
+      "display_name": "다시마",
+      "category_suggestion": "해산물",
+      "train_image_count": 10,
+      "visual_base_ko": "다시마",
+      "synonyms_ko": [
+        "다시마"
+      ],
+      "search_en": [
+        "kombu",
+        "dried kelp"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00025",
+      "ingredient_id": 25,
+      "normalized_name": "진간장",
+      "display_name": "진간장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "진간장",
+      "synonyms_ko": [
+        "진간장"
+      ],
+      "search_en": [
+        "soy sauce",
+        "dark soy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00028",
+      "ingredient_id": 28,
+      "normalized_name": "다진대파또는쪽파",
+      "display_name": "다진대파또는쪽파",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "대파또는쪽파",
+      "synonyms_ko": [
+        "다진대파또는쪽파",
+        "대파또는쪽파"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00030",
+      "ingredient_id": 30,
+      "normalized_name": "간장",
+      "display_name": "간장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "간장",
+      "synonyms_ko": [
+        "간장"
+      ],
+      "search_en": [
+        "soy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00031",
+      "ingredient_id": 31,
+      "normalized_name": "통깨",
+      "display_name": "통깨",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "통깨",
+      "synonyms_ko": [
+        "통깨"
+      ],
+      "search_en": [
+        "sesame seeds",
+        "toasted sesame"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00032",
+      "ingredient_id": 32,
+      "normalized_name": "오이",
+      "display_name": "오이",
+      "category_suggestion": "채소",
+      "train_image_count": 84,
+      "visual_base_ko": "오이",
+      "synonyms_ko": [
+        "오이"
+      ],
+      "search_en": [
+        "cucumber"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00033",
+      "ingredient_id": 33,
+      "normalized_name": "토마토",
+      "display_name": "토마토",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "토마토",
+      "synonyms_ko": [
+        "토마토"
+      ],
+      "search_en": [
+        "tomato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00035",
+      "ingredient_id": 35,
+      "normalized_name": "깨소금",
+      "display_name": "깨소금",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "깨소금",
+      "synonyms_ko": [
+        "깨소금"
+      ],
+      "search_en": [
+        "sesame salt"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00036",
+      "ingredient_id": 36,
+      "normalized_name": "나물",
+      "display_name": "나물",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "나물",
+      "synonyms_ko": [
+        "나물"
+      ],
+      "search_en": [
+        "namul",
+        "blanched greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00037",
+      "ingredient_id": 37,
+      "normalized_name": "매실청",
+      "display_name": "매실청",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "매실청",
+      "synonyms_ko": [
+        "매실청"
+      ],
+      "search_en": [
+        "plum syrup",
+        "maesil cheong"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00038",
+      "ingredient_id": 38,
+      "normalized_name": "참기름",
+      "display_name": "참기름",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "참기름",
+      "synonyms_ko": [
+        "참기름"
+      ],
+      "search_en": [
+        "sesame oil"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00039",
+      "ingredient_id": 39,
+      "normalized_name": "밥",
+      "display_name": "밥",
+      "category_suggestion": "곡류",
+      "train_image_count": 10,
+      "visual_base_ko": "밥",
+      "synonyms_ko": [
+        "밥"
+      ],
+      "search_en": [
+        "steamed rice",
+        "cooked rice"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00040",
+      "ingredient_id": 40,
+      "normalized_name": "버섯",
+      "display_name": "버섯",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "버섯",
+      "synonyms_ko": [
+        "버섯"
+      ],
+      "search_en": [
+        "mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00042",
+      "ingredient_id": 42,
+      "normalized_name": "식용유",
+      "display_name": "식용유",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "식용유",
+      "synonyms_ko": [
+        "식용유"
+      ],
+      "search_en": [
+        "vegetable oil",
+        "cooking oil"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00043",
+      "ingredient_id": 43,
+      "normalized_name": "굴소스",
+      "display_name": "굴소스",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "굴소스",
+      "synonyms_ko": [
+        "굴소스"
+      ],
+      "search_en": [
+        "oyster sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00045",
+      "ingredient_id": 45,
+      "normalized_name": "검은깨",
+      "display_name": "검은깨",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "검은깨",
+      "synonyms_ko": [
+        "검은깨"
+      ],
+      "search_en": [
+        "black sesame seeds"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00048",
+      "ingredient_id": 48,
+      "normalized_name": "무",
+      "display_name": "무",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "무",
+      "synonyms_ko": [
+        "무"
+      ],
+      "search_en": [
+        "daikon",
+        "white radish"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00050",
+      "ingredient_id": 50,
+      "normalized_name": "참치액",
+      "display_name": "참치액",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "참치액",
+      "synonyms_ko": [
+        "참치액"
+      ],
+      "search_en": [
+        "tuna extract"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00052",
+      "ingredient_id": 52,
+      "normalized_name": "고추",
+      "display_name": "고추",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "고추",
+      "synonyms_ko": [
+        "고추"
+      ],
+      "search_en": [
+        "chili pepper",
+        "Korean chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00055",
+      "ingredient_id": 55,
+      "normalized_name": "버터",
+      "display_name": "버터",
+      "category_suggestion": "유제품",
+      "train_image_count": 10,
+      "visual_base_ko": "버터",
+      "synonyms_ko": [
+        "버터"
+      ],
+      "search_en": [
+        "butter"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00056",
+      "ingredient_id": 56,
+      "normalized_name": "두부",
+      "display_name": "두부",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "두부",
+      "synonyms_ko": [
+        "두부"
+      ],
+      "search_en": [
+        "tofu"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00059",
+      "ingredient_id": 59,
+      "normalized_name": "깨",
+      "display_name": "깨",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "깨",
+      "synonyms_ko": [
+        "깨"
+      ],
+      "search_en": [
+        "sesame seeds"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00060",
+      "ingredient_id": 60,
+      "normalized_name": "양배추",
+      "display_name": "양배추",
+      "category_suggestion": "채소",
+      "train_image_count": 57,
+      "visual_base_ko": "양배추",
+      "synonyms_ko": [
+        "양배추"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00061",
+      "ingredient_id": 61,
+      "normalized_name": "치즈",
+      "display_name": "치즈",
+      "category_suggestion": "유제품",
+      "train_image_count": 10,
+      "visual_base_ko": "치즈",
+      "synonyms_ko": [
+        "치즈"
+      ],
+      "search_en": [
+        "cheese"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00062",
+      "ingredient_id": 62,
+      "normalized_name": "스리라차소스",
+      "display_name": "스리라차소스",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "스리라차소스",
+      "synonyms_ko": [
+        "스리라차소스"
+      ],
+      "search_en": [
+        "sriracha",
+        "hot sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00066",
+      "ingredient_id": 66,
+      "normalized_name": "소시지",
+      "display_name": "소시지",
+      "category_suggestion": "육류",
+      "train_image_count": 10,
+      "visual_base_ko": "소시지",
+      "synonyms_ko": [
+        "소시지"
+      ],
+      "search_en": [
+        "sausage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00067",
+      "ingredient_id": 67,
+      "normalized_name": "콩나물",
+      "display_name": "콩나물",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "콩나물",
+      "synonyms_ko": [
+        "콩나물"
+      ],
+      "search_en": [
+        "bean sprouts"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00070",
+      "ingredient_id": 70,
+      "normalized_name": "멸치액젓",
+      "display_name": "멸치액젓",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "멸치액젓",
+      "synonyms_ko": [
+        "멸치액젓"
+      ],
+      "search_en": [
+        "anchovy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00071",
+      "ingredient_id": 71,
+      "normalized_name": "단무지",
+      "display_name": "단무지",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "단무지",
+      "synonyms_ko": [
+        "단무지"
+      ],
+      "search_en": [
+        "pickled radish",
+        "danmuji"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00075",
+      "ingredient_id": 75,
+      "normalized_name": "청포묵",
+      "display_name": "청포묵",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "청포묵",
+      "synonyms_ko": [
+        "청포묵"
+      ],
+      "search_en": [
+        "mung bean jelly"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00076",
+      "ingredient_id": 76,
+      "normalized_name": "김가루",
+      "display_name": "김가루",
+      "category_suggestion": "해산물",
+      "train_image_count": 10,
+      "visual_base_ko": "김가루",
+      "synonyms_ko": [
+        "김가루"
+      ],
+      "search_en": [
+        "nori flakes",
+        "seaweed flakes"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00078",
+      "ingredient_id": 78,
+      "normalized_name": "부추",
+      "display_name": "부추",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "부추",
+      "synonyms_ko": [
+        "부추"
+      ],
+      "search_en": [
+        "garlic chives"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00079",
+      "ingredient_id": 79,
+      "normalized_name": "매운고추",
+      "display_name": "매운고추",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "매운고추",
+      "synonyms_ko": [
+        "매운고추"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00080",
+      "ingredient_id": 80,
+      "normalized_name": "식초",
+      "display_name": "식초",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "식초",
+      "synonyms_ko": [
+        "식초"
+      ],
+      "search_en": [
+        "vinegar"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00081",
+      "ingredient_id": 81,
+      "normalized_name": "청경채",
+      "display_name": "청경채",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "청경채",
+      "synonyms_ko": [
+        "청경채"
+      ],
+      "search_en": [
+        "bok choy",
+        "pak choi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00084",
+      "ingredient_id": 84,
+      "normalized_name": "매실액",
+      "display_name": "매실액",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "매실액",
+      "synonyms_ko": [
+        "매실액"
+      ],
+      "search_en": [
+        "plum extract"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00086",
+      "ingredient_id": 86,
+      "normalized_name": "케찹",
+      "display_name": "케찹",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "케찹",
+      "synonyms_ko": [
+        "케찹"
+      ],
+      "search_en": [
+        "ketchup"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00088",
+      "ingredient_id": 88,
+      "normalized_name": "페퍼론치노",
+      "display_name": "페퍼론치노",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "페퍼론치노",
+      "synonyms_ko": [
+        "페퍼론치노"
+      ],
+      "search_en": [
+        "peperoncino",
+        "pepperoncini"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00089",
+      "ingredient_id": 89,
+      "normalized_name": "호박",
+      "display_name": "호박",
+      "category_suggestion": "채소",
+      "train_image_count": 90,
+      "visual_base_ko": "호박",
+      "synonyms_ko": [
+        "호박"
+      ],
+      "search_en": [
+        "zucchini",
+        "squash"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00090",
+      "ingredient_id": 90,
+      "normalized_name": "당근",
+      "display_name": "당근",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "당근",
+      "synonyms_ko": [
+        "당근"
+      ],
+      "search_en": [
+        "carrot"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00093",
+      "ingredient_id": 93,
+      "normalized_name": "도토리묵",
+      "display_name": "도토리묵",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "도토리묵",
+      "synonyms_ko": [
+        "도토리묵"
+      ],
+      "search_en": [
+        "acorn jelly"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00094",
+      "ingredient_id": 94,
+      "normalized_name": "김",
+      "display_name": "김",
+      "category_suggestion": "해산물",
+      "train_image_count": 10,
+      "visual_base_ko": "김",
+      "synonyms_ko": [
+        "김"
+      ],
+      "search_en": [
+        "nori",
+        "roasted seaweed sheet"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00098",
+      "ingredient_id": 98,
+      "normalized_name": "생수",
+      "display_name": "생수",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "생수",
+      "synonyms_ko": [
+        "생수"
+      ],
+      "search_en": [
+        "bottled water"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00100",
+      "ingredient_id": 100,
+      "normalized_name": "김치",
+      "display_name": "김치",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "김치",
+      "synonyms_ko": [
+        "김치"
+      ],
+      "search_en": [
+        "kimchi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00101",
+      "ingredient_id": 101,
+      "normalized_name": "양파",
+      "display_name": "양파",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "양파",
+      "synonyms_ko": [
+        "양파"
+      ],
+      "search_en": [
+        "onion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00102",
+      "ingredient_id": 102,
+      "normalized_name": "쌀뜨물",
+      "display_name": "쌀뜨물",
+      "category_suggestion": "기타",
+      "train_image_count": 10,
+      "visual_base_ko": "쌀뜨물",
+      "synonyms_ko": [
+        "쌀뜨물"
+      ],
+      "search_en": [
+        "rice rinsed water"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00103",
+      "ingredient_id": 103,
+      "normalized_name": "집된장",
+      "display_name": "집된장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "된장",
+      "synonyms_ko": [
+        "집된장",
+        "된장"
+      ],
+      "search_en": [
+        "doenjang",
+        "homemade soybean paste",
+        "miso paste"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00104",
+      "ingredient_id": 104,
+      "normalized_name": "청국장",
+      "display_name": "청국장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "청국장",
+      "synonyms_ko": [
+        "청국장"
+      ],
+      "search_en": [
+        "cheonggukjang"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00106",
+      "ingredient_id": 106,
+      "normalized_name": "베이컨",
+      "display_name": "베이컨",
+      "category_suggestion": "육류",
+      "train_image_count": 10,
+      "visual_base_ko": "베이컨",
+      "synonyms_ko": [
+        "베이컨"
+      ],
+      "search_en": [
+        "bacon"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00108",
+      "ingredient_id": 108,
+      "normalized_name": "참치",
+      "display_name": "참치",
+      "category_suggestion": "해산물",
+      "train_image_count": 10,
+      "visual_base_ko": "참치",
+      "synonyms_ko": [
+        "참치"
+      ],
+      "search_en": [
+        "canned tuna"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00109",
+      "ingredient_id": 109,
+      "normalized_name": "라이스페이퍼",
+      "display_name": "라이스페이퍼",
+      "category_suggestion": "곡류",
+      "train_image_count": 10,
+      "visual_base_ko": "라이스페이퍼",
+      "synonyms_ko": [
+        "라이스페이퍼"
+      ],
+      "search_en": [
+        "rice paper",
+        "spring roll paper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00112",
+      "ingredient_id": 112,
+      "normalized_name": "쌈장",
+      "display_name": "쌈장",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "쌈장",
+      "synonyms_ko": [
+        "쌈장"
+      ],
+      "search_en": [
+        "ssamjang"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00113",
+      "ingredient_id": 113,
+      "normalized_name": "새우",
+      "display_name": "새우",
+      "category_suggestion": "해산물",
+      "train_image_count": 4,
+      "visual_base_ko": "새우",
+      "synonyms_ko": [
+        "새우"
+      ],
+      "search_en": [
+        "dried shrimp"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00114",
+      "ingredient_id": 114,
+      "normalized_name": "마늘쫑",
+      "display_name": "마늘쫑",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "마늘쫑",
+      "synonyms_ko": [
+        "마늘쫑"
+      ],
+      "search_en": [
+        "garlic scapes"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00115",
+      "ingredient_id": 115,
+      "normalized_name": "배추",
+      "display_name": "배추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "배추",
+      "synonyms_ko": [
+        "배추"
+      ],
+      "search_en": [
+        "napa cabbage",
+        "Chinese cabbage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00116",
+      "ingredient_id": 116,
+      "normalized_name": "떡볶이떡",
+      "display_name": "떡볶이떡",
+      "category_suggestion": "곡류",
+      "train_image_count": 10,
+      "visual_base_ko": "떡볶이떡",
+      "synonyms_ko": [
+        "떡볶이떡"
+      ],
+      "search_en": [
+        "tteok",
+        "rice cake sticks"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00117",
+      "ingredient_id": 117,
+      "normalized_name": "파슬리",
+      "display_name": "파슬리",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "파슬리",
+      "synonyms_ko": [
+        "파슬리"
+      ],
+      "search_en": [
+        "parsley"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00118",
+      "ingredient_id": 118,
+      "normalized_name": "머스타드",
+      "display_name": "머스타드",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "머스타드",
+      "synonyms_ko": [
+        "머스타드"
+      ],
+      "search_en": [
+        "mustard"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00119",
+      "ingredient_id": 119,
+      "normalized_name": "떡",
+      "display_name": "떡",
+      "category_suggestion": "곡류",
+      "train_image_count": 10,
+      "visual_base_ko": "떡",
+      "synonyms_ko": [
+        "떡"
+      ],
+      "search_en": [
+        "rice cake",
+        "tteok"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00122",
+      "ingredient_id": 122,
+      "normalized_name": "스팸",
+      "display_name": "스팸",
+      "category_suggestion": "육류",
+      "train_image_count": 10,
+      "visual_base_ko": "스팸",
+      "synonyms_ko": [
+        "스팸"
+      ],
+      "search_en": [
+        "spam",
+        "canned ham"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00127",
+      "ingredient_id": 127,
+      "normalized_name": "대파",
+      "display_name": "대파",
+      "category_suggestion": "채소",
+      "train_image_count": 69,
+      "visual_base_ko": "대파",
+      "synonyms_ko": [
+        "대파"
+      ],
+      "search_en": [
+        "leek",
+        "green onion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00129",
+      "ingredient_id": 129,
+      "normalized_name": "맛살",
+      "display_name": "맛살",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "맛살",
+      "synonyms_ko": [
+        "맛살"
+      ],
+      "search_en": [
+        "imitation crab stick"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00132",
+      "ingredient_id": 132,
+      "normalized_name": "마요네즈",
+      "display_name": "마요네즈",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "마요네즈",
+      "synonyms_ko": [
+        "마요네즈"
+      ],
+      "search_en": [
+        "mayonnaise"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00133",
+      "ingredient_id": 133,
+      "normalized_name": "파슬리가루",
+      "display_name": "파슬리가루",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "파슬리가루",
+      "synonyms_ko": [
+        "파슬리가루"
+      ],
+      "search_en": [
+        "dried parsley"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00135",
+      "ingredient_id": 135,
+      "normalized_name": "들깨",
+      "display_name": "들깨",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "들깨",
+      "synonyms_ko": [
+        "들깨"
+      ],
+      "search_en": [
+        "perilla seeds"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00137",
+      "ingredient_id": 137,
+      "normalized_name": "깻잎",
+      "display_name": "깻잎",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "깻잎",
+      "synonyms_ko": [
+        "깻잎"
+      ],
+      "search_en": [
+        "perilla leaf"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00138",
+      "ingredient_id": 138,
+      "normalized_name": "들깨가루",
+      "display_name": "들깨가루",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "들깨가루",
+      "synonyms_ko": [
+        "들깨가루"
+      ],
+      "search_en": [
+        "perilla seed powder"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00141",
+      "ingredient_id": 141,
+      "normalized_name": "미림",
+      "display_name": "미림",
+      "category_suggestion": "소스",
+      "train_image_count": 10,
+      "visual_base_ko": "미림",
+      "synonyms_ko": [
+        "미림"
+      ],
+      "search_en": [
+        "mirin",
+        "cooking wine"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00147",
+      "ingredient_id": 147,
+      "normalized_name": "고구마",
+      "display_name": "고구마",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "고구마",
+      "synonyms_ko": [
+        "고구마"
+      ],
+      "search_en": [
+        "sweet potato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00151",
+      "ingredient_id": 151,
+      "normalized_name": "까나리액젓",
+      "display_name": "까나리액젓",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "까나리액젓",
+      "synonyms_ko": [
+        "까나리액젓"
+      ],
+      "search_en": [
+        "anchovy fish sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00152",
+      "ingredient_id": 152,
+      "normalized_name": "크래미",
+      "display_name": "크래미",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "크래미",
+      "synonyms_ko": [
+        "크래미"
+      ],
+      "search_en": [
+        "imitation crab"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00153",
+      "ingredient_id": 153,
+      "normalized_name": "곤약",
+      "display_name": "곤약",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "곤약",
+      "synonyms_ko": [
+        "곤약"
+      ],
+      "search_en": [
+        "konjac",
+        "shirataki"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00157",
+      "ingredient_id": 157,
+      "normalized_name": "햄",
+      "display_name": "햄",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "햄",
+      "synonyms_ko": [
+        "햄"
+      ],
+      "search_en": [
+        "ham"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00158",
+      "ingredient_id": 158,
+      "normalized_name": "꽈리고추",
+      "display_name": "꽈리고추",
+      "category_suggestion": "채소",
+      "train_image_count": 10,
+      "visual_base_ko": "꽈리고추",
+      "synonyms_ko": [
+        "꽈리고추"
+      ],
+      "search_en": [
+        "shishito pepper",
+        "Korean chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00161",
+      "ingredient_id": 161,
+      "normalized_name": "파프리카",
+      "display_name": "파프리카",
+      "category_suggestion": "채소",
+      "train_image_count": 100,
+      "visual_base_ko": "파프리카",
+      "synonyms_ko": [
+        "파프리카"
+      ],
+      "search_en": [
+        "bell pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00163",
+      "ingredient_id": 163,
+      "normalized_name": "닭고기",
+      "display_name": "닭고기",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "닭고기",
+      "synonyms_ko": [
+        "닭고기"
+      ],
+      "search_en": [
+        "chicken"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00166",
+      "ingredient_id": 166,
+      "normalized_name": "연겨자",
+      "display_name": "연겨자",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "연겨자",
+      "synonyms_ko": [
+        "연겨자"
+      ],
+      "search_en": [
+        "mustard powder"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00167",
+      "ingredient_id": 167,
+      "normalized_name": "꿀",
+      "display_name": "꿀",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "꿀",
+      "synonyms_ko": [
+        "꿀"
+      ],
+      "search_en": [
+        "honey"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00168",
+      "ingredient_id": 168,
+      "normalized_name": "진미채",
+      "display_name": "진미채",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "진미채",
+      "synonyms_ko": [
+        "진미채"
+      ],
+      "search_en": [
+        "dried squid strips"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00169",
+      "ingredient_id": 169,
+      "normalized_name": "치킨너겟",
+      "display_name": "치킨너겟",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "치킨너겟",
+      "synonyms_ko": [
+        "치킨너겟"
+      ],
+      "search_en": [
+        "chicken nuggets"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00170",
+      "ingredient_id": 170,
+      "normalized_name": "멸치",
+      "display_name": "멸치",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "멸치",
+      "synonyms_ko": [
+        "멸치"
+      ],
+      "search_en": [
+        "dried anchovy"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00175",
+      "ingredient_id": 175,
+      "normalized_name": "차돌박이",
+      "display_name": "차돌박이",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "차돌박이",
+      "synonyms_ko": [
+        "차돌박이"
+      ],
+      "search_en": [
+        "beef brisket slices"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00177",
+      "ingredient_id": 177,
+      "normalized_name": "돼지고기다짐육",
+      "display_name": "돼지고기다짐육",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "돼지고기다짐육",
+      "synonyms_ko": [
+        "돼지고기다짐육"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00179",
+      "ingredient_id": 179,
+      "normalized_name": "전분",
+      "display_name": "전분",
+      "category_suggestion": "조미료",
+      "train_image_count": 10,
+      "visual_base_ko": "전분",
+      "synonyms_ko": [
+        "전분"
+      ],
+      "search_en": [
+        "starch",
+        "corn starch"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00180",
+      "ingredient_id": 180,
+      "normalized_name": "우유",
+      "display_name": "우유",
+      "category_suggestion": "유제품",
+      "train_image_count": 8,
+      "visual_base_ko": "우유",
+      "synonyms_ko": [
+        "우유"
+      ],
+      "search_en": [
+        "milk"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00181",
+      "ingredient_id": 181,
+      "normalized_name": "면",
+      "display_name": "면",
+      "category_suggestion": "곡류",
+      "train_image_count": 0,
+      "visual_base_ko": "면",
+      "synonyms_ko": [
+        "면"
+      ],
+      "search_en": [
+        "noodles",
+        "dried noodles"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00185",
+      "ingredient_id": 185,
+      "normalized_name": "양조간장",
+      "display_name": "양조간장",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "양조간장",
+      "synonyms_ko": [
+        "양조간장"
+      ],
+      "search_en": [
+        "brewed soy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00186",
+      "ingredient_id": 186,
+      "normalized_name": "작은오징어",
+      "display_name": "작은오징어",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "작은오징어",
+      "synonyms_ko": [
+        "작은오징어"
+      ],
+      "search_en": [
+        "small squid"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00187",
+      "ingredient_id": 187,
+      "normalized_name": "청양고추나꽈리고추",
+      "display_name": "청양고추나꽈리고추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "청양고추나꽈리고추",
+      "synonyms_ko": [
+        "청양고추나꽈리고추"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00188",
+      "ingredient_id": 188,
+      "normalized_name": "생강가루",
+      "display_name": "생강가루",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "생강가루",
+      "synonyms_ko": [
+        "생강가루"
+      ],
+      "search_en": [
+        "ginger powder"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00190",
+      "ingredient_id": 190,
+      "normalized_name": "브로콜리",
+      "display_name": "브로콜리",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "브로콜리",
+      "synonyms_ko": [
+        "브로콜리"
+      ],
+      "search_en": [
+        "broccoli"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00191",
+      "ingredient_id": 191,
+      "normalized_name": "숙주",
+      "display_name": "숙주",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "숙주",
+      "synonyms_ko": [
+        "숙주"
+      ],
+      "search_en": [
+        "bean sprouts",
+        "mung bean sprouts"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00193",
+      "ingredient_id": 193,
+      "normalized_name": "홀그레인머스타드",
+      "display_name": "홀그레인머스타드",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "홀그레인머스타드",
+      "synonyms_ko": [
+        "홀그레인머스타드"
+      ],
+      "search_en": [
+        "whole grain mustard"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00196",
+      "ingredient_id": 196,
+      "normalized_name": "황태채",
+      "display_name": "황태채",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "황태채",
+      "synonyms_ko": [
+        "황태채"
+      ],
+      "search_en": [
+        "dried pollock strips"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00199",
+      "ingredient_id": 199,
+      "normalized_name": "핫소스",
+      "display_name": "핫소스",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "핫소스",
+      "synonyms_ko": [
+        "핫소스"
+      ],
+      "search_en": [
+        "hot sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00200",
+      "ingredient_id": 200,
+      "normalized_name": "청주",
+      "display_name": "청주",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "청주",
+      "synonyms_ko": [
+        "청주"
+      ],
+      "search_en": [
+        "cheongju",
+        "Korean rice wine"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00201",
+      "ingredient_id": 201,
+      "normalized_name": "젓갈",
+      "display_name": "젓갈",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "젓갈",
+      "synonyms_ko": [
+        "젓갈"
+      ],
+      "search_en": [
+        "fermented seafood",
+        "jeotgal"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00205",
+      "ingredient_id": 205,
+      "normalized_name": "사과",
+      "display_name": "사과",
+      "category_suggestion": "과일",
+      "train_image_count": 100,
+      "visual_base_ko": "사과",
+      "synonyms_ko": [
+        "사과"
+      ],
+      "search_en": [
+        "apple"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00206",
+      "ingredient_id": 206,
+      "normalized_name": "카레",
+      "display_name": "카레",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "카레",
+      "synonyms_ko": [
+        "카레"
+      ],
+      "search_en": [
+        "curry",
+        "curry roux"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00208",
+      "ingredient_id": 208,
+      "normalized_name": "메추리알",
+      "display_name": "메추리알",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "메추리알",
+      "synonyms_ko": [
+        "메추리알"
+      ],
+      "search_en": [
+        "quail egg"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00212",
+      "ingredient_id": 212,
+      "normalized_name": "청양고추",
+      "display_name": "청양고추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "청양고추",
+      "synonyms_ko": [
+        "청양고추"
+      ],
+      "search_en": [
+        "green chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00214",
+      "ingredient_id": 214,
+      "normalized_name": "닭가슴살",
+      "display_name": "닭가슴살",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "닭가슴살",
+      "synonyms_ko": [
+        "닭가슴살"
+      ],
+      "search_en": [
+        "chicken breast"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00215",
+      "ingredient_id": 215,
+      "normalized_name": "레몬",
+      "display_name": "레몬",
+      "category_suggestion": "과일",
+      "train_image_count": 100,
+      "visual_base_ko": "레몬",
+      "synonyms_ko": [
+        "레몬"
+      ],
+      "search_en": [
+        "lemon"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00216",
+      "ingredient_id": 216,
+      "normalized_name": "견과류",
+      "display_name": "견과류",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "견과류",
+      "synonyms_ko": [
+        "견과류"
+      ],
+      "search_en": [
+        "mixed nuts",
+        "nuts"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00218",
+      "ingredient_id": 218,
+      "normalized_name": "다진소고기",
+      "display_name": "다진소고기",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기",
+      "synonyms_ko": [
+        "다진소고기",
+        "소고기"
+      ],
+      "search_en": [
+        "minced beef",
+        "ground beef",
+        "beef",
+        "raw beef"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00223",
+      "ingredient_id": 223,
+      "normalized_name": "참깨",
+      "display_name": "참깨",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "참깨",
+      "synonyms_ko": [
+        "참깨"
+      ],
+      "search_en": [
+        "sesame seeds"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00233",
+      "ingredient_id": 233,
+      "normalized_name": "전분가루",
+      "display_name": "전분가루",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "전분가루",
+      "synonyms_ko": [
+        "전분가루"
+      ],
+      "search_en": [
+        "starch powder"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00234",
+      "ingredient_id": 234,
+      "normalized_name": "닭안심",
+      "display_name": "닭안심",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "닭안심",
+      "synonyms_ko": [
+        "닭안심"
+      ],
+      "search_en": [
+        "chicken tenderloin"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00239",
+      "ingredient_id": 239,
+      "normalized_name": "가지",
+      "display_name": "가지",
+      "category_suggestion": "채소",
+      "train_image_count": 66,
+      "visual_base_ko": "가지",
+      "synonyms_ko": [
+        "가지"
+      ],
+      "search_en": [
+        "eggplant"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00240",
+      "ingredient_id": 240,
+      "normalized_name": "미니돈까스",
+      "display_name": "미니돈까스",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "미니돈까스",
+      "synonyms_ko": [
+        "미니돈까스"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00243",
+      "ingredient_id": 243,
+      "normalized_name": "애호박",
+      "display_name": "애호박",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "애호박",
+      "synonyms_ko": [
+        "애호박"
+      ],
+      "search_en": [
+        "zucchini"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00246",
+      "ingredient_id": 246,
+      "normalized_name": "맛간장(진간장)",
+      "display_name": "맛간장(진간장)",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "맛간장",
+      "synonyms_ko": [
+        "맛간장(진간장)",
+        "맛간장"
+      ],
+      "search_en": [
+        "seasoned soy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00250",
+      "ingredient_id": 250,
+      "normalized_name": "소고기",
+      "display_name": "소고기",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기",
+      "synonyms_ko": [
+        "소고기"
+      ],
+      "search_en": [
+        "beef",
+        "raw beef"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00257",
+      "ingredient_id": 257,
+      "normalized_name": "다진돼지고기",
+      "display_name": "다진돼지고기",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "돼지고기",
+      "synonyms_ko": [
+        "다진돼지고기",
+        "돼지고기"
+      ],
+      "search_en": [
+        "minced pork",
+        "pork"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00261",
+      "ingredient_id": 261,
+      "normalized_name": "상추",
+      "display_name": "상추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "상추",
+      "synonyms_ko": [
+        "상추"
+      ],
+      "search_en": [
+        "lettuce",
+        "green leaf lettuce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00263",
+      "ingredient_id": 263,
+      "normalized_name": "케일",
+      "display_name": "케일",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "케일",
+      "synonyms_ko": [
+        "케일"
+      ],
+      "search_en": [
+        "kale"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00264",
+      "ingredient_id": 264,
+      "normalized_name": "섬초",
+      "display_name": "섬초",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "섬초",
+      "synonyms_ko": [
+        "섬초"
+      ],
+      "search_en": [
+        "seaweed vegetable"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00265",
+      "ingredient_id": 265,
+      "normalized_name": "찰보리고추장",
+      "display_name": "찰보리고추장",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "찰보리고추장",
+      "synonyms_ko": [
+        "찰보리고추장"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00268",
+      "ingredient_id": 268,
+      "normalized_name": "봄동",
+      "display_name": "봄동",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "봄동",
+      "synonyms_ko": [
+        "봄동"
+      ],
+      "search_en": [
+        "baby bok choy",
+        "spring cabbage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00270",
+      "ingredient_id": 270,
+      "normalized_name": "아스파라거스",
+      "display_name": "아스파라거스",
+      "category_suggestion": "채소",
+      "train_image_count": 48,
+      "visual_base_ko": "아스파라거스",
+      "synonyms_ko": [
+        "아스파라거스"
+      ],
+      "search_en": [
+        "asparagus"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00273",
+      "ingredient_id": 273,
+      "normalized_name": "달래",
+      "display_name": "달래",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "달래",
+      "synonyms_ko": [
+        "달래"
+      ],
+      "search_en": [
+        "wild chive"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00275",
+      "ingredient_id": 275,
+      "normalized_name": "꼬막",
+      "display_name": "꼬막",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "꼬막",
+      "synonyms_ko": [
+        "꼬막"
+      ],
+      "search_en": [
+        "blood cockle"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00277",
+      "ingredient_id": 277,
+      "normalized_name": "생강즙",
+      "display_name": "생강즙",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "생강즙",
+      "synonyms_ko": [
+        "생강즙"
+      ],
+      "search_en": [
+        "ginger juice"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00279",
+      "ingredient_id": 279,
+      "normalized_name": "다진부추",
+      "display_name": "다진부추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "부추",
+      "synonyms_ko": [
+        "다진부추",
+        "부추"
+      ],
+      "search_en": [
+        "garlic chives"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00282",
+      "ingredient_id": 282,
+      "normalized_name": "아몬드",
+      "display_name": "아몬드",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "아몬드",
+      "synonyms_ko": [
+        "아몬드"
+      ],
+      "search_en": [
+        "almond"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00283",
+      "ingredient_id": 283,
+      "normalized_name": "호두",
+      "display_name": "호두",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "호두",
+      "synonyms_ko": [
+        "호두"
+      ],
+      "search_en": [
+        "walnut"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00286",
+      "ingredient_id": 286,
+      "normalized_name": "요리당",
+      "display_name": "요리당",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "요리당",
+      "synonyms_ko": [
+        "요리당"
+      ],
+      "search_en": [
+        "cooking syrup",
+        "oligodang"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00293",
+      "ingredient_id": 293,
+      "normalized_name": "미나리",
+      "display_name": "미나리",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "미나리",
+      "synonyms_ko": [
+        "미나리"
+      ],
+      "search_en": [
+        "water dropwort",
+        "minari"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00300",
+      "ingredient_id": 300,
+      "normalized_name": "마른청양고추",
+      "display_name": "마른청양고추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "마른청양고추",
+      "synonyms_ko": [
+        "마른청양고추"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00302",
+      "ingredient_id": 302,
+      "normalized_name": "다진호박",
+      "display_name": "다진호박",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "호박",
+      "synonyms_ko": [
+        "다진호박",
+        "호박"
+      ],
+      "search_en": [
+        "zucchini",
+        "squash"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00306",
+      "ingredient_id": 306,
+      "normalized_name": "어린잎",
+      "display_name": "어린잎",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "어린잎",
+      "synonyms_ko": [
+        "어린잎"
+      ],
+      "search_en": [
+        "microgreens",
+        "baby greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00310",
+      "ingredient_id": 310,
+      "normalized_name": "국거리소고기",
+      "display_name": "국거리소고기",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "국거리소고기",
+      "synonyms_ko": [
+        "국거리소고기"
+      ],
+      "search_en": [
+        "beef for soup",
+        "stew beef"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00311",
+      "ingredient_id": 311,
+      "normalized_name": "김밥김",
+      "display_name": "김밥김",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "김밥김",
+      "synonyms_ko": [
+        "김밥김"
+      ],
+      "search_en": [
+        "nori sheet",
+        "gimbap seaweed"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00313",
+      "ingredient_id": 313,
+      "normalized_name": "밥새우",
+      "display_name": "밥새우",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "밥새우",
+      "synonyms_ko": [
+        "밥새우"
+      ],
+      "search_en": [
+        "dried shrimp"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00315",
+      "ingredient_id": 315,
+      "normalized_name": "시래기",
+      "display_name": "시래기",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "시래기",
+      "synonyms_ko": [
+        "시래기"
+      ],
+      "search_en": [
+        "dried radish greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00321",
+      "ingredient_id": 321,
+      "normalized_name": "부침가루(밀가루)",
+      "display_name": "부침가루(밀가루)",
+      "category_suggestion": "곡류",
+      "train_image_count": 0,
+      "visual_base_ko": "부침가루",
+      "synonyms_ko": [
+        "부침가루(밀가루)",
+        "부침가루"
+      ],
+      "search_en": [
+        "Korean frying mix"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00322",
+      "ingredient_id": 322,
+      "normalized_name": "오징어채",
+      "display_name": "오징어채",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "오징어채",
+      "synonyms_ko": [
+        "오징어채"
+      ],
+      "search_en": [
+        "dried shredded squid"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00325",
+      "ingredient_id": 325,
+      "normalized_name": "우엉",
+      "display_name": "우엉",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "우엉",
+      "synonyms_ko": [
+        "우엉"
+      ],
+      "search_en": [
+        "burdock root"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00327",
+      "ingredient_id": 327,
+      "normalized_name": "감자전분",
+      "display_name": "감자전분",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "감자전분",
+      "synonyms_ko": [
+        "감자전분"
+      ],
+      "search_en": [
+        "potato starch"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00329",
+      "ingredient_id": 329,
+      "normalized_name": "시판네모유부",
+      "display_name": "시판네모유부",
+      "category_suggestion": "곡류",
+      "train_image_count": 0,
+      "visual_base_ko": "시판네모유부",
+      "synonyms_ko": [
+        "시판네모유부"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00330",
+      "ingredient_id": 330,
+      "normalized_name": "맛간장",
+      "display_name": "맛간장",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "맛간장",
+      "synonyms_ko": [
+        "맛간장"
+      ],
+      "search_en": [
+        "seasoned soy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00332",
+      "ingredient_id": 332,
+      "normalized_name": "스위트콘",
+      "display_name": "스위트콘",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "스위트콘",
+      "synonyms_ko": [
+        "스위트콘"
+      ],
+      "search_en": [
+        "sweet corn",
+        "corn kernels"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00333",
+      "ingredient_id": 333,
+      "normalized_name": "소고기다짐육+돼지고기다짐육",
+      "display_name": "소고기다짐육+돼지고기다짐육",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기다짐육+돼지고기다짐육",
+      "synonyms_ko": [
+        "소고기다짐육+돼지고기다짐육"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00334",
+      "ingredient_id": 334,
+      "normalized_name": "요리술",
+      "display_name": "요리술",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "요리술",
+      "synonyms_ko": [
+        "요리술"
+      ],
+      "search_en": [
+        "cooking sake"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00337",
+      "ingredient_id": 337,
+      "normalized_name": "데칠때생강술",
+      "display_name": "데칠때생강술",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "데칠때생강술",
+      "synonyms_ko": [
+        "데칠때생강술"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00343",
+      "ingredient_id": 343,
+      "normalized_name": "꿀/물엿",
+      "display_name": "꿀/물엿",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "꿀/물엿",
+      "synonyms_ko": [
+        "꿀/물엿",
+        "꿀",
+        "물엿"
+      ],
+      "search_en": [
+        "honey"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00344",
+      "ingredient_id": 344,
+      "normalized_name": "국간장(조선간장)",
+      "display_name": "국간장(조선간장)",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "국간장",
+      "synonyms_ko": [
+        "국간장(조선간장)",
+        "국간장"
+      ],
+      "search_en": [
+        "Korean soup soy sauce",
+        "guk ganjang"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00346",
+      "ingredient_id": 346,
+      "normalized_name": "다진애호박",
+      "display_name": "다진애호박",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "애호박",
+      "synonyms_ko": [
+        "다진애호박",
+        "애호박"
+      ],
+      "search_en": [
+        "zucchini"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00349",
+      "ingredient_id": 349,
+      "normalized_name": "소고기다짐육",
+      "display_name": "소고기다짐육",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기다짐육",
+      "synonyms_ko": [
+        "소고기다짐육"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00350",
+      "ingredient_id": 350,
+      "normalized_name": "생강술",
+      "display_name": "생강술",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "생강술",
+      "synonyms_ko": [
+        "생강술"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00351",
+      "ingredient_id": 351,
+      "normalized_name": "배즙",
+      "display_name": "배즙",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "배즙",
+      "synonyms_ko": [
+        "배즙"
+      ],
+      "search_en": [
+        "pear juice"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00358",
+      "ingredient_id": 358,
+      "normalized_name": "대패삼겹살",
+      "display_name": "대패삼겹살",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "대패삼겹살",
+      "synonyms_ko": [
+        "대패삼겹살"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00361",
+      "ingredient_id": 361,
+      "normalized_name": "소주",
+      "display_name": "소주",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "소주",
+      "synonyms_ko": [
+        "소주"
+      ],
+      "search_en": [
+        "soju"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00365",
+      "ingredient_id": 365,
+      "normalized_name": "잣",
+      "display_name": "잣",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "잣",
+      "synonyms_ko": [
+        "잣"
+      ],
+      "search_en": [
+        "pine nut"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00368",
+      "ingredient_id": 368,
+      "normalized_name": "다진쪽파",
+      "display_name": "다진쪽파",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "쪽파",
+      "synonyms_ko": [
+        "다진쪽파",
+        "쪽파"
+      ],
+      "search_en": [
+        "chives"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00370",
+      "ingredient_id": 370,
+      "normalized_name": "황태",
+      "display_name": "황태",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "황태",
+      "synonyms_ko": [
+        "황태"
+      ],
+      "search_en": [
+        "dried pollack"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00371",
+      "ingredient_id": 371,
+      "normalized_name": "술",
+      "display_name": "술",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "술",
+      "synonyms_ko": [
+        "술"
+      ],
+      "search_en": [
+        "alcohol",
+        "soju bottle"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00372",
+      "ingredient_id": 372,
+      "normalized_name": "소고기불고기용",
+      "display_name": "소고기불고기용",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기불고기용",
+      "synonyms_ko": [
+        "소고기불고기용"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00373",
+      "ingredient_id": 373,
+      "normalized_name": "들깻가루",
+      "display_name": "들깻가루",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "들깻가루",
+      "synonyms_ko": [
+        "들깻가루"
+      ],
+      "search_en": [
+        "perilla powder"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00385",
+      "ingredient_id": 385,
+      "normalized_name": "아기간장",
+      "display_name": "아기간장",
+      "category_suggestion": "소스",
+      "train_image_count": 0,
+      "visual_base_ko": "아기간장",
+      "synonyms_ko": [
+        "아기간장"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00387",
+      "ingredient_id": 387,
+      "normalized_name": "깨간것",
+      "display_name": "깨간것",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "깨간것",
+      "synonyms_ko": [
+        "깨간것"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00390",
+      "ingredient_id": 390,
+      "normalized_name": "마른김",
+      "display_name": "마른김",
+      "category_suggestion": "해산물",
+      "train_image_count": 0,
+      "visual_base_ko": "마른김",
+      "synonyms_ko": [
+        "마른김"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00484",
+      "ingredient_id": 484,
+      "normalized_name": "고구마(대)",
+      "display_name": "고구마(대)",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "고구마",
+      "synonyms_ko": [
+        "고구마(대)",
+        "고구마"
+      ],
+      "search_en": [
+        "sweet potato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00485",
+      "ingredient_id": 485,
+      "normalized_name": "찹쌀가루",
+      "display_name": "찹쌀가루",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "찹쌀가루",
+      "synonyms_ko": [
+        "찹쌀가루"
+      ],
+      "search_en": [
+        "glutinous rice flour"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00498",
+      "ingredient_id": 498,
+      "normalized_name": "와사비",
+      "display_name": "와사비",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "와사비",
+      "synonyms_ko": [
+        "와사비"
+      ],
+      "search_en": [
+        "wasabi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00510",
+      "ingredient_id": 510,
+      "normalized_name": "브로콜리줄기",
+      "display_name": "브로콜리줄기",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "브로콜리줄기",
+      "synonyms_ko": [
+        "브로콜리줄기"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00546",
+      "ingredient_id": 546,
+      "normalized_name": "오리고기",
+      "display_name": "오리고기",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "오리고기",
+      "synonyms_ko": [
+        "오리고기"
+      ],
+      "search_en": [
+        "duck meat"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00556",
+      "ingredient_id": 556,
+      "normalized_name": "게맛살",
+      "display_name": "게맛살",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "게맛살",
+      "synonyms_ko": [
+        "게맛살"
+      ],
+      "search_en": [
+        "imitation crab"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00557",
+      "ingredient_id": 557,
+      "normalized_name": "냉장고속야채",
+      "display_name": "냉장고속야채",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "냉장고속야채",
+      "synonyms_ko": [
+        "냉장고속야채"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00559",
+      "ingredient_id": 559,
+      "normalized_name": "머스터드소스",
+      "display_name": "머스터드소스",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "머스터드소스",
+      "synonyms_ko": [
+        "머스터드소스"
+      ],
+      "search_en": [
+        "mustard sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00567",
+      "ingredient_id": 567,
+      "normalized_name": "캐찹",
+      "display_name": "캐찹",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "캐찹",
+      "synonyms_ko": [
+        "캐찹"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00663",
+      "ingredient_id": 663,
+      "normalized_name": "김장김치",
+      "display_name": "김장김치",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "김장김치",
+      "synonyms_ko": [
+        "김장김치"
+      ],
+      "search_en": [
+        "kimchi",
+        "whole cabbage kimchi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00664",
+      "ingredient_id": 664,
+      "normalized_name": "아삭이고추",
+      "display_name": "아삭이고추",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "아삭이고추",
+      "synonyms_ko": [
+        "아삭이고추"
+      ],
+      "search_en": [
+        "Korean pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00669",
+      "ingredient_id": 669,
+      "normalized_name": "해바라기유",
+      "display_name": "해바라기유",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "해바라기유",
+      "synonyms_ko": [
+        "해바라기유"
+      ],
+      "search_en": [
+        "sunflower oil"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00712",
+      "ingredient_id": 712,
+      "normalized_name": "리챔",
+      "display_name": "리챔",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "리챔",
+      "synonyms_ko": [
+        "리챔"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00713",
+      "ingredient_id": 713,
+      "normalized_name": "묵은지",
+      "display_name": "묵은지",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "묵은지",
+      "synonyms_ko": [
+        "묵은지"
+      ],
+      "search_en": [
+        "aged kimchi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00853",
+      "ingredient_id": 853,
+      "normalized_name": "다진당근",
+      "display_name": "다진당근",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "당근",
+      "synonyms_ko": [
+        "다진당근",
+        "당근"
+      ],
+      "search_en": [
+        "carrot"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00864",
+      "ingredient_id": 864,
+      "normalized_name": "어른치즈",
+      "display_name": "어른치즈",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "어른치즈",
+      "synonyms_ko": [
+        "어른치즈"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00865",
+      "ingredient_id": 865,
+      "normalized_name": "방울토마토",
+      "display_name": "방울토마토",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "방울토마토",
+      "synonyms_ko": [
+        "방울토마토"
+      ],
+      "search_en": [
+        "cherry tomato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00866",
+      "ingredient_id": 866,
+      "normalized_name": "꼬챙이",
+      "display_name": "꼬챙이",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "꼬챙이",
+      "synonyms_ko": [
+        "꼬챙이"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00895",
+      "ingredient_id": 895,
+      "normalized_name": "고구마중간사이즈",
+      "display_name": "고구마중간사이즈",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "고구마중간사이즈",
+      "synonyms_ko": [
+        "고구마중간사이즈"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00896",
+      "ingredient_id": 896,
+      "normalized_name": "체더치즈",
+      "display_name": "체더치즈",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "체더치즈",
+      "synonyms_ko": [
+        "체더치즈"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00947",
+      "ingredient_id": 947,
+      "normalized_name": "햇마늘",
+      "display_name": "햇마늘",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "햇마늘",
+      "synonyms_ko": [
+        "햇마늘"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00948",
+      "ingredient_id": 948,
+      "normalized_name": "뉴슈가",
+      "display_name": "뉴슈가",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "뉴슈가",
+      "synonyms_ko": [
+        "뉴슈가"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00949",
+      "ingredient_id": 949,
+      "normalized_name": "냉동청양고추",
+      "display_name": "냉동청양고추",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "냉동청양고추",
+      "synonyms_ko": [
+        "냉동청양고추"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00950",
+      "ingredient_id": 950,
+      "normalized_name": "냉동홍고추",
+      "display_name": "냉동홍고추",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "냉동홍고추",
+      "synonyms_ko": [
+        "냉동홍고추"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00951",
+      "ingredient_id": 951,
+      "normalized_name": "새우젓",
+      "display_name": "새우젓",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "새우젓",
+      "synonyms_ko": [
+        "새우젓"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00952",
+      "ingredient_id": 952,
+      "normalized_name": "양파즙",
+      "display_name": "양파즙",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "양파즙",
+      "synonyms_ko": [
+        "양파즙"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01125",
+      "ingredient_id": 1125,
+      "normalized_name": "냉장햄",
+      "display_name": "냉장햄",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "냉장햄",
+      "synonyms_ko": [
+        "냉장햄"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01126",
+      "ingredient_id": 1126,
+      "normalized_name": "통조림햄",
+      "display_name": "통조림햄",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "통조림햄",
+      "synonyms_ko": [
+        "통조림햄"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01129",
+      "ingredient_id": 1129,
+      "normalized_name": "새송이버섯",
+      "display_name": "새송이버섯",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "새송이버섯",
+      "synonyms_ko": [
+        "새송이버섯"
+      ],
+      "search_en": [
+        "king oyster mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01131",
+      "ingredient_id": 1131,
+      "normalized_name": "집간장",
+      "display_name": "집간장",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "간장",
+      "synonyms_ko": [
+        "집간장",
+        "간장"
+      ],
+      "search_en": [
+        "soy sauce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01171",
+      "ingredient_id": 1171,
+      "normalized_name": "쌀부침가루",
+      "display_name": "쌀부침가루",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "쌀부침가루",
+      "synonyms_ko": [
+        "쌀부침가루"
+      ],
+      "search_en": [
+        "Korean pancake mix"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01172",
+      "ingredient_id": 1172,
+      "normalized_name": "부침유",
+      "display_name": "부침유",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "부침유",
+      "synonyms_ko": [
+        "부침유"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01188",
+      "ingredient_id": 1188,
+      "normalized_name": "통조림참치",
+      "display_name": "통조림참치",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "통조림참치",
+      "synonyms_ko": [
+        "통조림참치"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01189",
+      "ingredient_id": 1189,
+      "normalized_name": "파프리카색깔별로",
+      "display_name": "파프리카색깔별로",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "파프리카색깔별로",
+      "synonyms_ko": [
+        "파프리카색깔별로"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01190",
+      "ingredient_id": 1190,
+      "normalized_name": "케챱",
+      "display_name": "케챱",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "케챱",
+      "synonyms_ko": [
+        "케챱"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01234",
+      "ingredient_id": 1234,
+      "normalized_name": "쯔유",
+      "display_name": "쯔유",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "쯔유",
+      "synonyms_ko": [
+        "쯔유"
+      ],
+      "search_en": [
+        "tsuyu",
+        "dashi soy"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01267",
+      "ingredient_id": 1267,
+      "normalized_name": "간깨",
+      "display_name": "간깨",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "간깨",
+      "synonyms_ko": [
+        "간깨"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01275",
+      "ingredient_id": 1275,
+      "normalized_name": "캔햄",
+      "display_name": "캔햄",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "캔햄",
+      "synonyms_ko": [
+        "캔햄"
+      ],
+      "search_en": [
+        "canned ham"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01378",
+      "ingredient_id": 1378,
+      "normalized_name": "멸치다시마육수",
+      "display_name": "멸치다시마육수",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "멸치다시마육수",
+      "synonyms_ko": [
+        "멸치다시마육수"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01389",
+      "ingredient_id": 1389,
+      "normalized_name": "채썬당근",
+      "display_name": "채썬당근",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "채썬당근",
+      "synonyms_ko": [
+        "채썬당근"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01390",
+      "ingredient_id": 1390,
+      "normalized_name": "슬라이스햄",
+      "display_name": "슬라이스햄",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "슬라이스햄",
+      "synonyms_ko": [
+        "슬라이스햄"
+      ],
+      "search_en": [
+        "sliced ham"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01391",
+      "ingredient_id": 1391,
+      "normalized_name": "소세지",
+      "display_name": "소세지",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "소세지",
+      "synonyms_ko": [
+        "소세지"
+      ],
+      "search_en": [
+        "sausage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01439",
+      "ingredient_id": 1439,
+      "normalized_name": "꽁치통조림",
+      "display_name": "꽁치통조림",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "꽁치통조림",
+      "synonyms_ko": [
+        "꽁치통조림"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01440",
+      "ingredient_id": 1440,
+      "normalized_name": "신김치",
+      "display_name": "신김치",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "신김치",
+      "synonyms_ko": [
+        "신김치"
+      ],
+      "search_en": [
+        "fresh kimchi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01441",
+      "ingredient_id": 1441,
+      "normalized_name": "김치국물",
+      "display_name": "김치국물",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "김치국물",
+      "synonyms_ko": [
+        "김치국물"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01475",
+      "ingredient_id": 1475,
+      "normalized_name": "마른새우(꽃새우)",
+      "display_name": "마른새우(꽃새우)",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "마른새우",
+      "synonyms_ko": [
+        "마른새우(꽃새우)",
+        "마른새우"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01476",
+      "ingredient_id": 1476,
+      "normalized_name": "조림간장",
+      "display_name": "조림간장",
+      "category_suggestion": "기타",
+      "train_image_count": 0,
+      "visual_base_ko": "조림간장",
+      "synonyms_ko": [
+        "조림간장"
+      ],
+      "search_en": [
+        "braising soy sauce"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI
 from app.api.routes.health import router as health_router
 from app.api.internal.visionInternalApi import router as vision_internal_router

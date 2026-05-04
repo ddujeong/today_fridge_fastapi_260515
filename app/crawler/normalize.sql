@@ -12,9 +12,6 @@
 -- 8) 잘못 과통합된 '장' 복구: normalized_name='장'이면 canonical_name 기반으로 재생성
 -- 9) 과통합 방지: 결과가 '장'/'파'/'가루'이면 원형 유지
 
--- 레시피 개수 : SELECT COUNT(*) FROM today_fridge.recipe;
--- 재료 개수 : SELECT COUNT(*) FROM today_fridge.ingredient_master;
-
 BEGIN;
 
 -- Drop temporary tables if they exist from previous runs
