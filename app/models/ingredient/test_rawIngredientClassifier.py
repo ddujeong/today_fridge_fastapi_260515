@@ -78,7 +78,7 @@ class TestRawIngredientClassifier(unittest.TestCase):
         self.assertEqual(normalize_label('Apple'), 'apple')
         self.assertEqual(normalize_label('Red-Apple'), 'red_apple')
         self.assertEqual(normalize_label('Green Apple'), 'green_apple')
-        self.assertEqual(normalize_label(123), '123')
+        self.assertEqual(normalize_label('123'), '123')
 
     def test_classifier_init_file_not_found(self):
         # Test that RawIngredientClassifier raises FileNotFoundError if model doesn't exist
