@@ -31,3 +31,4 @@ httpx
 ddgs
 psycopg2-binary
 numpy
+bs4

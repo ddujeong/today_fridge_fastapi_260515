@@ -1,0 +1,17 @@
+name: Local Config
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Qwen2.5 Coder 32B 16K
+    provider: ollama
+    model: qwen2.5-coder:32b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      contextLength: 16384
+      maxTokens: 2048
+      temperature: 0.1
