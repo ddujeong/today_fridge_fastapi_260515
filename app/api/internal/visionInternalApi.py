@@ -38,6 +38,8 @@ from fastapi import APIRouter, File, Form, Header, HTTPException, UploadFile
 
 from app.models.img2class.ingredientRouteClassifier import IngredientRouteClassifier
 from app.models.ocr.packagedFoodOcr import recognize_packaged_food_image
+from app.services.vision_anomaly import build_anomaly_analysis
+from app.services.vision_dl_anomaly import compute_dl_anomaly_analysis
 
 router = APIRouter(prefix="/internal/v1", tags=["internal-vision"])
 
@@ -482,6 +484,17 @@ async def recognize_ingredient_image(
         # 후보가 없으면 Spring Boot가 사용자 수동 입력/확인을 유도할 수 있게 needsReview를 true로 둔다.
         needs_review = route_needs_review or len(candidates) == 0
 
+        dl_analysis = compute_dl_anomaly_analysis(temp_path)
+        anomaly_analysis = build_anomaly_analysis(
+            route=route,
+            route_confidence=route_confidence,
+            route_needs_review=route_needs_review,
+            candidates=candidates,
+            pipeline_stage=pipeline_stage,
+            needs_review=needs_review,
+            dl_analysis=dl_analysis,
+        )
+
         return common_success(
             code="OK",
             message="recognized",
@@ -504,6 +517,7 @@ async def recognize_ingredient_image(
                     "effectiveTopK": effective_top_k,
                 },
                 "needsReview": needs_review,
+                "anomalyAnalysis": anomaly_analysis,
             },
         )
 
