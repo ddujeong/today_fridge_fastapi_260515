@@ -14,7 +14,7 @@ class OllamaService:
                 "prompt": prompt,
                 "stream": False,
             },
-            timeout=60,
+            timeout=120,
         )
         response.raise_for_status()
         return response.json().get("response", "").strip()

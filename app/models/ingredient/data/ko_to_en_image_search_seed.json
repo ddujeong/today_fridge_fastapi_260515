@@ -2,6 +2,13 @@
   "schema": "ko_to_en_image_search_seed_v1",
   "description": "한글 재료/동의어 → 영문 이미지 검색어(복수). export_ingredient_image_alias_template.py 가 참고한다. 팀이 자유롭게 추가·수정.",
   "map": {
+    "알배추": [
+      "young napa cabbage",
+      "small napa cabbage",
+      "baby napa cabbage",
+      "Korean napa cabbage young",
+      "napa cabbage seedling"
+    ],
     "알배추잎": ["napa cabbage leaf", "cabbage leaf"],
     "가루": ["flour", "powder ingredient"],
     "물": ["water glass", "bottled water"],
@@ -37,6 +44,12 @@
     "굴소스": ["oyster sauce"],
     "검은깨": ["black sesame seeds"],
     "무": ["daikon", "white radish"],
+    "천수무": [
+      "Cheonso radish",
+      "Korean radish Cheonso variety",
+      "white Korean radish Cheonso mu",
+      "Korean winter radish Cheonso"
+    ],
     "참치액": ["tuna extract"],
     "고추": ["chili pepper", "Korean chili"],
     "버터": ["butter"],
@@ -143,6 +156,7 @@
     "햄": ["ham"],
     "청양고추": ["green chili"],
     "호박": ["zucchini", "squash"],
+    "완두콩": ["green peas", "garden peas", "peas vegetable"],
     "어린잎": ["microgreens", "baby greens"],
     "생수": ["bottled water"],
     "국거리소고기": ["beef for soup", "stew beef"],

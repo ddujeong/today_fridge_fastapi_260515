@@ -29,3 +29,5 @@ google-generativeai
 pytest
 httpx
 ddgs
+psycopg2-binary
+numpy

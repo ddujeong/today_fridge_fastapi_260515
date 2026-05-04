@@ -97,6 +97,9 @@ def make_request_id(x_request_id: Optional[str]) -> str:
     return f"req_{now}_{uuid.uuid4().hex[:8]}"
 
 
+_ALLOWED_INTERNAL_SERVICES = frozenset({"spring-boot", "spring-backend"})
+
+
 def verify_internal_call(
     *,
     x_internal_service: Optional[str],
@@ -111,24 +114,28 @@ def verify_internal_call(
 
     팀 공유/배포 환경에서는 반드시:
         export INTERNAL_API_TOKEN="..."
+        (운영에서는 INTERNAL_API_STRICT=true 권장 — 토큰 미설정 시 기본값 사용 안 함)
     """
+    strict = os.getenv("INTERNAL_API_STRICT", "false").lower() == "true"
     expected_token = os.getenv("INTERNAL_API_TOKEN")
 
     if not expected_token:
         allow_no_token = os.getenv("INTERNAL_API_ALLOW_NO_TOKEN", "false").lower() == "true"
         if allow_no_token:
             return
+        if strict:
+            raise HTTPException(
+                status_code=500,
+                detail=common_error(
+                    code="MODEL_UNAVAILABLE",
+                    message="INTERNAL_API_TOKEN is not configured",
+                    request_id=request_id,
+                ),
+            )
+        # Spring application.yml 기본 app.fastapi.service-key 와 맞춤 (로컬 bootRun)
+        expected_token = "change-me"
 
-        raise HTTPException(
-            status_code=500,
-            detail=common_error(
-                code="MODEL_UNAVAILABLE",
-                message="INTERNAL_API_TOKEN is not configured",
-                request_id=request_id,
-            ),
-        )
-
-    if x_internal_service != "spring-boot":
+    if x_internal_service not in _ALLOWED_INTERNAL_SERVICES:
         raise HTTPException(
             status_code=403,
             detail=common_error(
@@ -138,7 +145,7 @@ def verify_internal_call(
                 errors=[
                     {
                         "field": "X-Internal-Service",
-                        "reason": "must be spring-boot",
+                        "reason": "must be spring-boot or spring-backend",
                     }
                 ],
             ),
@@ -339,6 +346,9 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
             out["ingredientMasterId"] = int(imid)
         except (TypeError, ValueError):
             pass
+    ml = item.get("modelLabel", item.get("model_label"))
+    if ml is not None and str(ml).strip():
+        out["modelLabel"] = str(ml).strip()
     return out
 
 

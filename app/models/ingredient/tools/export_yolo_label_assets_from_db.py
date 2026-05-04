@@ -97,14 +97,16 @@ def write_outputs(
     rows: Sequence[Tuple[int, str, str, str]],
     key_width: int,
     source_note: str,
+    label_map_filename: str = "model_label_to_master.json",
+    vocab_filename: str = "ingredient_normalized_vocab.json",
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     names_sorted = sorted({r[1] for r in rows})
     labels = build_label_map(rows, key_width=key_width)
 
-    map_path = out_dir / "model_label_to_master.json"
-    vocab_path = out_dir / "ingredient_normalized_vocab.json"
+    map_path = out_dir / label_map_filename
+    vocab_path = out_dir / vocab_filename
 
     now = datetime.now(timezone.utc).isoformat()
 
@@ -179,6 +181,27 @@ def main() -> None:
         default=5,
         help="Zero-pad width for ing_XXXXX (default 5)",
     )
+    parser.add_argument(
+        "--ingredient-ids",
+        default="",
+        help="comma-separated ingredient_id values; if set, export only these rows (order preserved)",
+    )
+    parser.add_argument(
+        "--manifest-json",
+        type=Path,
+        default=None,
+        help="ingredient_non_packaged_allowlist_resolved.json — export ids from resolutions (skips null)",
+    )
+    parser.add_argument(
+        "--label-map-filename",
+        default="model_label_to_master.json",
+        help="output label map JSON filename under --out-dir",
+    )
+    parser.add_argument(
+        "--vocab-filename",
+        default="ingredient_normalized_vocab.json",
+        help="output vocab JSON filename under --out-dir",
+    )
     args = parser.parse_args()
 
     db_url = resolve_db_url(args.db_url)
@@ -187,10 +210,36 @@ def main() -> None:
 
     source_note = re.sub(r":([^:@/]+)@", r":***@", db_url)
 
+    id_filter: Optional[List[int]] = None
+    if args.manifest_json and args.manifest_json.is_file():
+        doc = json.loads(args.manifest_json.read_text(encoding="utf-8"))
+        id_filter = []
+        for r in doc.get("resolutions") or []:
+            iid = r.get("ingredientId")
+            if iid is not None:
+                id_filter.append(int(iid))
+        _ordered: List[int] = []
+        _seen_ids: set[int] = set()
+        for x in id_filter:
+            if x not in _seen_ids:
+                _seen_ids.add(x)
+                _ordered.append(x)
+        id_filter = _ordered
+    elif str(args.ingredient_ids).strip():
+        id_filter = [int(x.strip()) for x in str(args.ingredient_ids).split(",") if x.strip()]
+
     with psycopg.connect(db_url) as conn:
         with conn.cursor() as cur:
             cur.execute(f'SET search_path TO "{args.schema}"')
         rows = fetch_rows(conn, schema=args.schema, active_only=args.active_only)
+
+    if id_filter is not None:
+        want = set(id_filter)
+        rows = [row for row in rows if row[0] in want]
+        # preserve manifest order when manifest provided
+        if args.manifest_json and args.manifest_json.is_file():
+            pos = {iid: idx for idx, iid in enumerate(id_filter)}
+            rows = sorted(rows, key=lambda r: pos.get(r[0], 999999))
 
     if not rows:
         raise SystemExit(f"No rows returned from {args.schema}.ingredient_master (check schema / DB URL).")
@@ -200,6 +249,8 @@ def main() -> None:
         rows=rows,
         key_width=max(3, int(args.key_width)),
         source_note=f"postgresql {args.schema}.ingredient_master export ({source_note})",
+        label_map_filename=args.label_map_filename,
+        vocab_filename=args.vocab_filename,
     )
 
     example_key = model_key_for_ingredient_id(1, width=max(3, int(args.key_width)))

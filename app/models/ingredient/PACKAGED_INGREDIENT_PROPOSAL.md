@@ -32,3 +32,11 @@
    `python app/models/ingredient/tools/fetch_ingredient_images_web.py --apply-packaged-exclude`
 
 검토 후 `proposed_packaged` 배열에서 항목을 빼거나 옮기고, 필요하면 `gen_packaged_ingredient_proposal.py`의 `EXTRA` / `BORDERLINE` 집합을 조정해 재생성한다.
+
+## 레시피 적재·정규화와 `ingredient_master`
+
+`app/crawler/import_recipe_csvs_to_postgres_v3.py` → `del_deduplicated_recipes.py` → `normalize.sql` 순으로 돌리거나, **`apply/` 자동 파이프라인**(`n1_import_recipe_csvs_to_postgres_v3.py` → `n2_normalize_aggressive.sql` → `run_n3_normalize_embedding.py`)을 쓰면 **`today_fridge.ingredient_master`가 병합·삭제·갱신**된다. 후자는 특히 공격적 병합 + CSV 승인 쌍 병합이라 로컬 JSON·클래스와 어긋나기 쉽다.
+
+**로컬 작업 기준 DB를 이 파이프라인까지 돌린 상태로 맞출 것**(2026-05-01 기준 팀 워크스페이스에서 `n2`+`n3` 실행됨). 이 문서·`model_label_to_master.json`·YOLO 클래스·웹 수집 제외 목록은 **DB와 따로 놀지 않도록** 재동기화하거나 팀 기준 DB를 사용한다. 절차 요약은 `app/crawler/README.md`를 본다.
+
+**비포장 122클래스 전용 이미지·YOLO 범위**는 `INGREDIENT_ML_TRAINING_SCOPE.md`와 `data/model_label_to_master_train_non_packaged.json`을 본다 (팀 확정 txt 기준; 풀 607행과 별개).

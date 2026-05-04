@@ -24,8 +24,10 @@ raw_ingredient 이미지용 실제 식재료 분류 모듈.
 팀 메모(ingredient_master 동기화 전 보류·후속 도구): cursor_documents/raw_ingredient_ingredient_master_동기화_보류_및_후속.md
 
 런타임 라벨 매핑 (우선순위):
-1) `app/models/ingredient/data/model_label_to_master.json` (있으면 내장 맵과 병합, JSON이 동일 키 덮어씀)
-2) 없거나 키 누락 시 아래 `BUILTIN_LABEL_FALLBACK` (기존 하드코딩 매핑과 동일 역할)
+1) `model_label_to_master.json` (기본 RAW_INGREDIENT_LABEL_MAP_PATH)
+2) 같은 디렉터리의 `model_label_to_master_train_non_packaged.json` 가 있으면 그 위에 병합
+   (122클래스 학습 전용 키가 전체 export에 없을 수 있음 → 한글 표시용)
+3) 내장 `BUILTIN_LABEL_FALLBACK`
 
 어휘 검증(선택): `ingredient_normalized_vocab.json` + RAW_INGREDIENT_ENFORCE_VOCAB
 
@@ -39,6 +41,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
@@ -98,6 +101,15 @@ def normalize_label(label: str) -> str:
     return str(label).strip().lower().replace("-", "_").replace(" ", "_")
 
 
+def canonical_ing_label_key(label: str) -> Optional[str]:
+    """model_label_to_master.json 키는 ing_00001 형태. 모델 names 가 ing_2043 처럼 오면 패딩 키로 재조회."""
+    nl = normalize_label(label)
+    m = re.fullmatch(r"ing_(\d+)", nl, flags=re.IGNORECASE)
+    if not m:
+        return None
+    return f"ing_{int(m.group(1)):05d}"
+
+
 def _load_json_labels(path: Path) -> Dict[str, Dict[str, str]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     raw = data.get("labels", {})
@@ -136,6 +148,10 @@ def get_label_map() -> Dict[str, Dict[str, str]]:
     if path.exists():
         file_labels = _load_json_labels(path)
         merged.update(file_labels)
+
+    train_overlay = _DATA_DIR / "model_label_to_master_train_non_packaged.json"
+    if train_overlay.exists():
+        merged.update(_load_json_labels(train_overlay))
 
     _label_map_cache = merged
     return _label_map_cache
@@ -260,7 +276,17 @@ class RawIngredientClassifier:
         meta = self._label_map.get(key)
         if meta:
             return meta
-        return self._label_map.get(normalize_label(label.replace("__", "_")))
+        alt = normalize_label(label.replace("__", "_"))
+        if alt != key:
+            meta = self._label_map.get(alt)
+            if meta:
+                return meta
+        canon = canonical_ing_label_key(label)
+        if canon:
+            meta = self._label_map.get(canon)
+            if meta:
+                return meta
+        return None
 
     def _topk_candidates(self, probs: Any, names: Any, top_k: int) -> List[RawIngredientCandidate]:
         prob_values = self._prob_values(probs)
@@ -275,9 +301,6 @@ class RawIngredientClassifier:
 
         for class_id, confidence in indexed[:top_k]:
             confidence = float(confidence)
-
-            if confidence < self.confidence_threshold and candidates:
-                continue
 
             label = self._label_from_id(names, class_id)
             meta = self._lookup_meta(label)

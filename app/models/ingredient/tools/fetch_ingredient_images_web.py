@@ -8,8 +8,12 @@ Uses `ingredient_image_search_aliases.json`:
 Writes under ``<out-root>/train/<model_folder>/`` as ``ddgs_*.jpg``.
 
 **Train-only cap** (``--max-per-class``): each ``train/ing_XXX`` holds at most that many images.
-Folders already at or above the cap are skipped (no trimming). Per run, at most
-``--target-per-class`` new images are downloaded per class, capped by remaining room in train.
+Folders already at or above the cap are skipped (no trimming). While downloading a class,
+as soon as the on-disk train count reaches the cap, the loop stops and the next class runs.
+Per run, at most ``--target-per-class`` new images are requested per class, capped by remaining room.
+
+If ``--skip-if-gte`` is 0, it defaults to the same value as ``--max-per-class`` (skip classes
+that already have that many images in train).
 
 Copyright: web images may be restricted; use only per team/license policy.
 
@@ -307,14 +311,14 @@ def main() -> None:
     parser.add_argument(
         "--target-per-class",
         type=int,
-        default=100,
+        default=200,
         help="max new images to fetch per class this run (train only; capped by room under --max-per-class)",
     )
     parser.add_argument(
         "--max-per-class",
         type=int,
-        default=100,
-        help="max images per train folder train/ing_XXX (no trim; folders at/over cap are skipped)",
+        default=200,
+        help="hard ceiling for train/ing_XXX image count; at/above cap skip class; stop mid-class when cap reached",
     )
     parser.add_argument(
         "--ddgs-per-query",
@@ -326,7 +330,7 @@ def main() -> None:
         "--skip-if-gte",
         type=int,
         default=0,
-        help="if a folder already has this many images, skip the class (0 = never skip by this rule)",
+        help="if a folder already has this many images in train, skip the class (0 = use --max-per-class as threshold)",
     )
     parser.add_argument("--max-classes", type=int, default=0, help="0 = all entries in JSON; else cap for testing")
     parser.add_argument("--delay-ddgs", type=float, default=1.25, help="seconds between DDG searches")
@@ -386,6 +390,12 @@ def main() -> None:
         default="",
         help="comma-separated ing_XXXXX; if non-empty, only those classes are processed",
     )
+    parser.add_argument(
+        "--only-folders-file",
+        type=Path,
+        default=None,
+        help="text file: one ing_XXXXX per line (or comma-separated line); merged with --only-folders",
+    )
     args = parser.parse_args()
 
     if args.max_per_class < 1:
@@ -395,6 +405,8 @@ def main() -> None:
         print("--target-per-class must be >= 0", file=sys.stderr)
         sys.exit(2)
     cap = args.max_per_class
+    _skip = args.skip_if_gte if args.skip_if_gte > 0 else cap
+    effective_skip = min(cap, _skip)
 
     if not args.aliases_json.is_file():
         print(f"Missing {args.aliases_json} — run export_ingredient_image_alias_template.py first", file=sys.stderr)
@@ -415,24 +427,61 @@ def main() -> None:
         for e in entries
         if str(e.get("model_folder") or "").startswith("ing_")
     }
-    if packaged_skip:
-        stale = sorted(packaged_skip - alias_folders)
-        if stale:
-            print(
-                json.dumps(
-                    {
-                        "warn": "packaged_exclude_has_stale_folders",
-                        "detail": "IDs not in ingredient_image_search_aliases (e.g. after DB merge). Regen: gen_packaged_ingredient_proposal.py",
-                        "stale": stale,
-                    },
-                    ensure_ascii=False,
-                ),
-                flush=True,
-            )
 
     stats = {"classes": 0, "downloaded": 0, "skipped_class": 0, "failed_queries": 0, "skipped_packaged": 0}
     processed = 0
     only_folders = {x.strip() for x in str(args.only_folders).split(",") if x.strip()}
+    if args.only_folders_file and args.only_folders_file.is_file():
+        for raw in args.only_folders_file.read_text(encoding="utf-8").splitlines():
+            for part in raw.split(","):
+                p = part.strip()
+                if p.startswith("ing_"):
+                    only_folders.add(p)
+
+    explicit_fetch = bool(only_folders)
+    print(
+        json.dumps(
+            {
+                "info": "fetch_config",
+                "out_root": str(args.out_root.resolve()),
+                "cap": cap,
+                "effective_skip": effective_skip,
+                "target_per_class": args.target_per_class,
+                "only_folders": len(only_folders) if only_folders else None,
+            },
+            ensure_ascii=False,
+        ),
+        flush=True,
+    )
+    if packaged_skip:
+        stale = sorted(packaged_skip - alias_folders)
+        if stale:
+            if explicit_fetch:
+                overlap = sorted(packaged_skip & only_folders)
+                print(
+                    json.dumps(
+                        {
+                            "info": "packaged_exclude_vs_subset_aliases",
+                            "detail": "packaged_ingredient_proposal.json lists many IDs that are not rows in this aliases JSON — expected when aliases are the 122-class subset. Those IDs are irrelevant for this run. Classes in --only-folders / --only-folders-file still download (packaged skip overridden for them).",
+                            "packaged_ids_not_in_this_aliases_file": len(stale),
+                            "packaged_skip_also_in_only_folders_overridden": overlap,
+                        },
+                        ensure_ascii=False,
+                    ),
+                    flush=True,
+                )
+            else:
+                print(
+                    json.dumps(
+                        {
+                            "warn": "packaged_exclude_has_stale_folders",
+                            "detail": "IDs in packaged proposal but not in ingredient_image_search_aliases JSON (e.g. after DB merge). Regen: gen_packaged_ingredient_proposal.py",
+                            "stale": stale,
+                        },
+                        ensure_ascii=False,
+                    ),
+                    flush=True,
+                )
 
     for entry in entries:
         folder = str(entry.get("model_folder") or "")
@@ -440,12 +489,25 @@ def main() -> None:
             continue
         if only_folders and folder not in only_folders:
             continue
-        if folder in packaged_skip:
+        if folder in packaged_skip and not (explicit_fetch and folder in only_folders):
             stats["skipped_packaged"] += 1
             stats["skipped_class"] += 1
             continue
         train_live = train_count(args.out_root, folder)
-        if args.skip_if_gte and train_live >= args.skip_if_gte:
+        if train_live >= effective_skip:
+            print(
+                json.dumps(
+                    {
+                        "info": "skip_train_at_threshold",
+                        "folder": folder,
+                        "train_count": train_live,
+                        "effective_skip": effective_skip,
+                        "cap": cap,
+                    },
+                    ensure_ascii=False,
+                ),
+                flush=True,
+            )
             stats["skipped_class"] += 1
             continue
 
@@ -480,10 +542,10 @@ def main() -> None:
         url_queues: Dict[str, Deque[str]] = {q: deque() for q in queries}
         stagnant_waves = 0
 
-        while got < need and stagnant_waves < args.max_stagnant_waves:
+        while got < need and stagnant_waves < args.max_stagnant_waves and train_live < cap:
             wave_saved = 0
             for q in queries:
-                if got >= need:
+                if got >= need or train_live >= cap:
                     break
                 if not url_queues[q]:
                     time.sleep(args.delay_ddgs)
@@ -514,6 +576,8 @@ def main() -> None:
                     train_live += 1
                     stats["downloaded"] += 1
                     wave_saved += 1
+                    if train_live >= cap:
+                        break
             if wave_saved == 0:
                 stagnant_waves += 1
             else:
