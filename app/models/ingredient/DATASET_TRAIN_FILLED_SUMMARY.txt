@@ -1,0 +1,42 @@
+train split — Grocery에서 매칭되어 이미지가 들어간 클래스만 (총 33개, 이미지 1737장)
+
+count	folder		normalized_name
+278	ing_00205		사과
+154	ing_00409		멜론
+127	ing_00033		토마토
+116	ing_00394		배
+112	ing_00161		파프리카
+75	ing_00008		감자
+70	ing_00407		귤
+57	ing_00410		오렌지
+46	ing_00397		키위
+45	ing_00405		바나나
+43	ing_00090		당근
+42	ing_00215		레몬
+41	ing_00395		아보카도
+38	ing_00101		양파
+37	ing_00411		복숭아
+36	ing_00400		천도복숭아
+34	ing_00401		자몽
+32	ing_00403		망고
+31	ing_00402		라임
+30	ing_00089		호박
+28	ing_00404		패션프루트
+28	ing_00032		오이
+26	ing_00408		파인애플
+26	ing_00396		석류
+25	ing_00015		마늘
+23	ing_00127		대파
+22	ing_00399		자두
+22	ing_00239		가지
+21	ing_00406		파파야
+19	ing_00421		생강
+19	ing_00060		양배추
+18	ing_00418		비트
+16	ing_00270		아스파라거스
+
+assemble 로 복사된 split: train / val / test (원본 Grocery split 유지).
+
+242개가 부족한 이유: Grocery는 매장 품목(과일·채소 중심)과 coarse 폴더 매핑이 맞는 것만 들어감. 육류·가공·조미·한국 품목 등은 team_uploads 등으로 보강 필요.
+
+생성: report_ingredient_master_cls_coverage.py + ml_datasets/ingredient_master_cls

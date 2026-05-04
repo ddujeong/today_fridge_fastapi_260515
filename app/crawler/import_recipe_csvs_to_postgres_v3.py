@@ -32,11 +32,18 @@ import ast
 import csv
 import hashlib
 import os
+import sys
 from pathlib import Path
 from typing import Any, Optional
 
 import psycopg
 from psycopg import sql
+
+
+def safe_console_text(value: Any) -> str:
+    text = str(value)
+    encoding = sys.stdout.encoding or "utf-8"
+    return text.encode(encoding, errors="replace").decode(encoding, errors="replace")
 
 
 def parse_args():
@@ -295,9 +302,9 @@ def ensure_unknown_category(conn, meta: DbMeta) -> Optional[Any]:
         return None
 
     try:
-        return insert_dynamic(conn, meta, "ingredient_category", values, pk)
+        with conn.transaction():
+            return insert_dynamic(conn, meta, "ingredient_category", values, pk)
     except psycopg.errors.UniqueViolation:
-        conn.rollback()
         if code_col:
             return select_one_by(conn, meta, "ingredient_category", code_col, "UNKNOWN", pk)
         return None
@@ -392,9 +399,9 @@ def ensure_ingredient_master(conn, meta: DbMeta, normalized_name: str, category_
     # 실제 DB에 DEFAULT now()가 있으면 자동으로 채워진다.
 
     try:
-        return insert_dynamic(conn, meta, "ingredient_master", values, pk)
+        with conn.transaction():
+            return insert_dynamic(conn, meta, "ingredient_master", values, pk)
     except psycopg.errors.UniqueViolation:
-        conn.rollback()
         return select_one_by(conn, meta, "ingredient_master", name_col, normalized_name, pk)
 
 
@@ -650,7 +657,11 @@ def import_files(args):
 
                     except Exception as e:
                         stats["failed"] += 1
-                        print(f"[FAIL] line={line_no} title={title!r} reason={e}")
+                        print(
+                            safe_console_text(
+                                f"[FAIL] line={line_no} title={title!r} reason={e}"
+                            )
+                        )
 
     print("\n[DONE]")
     for k, v in stats.items():

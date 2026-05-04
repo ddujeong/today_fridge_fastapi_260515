@@ -97,6 +97,9 @@ def make_request_id(x_request_id: Optional[str]) -> str:
     return f"req_{now}_{uuid.uuid4().hex[:8]}"
 
 
+_ALLOWED_INTERNAL_SERVICES = frozenset({"spring-boot", "spring-backend"})
+
+
 def verify_internal_call(
     *,
     x_internal_service: Optional[str],
@@ -111,24 +114,28 @@ def verify_internal_call(
 
     팀 공유/배포 환경에서는 반드시:
         export INTERNAL_API_TOKEN="..."
+        (운영에서는 INTERNAL_API_STRICT=true 권장 — 토큰 미설정 시 기본값 사용 안 함)
     """
+    strict = os.getenv("INTERNAL_API_STRICT", "false").lower() == "true"
     expected_token = os.getenv("INTERNAL_API_TOKEN")
 
     if not expected_token:
         allow_no_token = os.getenv("INTERNAL_API_ALLOW_NO_TOKEN", "false").lower() == "true"
         if allow_no_token:
             return
+        if strict:
+            raise HTTPException(
+                status_code=500,
+                detail=common_error(
+                    code="MODEL_UNAVAILABLE",
+                    message="INTERNAL_API_TOKEN is not configured",
+                    request_id=request_id,
+                ),
+            )
+        # Spring application.yml 기본 app.fastapi.service-key 와 맞춤 (로컬 bootRun)
+        expected_token = "change-me"
 
-        raise HTTPException(
-            status_code=500,
-            detail=common_error(
-                code="MODEL_UNAVAILABLE",
-                message="INTERNAL_API_TOKEN is not configured",
-                request_id=request_id,
-            ),
-        )
-
-    if x_internal_service != "spring-boot":
+    if x_internal_service not in _ALLOWED_INTERNAL_SERVICES:
         raise HTTPException(
             status_code=403,
             detail=common_error(
@@ -138,7 +145,7 @@ def verify_internal_call(
                 errors=[
                     {
                         "field": "X-Internal-Service",
-                        "reason": "must be spring-boot",
+                        "reason": "must be spring-boot or spring-backend",
                     }
                 ],
             ),
@@ -222,7 +229,7 @@ def recognize_raw_ingredient_by_classifier(image_path: Path, top_k: int) -> List
 
     아래 함수가 구현되어 있다고 가정한다.
 
-        app.models.ingredient.rawIngredientClassifier.recognizeRawIngredientImage(
+        app.models.ingredient.rawIngredientClassifier.recognize_raw_ingredient_image(
             image_path: str | Path,
             top_k: int = 5,
         ) -> list[dict] | dict | str
@@ -323,7 +330,7 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
     except (TypeError, ValueError):
         confidence = 0.0
 
-    return {
+    out: Dict[str, Any] = {
         "displayName": str(display_name),
         "normalizedName": str(normalized_name),
         "categorySuggestion": item.get("categorySuggestion")
@@ -333,6 +340,16 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
         "confidence": confidence,
         "bbox": item.get("bbox"),
     }
+    imid = item.get("ingredientMasterId", item.get("ingredient_master_id", item.get("ingredientId")))
+    if imid is not None:
+        try:
+            out["ingredientMasterId"] = int(imid)
+        except (TypeError, ValueError):
+            pass
+    ml = item.get("modelLabel", item.get("model_label"))
+    if ml is not None and str(ml).strip():
+        out["modelLabel"] = str(ml).strip()
+    return out
 
 
 @router.get("/system/health")
@@ -343,6 +360,16 @@ def health(
 
     route_model_path = os.getenv("INGREDIENT_ROUTE_MODEL_PATH", DEFAULT_ROUTE_MODEL_PATH)
     route_model_exists = Path(route_model_path).exists()
+
+    raw_model_path = os.getenv("RAW_INGREDIENT_MODEL_PATH", "app/models/ingredient/weights/raw_ingredient_best.pt")
+    raw_vocab_path = os.getenv(
+        "RAW_INGREDIENT_VOCAB_PATH",
+        "app/models/ingredient/data/ingredient_normalized_vocab.json",
+    )
+    raw_label_map_path = os.getenv(
+        "RAW_INGREDIENT_LABEL_MAP_PATH",
+        "app/models/ingredient/data/model_label_to_master.json",
+    )
 
     return common_success(
         code="OK",
@@ -356,8 +383,14 @@ def health(
                 "ingredientRouteModelExists": route_model_exists,
                 "ingredientRouteModelLoaded": _route_classifier is not None,
                 "ingredientRouteModelLoadError": _route_classifier_load_error,
-                "packagedFoodOcrAdapter": "app.models.ocr.packaged_food_ocr.recognize_packaged_food_image",
-                "rawIngredientClassifierAdapter": "app.models.ingredient.rawIngredientClassifier.recognizeRawIngredientImage",
+                "rawIngredientModelPath": raw_model_path,
+                "rawIngredientModelExists": Path(raw_model_path).exists(),
+                "rawIngredientVocabPath": raw_vocab_path,
+                "rawIngredientVocabExists": Path(raw_vocab_path).exists(),
+                "rawIngredientLabelMapPath": raw_label_map_path,
+                "rawIngredientLabelMapExists": Path(raw_label_map_path).exists(),
+                "packagedFoodOcrAdapter": "app.models.ocr.packagedFoodOcr.recognize_packaged_food_image",
+                "rawIngredientClassifierAdapter": "app.models.ingredient.rawIngredientClassifier.recognize_raw_ingredient_image",
             },
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },

@@ -1,0 +1,242 @@
+﻿model_folder,ingredient_id,normalized_name,display_name,category_suggestion,train_count,val_count,test_count,needs_train_images,team_upload_path
+ing_00001,1,알배추잎,알배추잎,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00001/
+ing_00002,2,가루,가루,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00002/
+ing_00003,3,물,물,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00003/
+ing_00005,5,소금,소금,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00005/
+ing_00006,6,무청시래기,무청시래기,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00006/
+ing_00007,7,샤브용 소고기 목살,샤브용 소고기 목살,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00007/
+ing_00009,9,파,파,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00009/
+ing_00010,10,육수,육수,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00010/
+ing_00011,11,국간장,국간장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00011/
+ing_00012,12,참치액젓,참치액젓,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00012/
+ing_00013,13,맛술,맛술,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00013/
+ing_00014,14,들기름,들기름,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00014/
+ing_00016,16,후추,후추,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00016/
+ing_00018,18,고추장,고추장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00018/
+ing_00019,19,된장,된장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00019/
+ing_00020,20,집고추장,집고추장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00020/
+ing_00021,21,설탕,설탕,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00021/
+ing_00022,22,어묵,어묵,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00022/
+ing_00023,23,달걀,달걀,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00023/
+ing_00024,24,다시마,다시마,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00024/
+ing_00025,25,진간장,진간장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00025/
+ing_00027,27,연두부,연두부,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00027/
+ing_00028,28,다진대파 또는 쪽파,다진대파 또는 쪽파,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00028/
+ing_00030,30,간장,간장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00030/
+ing_00031,31,통깨,통깨,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00031/
+ing_00035,35,깨소금,깨소금,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00035/
+ing_00036,36,나물,나물,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00036/
+ing_00037,37,매실청,매실청,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00037/
+ing_00038,38,참기름,참기름,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00038/
+ing_00039,39,밥,밥,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00039/
+ing_00042,42,식용유,식용유,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00042/
+ing_00043,43,굴소스,굴소스,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00043/
+ing_00045,45,검은깨,검은깨,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00045/
+ing_00048,48,무,무,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00048/
+ing_00050,50,참치액,참치액,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00050/
+ing_00052,52,고추,고추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00052/
+ing_00055,55,버터,버터,유제품,0,0,0,Y,data_sources/team_uploads/train/ing_00055/
+ing_00056,56,두부,두부,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00056/
+ing_00059,59,깨,깨,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00059/
+ing_00061,61,치즈,치즈,유제품,0,0,0,Y,data_sources/team_uploads/train/ing_00061/
+ing_00062,62,스리라차소스,스리라차소스,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00062/
+ing_00066,66,소시지,소시지,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00066/
+ing_00067,67,콩나물,콩나물,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00067/
+ing_00070,70,멸치액젓,멸치액젓,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00070/
+ing_00071,71,단무지,단무지,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00071/
+ing_00075,75,청포묵,청포묵,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00075/
+ing_00076,76,김가루,김가루,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00076/
+ing_00078,78,부추,부추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00078/
+ing_00079,79,매운 고추,매운 고추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00079/
+ing_00080,80,식초,식초,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00080/
+ing_00081,81,청경채,청경채,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00081/
+ing_00084,84,매실액,매실액,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00084/
+ing_00086,86,케찹,케찹,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00086/
+ing_00088,88,페퍼론치노,페퍼론치노,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00088/
+ing_00093,93,도토리묵,도토리묵,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00093/
+ing_00094,94,김,김,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00094/
+ing_00098,98,시원한 생수,시원한 생수,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00098/
+ing_00100,100,김치,김치,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00100/
+ing_00102,102,쌀뜨물,쌀뜨물,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00102/
+ing_00103,103,집된장,집된장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00103/
+ing_00104,104,청국장,청국장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00104/
+ing_00106,106,베이컨,베이컨,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00106/
+ing_00108,108,참치,참치,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00108/
+ing_00109,109,라이스페이퍼,라이스페이퍼,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00109/
+ing_00112,112,쌈장,쌈장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00112/
+ing_00113,113,새우,새우,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00113/
+ing_00114,114,마늘쫑,마늘쫑,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00114/
+ing_00115,115,배추,배추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00115/
+ing_00116,116,떡볶이떡,떡볶이떡,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00116/
+ing_00117,117,파슬리,파슬리,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00117/
+ing_00118,118,머스타드,머스타드,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00118/
+ing_00119,119,떡,떡,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00119/
+ing_00122,122,스팸,스팸,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00122/
+ing_00129,129,맛살,맛살,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00129/
+ing_00132,132,마요네즈,마요네즈,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00132/
+ing_00133,133,파슬리가루,파슬리가루,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00133/
+ing_00135,135,들깨,들깨,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00135/
+ing_00136,136,대파 흰부분,대파 흰부분,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00136/
+ing_00137,137,깻잎,깻잎,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00137/
+ing_00138,138,들깨가루,들깨가루,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00138/
+ing_00141,141,미림,미림,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00141/
+ing_00147,147,고구마,고구마,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00147/
+ing_00151,151,까나리액젓,까나리액젓,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00151/
+ing_00152,152,크래미,크래미,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00152/
+ing_00153,153,곤약,곤약,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00153/
+ing_00157,157,햄,햄,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00157/
+ing_00158,158,꽈리고추,꽈리고추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00158/
+ing_00163,163,닭고기,닭고기,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00163/
+ing_00166,166,연겨자,연겨자,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00166/
+ing_00167,167,꿀,꿀,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00167/
+ing_00168,168,진미채,진미채,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00168/
+ing_00169,169,치킨너겟,치킨너겟,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00169/
+ing_00170,170,멸치,멸치,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00170/
+ing_00175,175,차돌박이,차돌박이,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00175/
+ing_00177,177,돼지고기 다짐육,돼지고기 다짐육,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00177/
+ing_00179,179,전분,전분,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00179/
+ing_00180,180,우유,우유,유제품,0,0,0,Y,data_sources/team_uploads/train/ing_00180/
+ing_00181,181,면,면,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00181/
+ing_00185,185,양조간장,양조간장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00185/
+ing_00186,186,작은오징어,작은오징어,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00186/
+ing_00187,187,청양고추나꽈리고추,청양고추나꽈리고추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00187/
+ing_00188,188,생강가루,생강가루,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00188/
+ing_00190,190,브로콜리,브로콜리,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00190/
+ing_00191,191,숙주,숙주,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00191/
+ing_00193,193,홀그레인머스타드,홀그레인머스타드,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00193/
+ing_00196,196,황태채,황태채,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00196/
+ing_00199,199,핫소스,핫소스,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00199/
+ing_00200,200,청주,청주,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00200/
+ing_00201,201,젓갈,젓갈,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00201/
+ing_00206,206,카레,카레,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00206/
+ing_00207,207,비엔나소시지,비엔나소시지,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00207/
+ing_00208,208,깐 메추리알,깐 메추리알,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00208/
+ing_00212,212,청양고추,청양고추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00212/
+ing_00214,214,닭가슴살,닭가슴살,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00214/
+ing_00216,216,견과류,견과류,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00216/
+ing_00218,218,다진소고기,다진소고기,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00218/
+ing_00220,220,범일 고추장,범일 고추장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00220/
+ing_00223,223,참깨,참깨,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00223/
+ing_00232,232,팽이버섯,팽이버섯,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00232/
+ing_00233,233,전분가루,전분가루,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00233/
+ing_00234,234,닭안심,닭안심,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00234/
+ing_00240,240,미니 돈까스,미니 돈까스,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00240/
+ing_00243,243,애호박 다진 것,애호박 다진 것,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00243/
+ing_00245,245,대파 다진 것,대파 다진 것,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00245/
+ing_00246,246,맛간장(진간장),맛간장(진간장),소스,0,0,0,Y,data_sources/team_uploads/train/ing_00246/
+ing_00248,248,브로콜리 데친 것,브로콜리 데친 것,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00248/
+ing_00250,250,소고기,소고기,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00250/
+ing_00257,257,다진돼지고기,다진돼지고기,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00257/
+ing_00261,261,상추,상추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00261/
+ing_00263,263,케일,케일,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00263/
+ing_00264,264,섬초,섬초,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00264/
+ing_00265,265,찰보리 고추장,찰보리 고추장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00265/
+ing_00268,268,봄동,봄동,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00268/
+ing_00273,273,달래,달래,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00273/
+ing_00275,275,꼬막,꼬막,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00275/
+ing_00277,277,생강즙,생강즙,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00277/
+ing_00279,279,다진 부추,다진 부추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00279/
+ing_00282,282,아몬드,아몬드,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00282/
+ing_00283,283,호두,호두,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00283/
+ing_00286,286,요리당,요리당,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00286/
+ing_00291,291,단단한 두부,단단한 두부,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00291/
+ing_00293,293,미나리,미나리,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00293/
+ing_00295,295,채썬 햄,채썬 햄,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00295/
+ing_00300,300,마른 청양고추,마른 청양고추,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00300/
+ing_00302,302,다진 호박,다진 호박,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00302/
+ing_00306,306,어린잎,어린잎,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00306/
+ing_00309,309,생수,생수,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00309/
+ing_00310,310,국거리소고기,국거리소고기,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00310/
+ing_00311,311,김밥김,김밥김,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00311/
+ing_00313,313,밥새우,밥새우,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00313/
+ing_00315,315,삶은 시래기,삶은 시래기,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00315/
+ing_00321,321,부침가루(밀가루),부침가루(밀가루),곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00321/
+ing_00322,322,오징어채,오징어채,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00322/
+ing_00325,325,우엉,우엉,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00325/
+ing_00327,327,감자전분,감자전분,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00327/
+ing_00329,329,시판네모유부,시판네모유부,곡류,0,0,0,Y,data_sources/team_uploads/train/ing_00329/
+ing_00330,330,맛간장,맛간장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00330/
+ing_00332,332,스위트콘,스위트콘,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00332/
+ing_00333,333,소고기다짐육 + 돼지고기다짐육,소고기다짐육 + 돼지고기다짐육,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00333/
+ing_00334,334,요리술,요리술,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00334/
+ing_00337,337,데칠때 생강술,데칠때 생강술,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00337/
+ing_00339,339,깐메추리알,깐메추리알,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00339/
+ing_00343,343,꿀/물엿,꿀/물엿,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00343/
+ing_00344,344,국간장(조선간장),국간장(조선간장),소스,0,0,0,Y,data_sources/team_uploads/train/ing_00344/
+ing_00346,346,다진 애호박,다진 애호박,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00346/
+ing_00348,348,대파흰부분,대파흰부분,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00348/
+ing_00349,349,소고기 다짐육,소고기 다짐육,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00349/
+ing_00350,350,생강술,생강술,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00350/
+ing_00351,351,배즙,배즙,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00351/
+ing_00358,358,대패 삼겹살,대패 삼겹살,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00358/
+ing_00361,361,소주,소주,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00361/
+ing_00365,365,잣,잣,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00365/
+ing_00368,368,다진 쪽파,다진 쪽파,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00368/
+ing_00369,369,표고버섯,표고버섯,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00369/
+ing_00370,370,황태,황태,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00370/
+ing_00371,371,술,술,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00371/
+ing_00372,372,소고기 불고기용,소고기 불고기용,육류,0,0,0,Y,data_sources/team_uploads/train/ing_00372/
+ing_00373,373,들깻가루,들깻가루,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00373/
+ing_00375,375,대파 녹색부분,대파 녹색부분,채소,0,0,0,Y,data_sources/team_uploads/train/ing_00375/
+ing_00385,385,아기 간장,아기 간장,소스,0,0,0,Y,data_sources/team_uploads/train/ing_00385/
+ing_00387,387,깨 간 것,깨 간 것,조미료,0,0,0,Y,data_sources/team_uploads/train/ing_00387/
+ing_00390,390,마른 김,마른 김,해산물,0,0,0,Y,data_sources/team_uploads/train/ing_00390/
+ing_00428,428,요거트,요거트,유제품,0,0,0,Y,data_sources/team_uploads/train/ing_00428/
+ing_00434,434,주스,주스,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00434/
+ing_00436,436,사워크림,사워크림,유제품,0,0,0,Y,data_sources/team_uploads/train/ing_00436/
+ing_00484,484,고구마(대),고구마(대),기타,0,0,0,Y,data_sources/team_uploads/train/ing_00484/
+ing_00485,485,찹쌀가루,찹쌀가루,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00485/
+ing_00498,498,와사비,와사비,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00498/
+ing_00510,510,브로콜리 줄기,브로콜리 줄기,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00510/
+ing_00537,537,노란파프리카,노란파프리카,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00537/
+ing_00538,538,빨간파프리카,빨간파프리카,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00538/
+ing_00546,546,오리고기,오리고기,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00546/
+ing_00556,556,게맛살,게맛살,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00556/
+ing_00557,557,냉장고속야채,냉장고속야채,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00557/
+ing_00558,558,편으로 썬 가지,편으로 썬 가지,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00558/
+ing_00559,559,머스터드소스,머스터드소스,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00559/
+ing_00567,567,캐찹,캐찹,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00567/
+ing_00641,641,브로콜리 작은거,브로콜리 작은거,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00641/
+ing_00663,663,김장김치,김장김치,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00663/
+ing_00664,664,아삭이고추,아삭이고추,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00664/
+ing_00669,669,해바라기유,해바라기유,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00669/
+ing_00712,712,리챔,리챔,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00712/
+ing_00713,713,묵은지,묵은지,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00713/
+ing_00853,853,다진 당근,다진 당근,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00853/
+ing_00864,864,어른치즈,어른치즈,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00864/
+ing_00865,865,방울토마토,방울토마토,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00865/
+ing_00866,866,꼬챙이,꼬챙이,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00866/
+ing_00895,895,고구마 중간 사이즈,고구마 중간 사이즈,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00895/
+ing_00896,896,체더치즈,체더치즈,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00896/
+ing_00947,947,햇마늘,햇마늘,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00947/
+ing_00948,948,뉴슈가,뉴슈가,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00948/
+ing_00949,949,냉동청양고추,냉동청양고추,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00949/
+ing_00950,950,냉동홍고추,냉동홍고추,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00950/
+ing_00951,951,새우젓,새우젓,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00951/
+ing_00952,952,양파즙,양파즙,기타,0,0,0,Y,data_sources/team_uploads/train/ing_00952/
+ing_01115,1115,다진쪽파,다진쪽파,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01115/
+ing_01125,1125,냉장햄,냉장햄,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01125/
+ing_01126,1126,통조림햄,통조림햄,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01126/
+ing_01129,1129,새송이버섯 작은것,새송이버섯 작은것,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01129/
+ing_01130,1130,깻잎 작은것,깻잎 작은것,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01130/
+ing_01131,1131,집간장,집간장,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01131/
+ing_01171,1171,쌀부침가루,쌀부침가루,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01171/
+ing_01172,1172,부침유,부침유,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01172/
+ing_01188,1188,통조림참치,통조림참치,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01188/
+ing_01189,1189,파프리카 색깔별로,파프리카 색깔별로,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01189/
+ing_01190,1190,케챱,케챱,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01190/
+ing_01234,1234,쯔유,쯔유,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01234/
+ing_01267,1267,간 깨,간 깨,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01267/
+ing_01275,1275,캔햄,캔햄,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01275/
+ing_01276,1276,부침가루,부침가루,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01276/
+ing_01378,1378,멸치 다시마 육수,멸치 다시마 육수,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01378/
+ing_01389,1389,채 썬 당근,채 썬 당근,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01389/
+ing_01390,1390,슬라이스햄,슬라이스햄,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01390/
+ing_01391,1391,소세지,소세지,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01391/
+ing_01420,1420,감자 작은것,감자 작은것,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01420/
+ing_01439,1439,꽁치통조림,꽁치통조림,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01439/
+ing_01440,1440,신김치,신김치,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01440/
+ing_01441,1441,김치국물,김치국물,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01441/
+ing_01475,1475,마른새우(꽃새우),마른새우(꽃새우),기타,0,0,0,Y,data_sources/team_uploads/train/ing_01475/
+ing_01476,1476,조림간장,조림간장,기타,0,0,0,Y,data_sources/team_uploads/train/ing_01476/
+ing_01687,1687,Apple,Apple,채소,0,0,0,Y,data_sources/team_uploads/train/ing_01687/
