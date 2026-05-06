@@ -6,11 +6,12 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from app.services.ollama_service import OllamaService
+from app.services.gemini_service import GeminiService
 
 router = APIRouter(prefix="/internal/recipe-tags", tags=["recipe-tags"])
 
 ollama_service = OllamaService()
-
+gemini_service = GeminiService()
 
 class RecipeTagClassifyRequest(BaseModel):
     recipeId: int
@@ -94,6 +95,8 @@ STYLE 선택지:
 - "찌개", "전골"이 요리명으로 명확하면 STEW다.
 - 제목만 보지 말고 재료와 요약도 함께 판단한다.
 - STYLE은 확실할 때만 선택한다.
+- 콩국수, 냉면, 비빔면, 라면, 우동, 칼국수처럼 면 요리는 SOUP이 아니다. UNKNOWN으로 분류한다.
+- 말이, 찜, 부침, 전, 까스, 스테이크, 덮밥은 SOUP이 아니다.
 
 레시피:
 title: {req.title}
@@ -117,14 +120,31 @@ def extract_json(text: str) -> dict:
         raise ValueError("LLM 응답에서 JSON을 찾을 수 없습니다.")
 
     return json.loads(match.group())
+def validate_cooking_type(title: str, tag_code: str) -> bool:
+    title = title or ""
 
+    soup_exclude_keywords = [
+        "국수", "찜", "말이", "부침", "전", "까스",
+        "스테이크", "덮밥", "볶음", "조림", "튀김", "샐러드"
+    ]
+
+    if tag_code == "SOUP":
+        if any(keyword in title for keyword in soup_exclude_keywords):
+            return False
+
+        soup_include_keywords = ["국", "탕", "냉국"]
+        if not any(keyword in title for keyword in soup_include_keywords):
+            return False
+
+    return True
 
 @router.post("/classify", response_model=RecipeTagClassifyResponse)
 def classify_recipe_tags(req: RecipeTagClassifyRequest):
     try:
         prompt = build_prompt(req)
 
-        raw = ollama_service.generate(prompt)
+        # raw = ollama_service.generate(prompt)
+        raw = gemini_service.generate(prompt)
         parsed = extract_json(raw)
 
         result_tags = []
@@ -137,7 +157,8 @@ def classify_recipe_tags(req: RecipeTagClassifyRequest):
             if tag_type == "COOKING_TYPE":
                 if tag_code not in VALID_COOKING_TAGS or tag_code == "UNKNOWN":
                     continue
-
+                if not validate_cooking_type(req.title, tag_code):
+                    continue
             elif tag_type == "STYLE":
                 if tag_code not in VALID_STYLE_TAGS:
                     continue
