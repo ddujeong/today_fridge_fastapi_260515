@@ -22,9 +22,7 @@ Example:
     --degrees 8 --translate 0.08 --scale 0.2 --fliplr 0.5 \
     --stop-val-loss 0.35
 
-
 cd /Users/a0/Documents/git/project_final_backend_2
-
 
 python3 app/models/img2class/tools/train_route_classifier.py \
   --model yolov8n-cls.pt \
@@ -34,9 +32,9 @@ python3 app/models/img2class/tools/train_route_classifier.py \
   --batch 16 \
   --device mps \
   --project /Users/a0/Documents/git/project_final_backend_2/app/models/img2class/runs/classify \
-  --name ingredient_route_v3_reg_tuned \
+  --name ingredient_route_v3_reg_patience12 \
   --plots \
-  --patience 12 \
+  --patience 8 \
   --dropout 0.2 \
   --weight-decay 0.0008 \
   --lr0 0.003 \
