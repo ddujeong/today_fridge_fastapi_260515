@@ -264,6 +264,10 @@ def _env_float(name: str, default: float) -> float:
     raw = os.getenv(name)
     if raw is None:
         return default
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        return default
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -338,10 +342,45 @@ def rerank_candidates_with_embedding(route: str, candidates: List[Dict[str, Any]
         return [candidates[s["idx"]] for s in scored]
     except Exception:
         return candidates
-    try:
-        return float(raw)
-    except (TypeError, ValueError):
-        return default
+
+
+def _extract_route_fields(route_result: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    route classifier 결과를 구/신 스키마 모두에서 안전하게 읽는다.
+
+    - 구 스키마: {"route": "raw_ingredient", "confidence": 0.9, ...}
+    - 신 스키마: {"route": {"type": "raw_ingredient", "confidence": 0.9, ...}, ...}
+    """
+    route_obj = route_result.get("route")
+
+    if isinstance(route_obj, dict):
+        route = str(route_obj.get("type") or "unknown")
+        route_confidence = float(route_obj.get("confidence", 0.0) or 0.0)
+        route_needs_review = bool(route_obj.get("needsReview", True))
+        route_reason = route_obj.get("reason")
+        probs = route_obj.get("probabilities", {})
+        route_probabilities = probs if isinstance(probs, dict) else {}
+        return {
+            "route": route,
+            "confidence": route_confidence,
+            "needs_user_confirmation": route_needs_review,
+            "reason": route_reason,
+            "probabilities": route_probabilities,
+        }
+
+    route = str(route_obj or "unknown")
+    route_confidence = float(route_result.get("confidence", 0.0) or 0.0)
+    route_needs_review = bool(route_result.get("needs_user_confirmation", True))
+    route_reason = route_result.get("reason")
+    probs = route_result.get("probabilities", {})
+    route_probabilities = probs if isinstance(probs, dict) else {}
+    return {
+        "route": route,
+        "confidence": route_confidence,
+        "needs_user_confirmation": route_needs_review,
+        "reason": route_reason,
+        "probabilities": route_probabilities,
+    }
 
 
 def normalize_candidates(raw_result: Any, default_category: Optional[str]) -> List[Dict[str, Any]]:
@@ -548,18 +587,18 @@ async def recognize_ingredient_image(
 
         route_classifier = get_route_classifier()
         route_result = route_classifier.classify_image(temp_path)
-
-        route = route_result.get("route", "unknown")
-        route_confidence = float(route_result.get("confidence", 0.0))
-        route_needs_review = bool(route_result.get("needs_user_confirmation", True))
+        route_fields = _extract_route_fields(route_result)
+        route = str(route_fields.get("route", "unknown"))
+        route_confidence = float(route_fields.get("confidence", 0.0) or 0.0)
+        route_needs_review = bool(route_fields.get("needs_user_confirmation", True))
+        route_reason = route_fields.get("reason")
+        probs = route_fields.get("probabilities", {})
+        route_probabilities = probs if isinstance(probs, dict) else {}
 
         candidates: List[Dict[str, Any]] = []
-        pipeline_stage = "route"
+        pipeline_stage = "route_review_required" if route_needs_review else "route"
 
-        if route_needs_review:
-            pipeline_stage = "route_review_required"
-
-        elif route == "packaged_food":
+        if route == "packaged_food":
             pipeline_stage = "packaged_food_ocr"
             candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
             packaged_route_fallback_max_conf = _env_float(
@@ -582,7 +621,7 @@ async def recognize_ingredient_image(
                     candidates = raw_candidates
                     pipeline_stage = "raw_ingredient_classifier_override"
                     route = "raw_ingredient"
-                    route_result["reason"] = (
+                    route_reason = (
                         f"packaged_food route fallback applied: raw top1 confidence "
                         f"{raw_top1_conf:.3f} >= {raw_override_min_confidence:.3f}"
                     )
@@ -624,8 +663,8 @@ async def recognize_ingredient_image(
                     "type": route,
                     "confidence": route_confidence,
                     "needsReview": route_needs_review,
-                    "reason": route_result.get("reason"),
-                    "probabilities": route_result.get("probabilities", {}),
+                    "reason": route_reason,
+                    "probabilities": route_probabilities,
                 },
                 "pipeline": {
                     "stage": pipeline_stage,
