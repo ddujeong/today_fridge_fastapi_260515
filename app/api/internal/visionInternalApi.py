@@ -30,6 +30,7 @@ from __future__ import annotations
 import os
 import tempfile
 import uuid
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -38,6 +39,7 @@ from fastapi import APIRouter, File, Form, Header, HTTPException, UploadFile
 
 from app.models.img2class.ingredientRouteClassifier import IngredientRouteClassifier
 from app.models.ocr.packagedFoodOcr import recognize_packaged_food_image
+from app.services.embedding_service import generate_embedding
 from app.services.vision_anomaly import build_anomaly_analysis
 from app.services.vision_dl_anomaly import compute_dl_anomaly_analysis
 
@@ -53,6 +55,7 @@ DEFAULT_ROUTE_MODEL_PATH = "app/models/img2class/best.pt"
 MAX_RECOGNITION_CANDIDATES = 3
 PACKAGED_ROUTE_FALLBACK_MAX_CONF = 0.90
 RAW_OVERRIDE_MIN_CONFIDENCE = 0.45
+EMBEDDING_RERANK_ENABLED_DEFAULT = True
 
 _route_classifier: Optional[IngredientRouteClassifier] = None
 _route_classifier_load_error: Optional[str] = None
@@ -261,6 +264,80 @@ def _env_float(name: str, default: float) -> float:
     raw = os.getenv(name)
     if raw is None:
         return default
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _cosine_similarity(a: List[float], b: List[float]) -> float:
+    if not a or not b or len(a) != len(b):
+        return 0.0
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = math.sqrt(sum(x * x for x in a))
+    norm_b = math.sqrt(sum(y * y for y in b))
+    if norm_a == 0.0 or norm_b == 0.0:
+        return 0.0
+    return dot / (norm_a * norm_b)
+
+
+def _candidate_name_text(candidate: Dict[str, Any]) -> str:
+    return str(candidate.get("normalizedName") or candidate.get("displayName") or "").strip()
+
+
+def _build_embedding_query_text(route: str, candidates: List[Dict[str, Any]]) -> str:
+    if not candidates:
+        return ""
+
+    if route == "packaged_food":
+        ocr_texts: List[str] = []
+        for c in candidates:
+            t = str(c.get("ocrText") or "").strip()
+            if t:
+                ocr_texts.append(t)
+        if ocr_texts:
+            return " ".join(ocr_texts)
+
+    # raw_ingredient 또는 OCR 텍스트가 없는 경우에는 top1 후보명을 query로 사용
+    return _candidate_name_text(candidates[0])
+
+
+def rerank_candidates_with_embedding(route: str, candidates: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    if len(candidates) <= 1:
+        return candidates
+
+    query_text = _build_embedding_query_text(route, candidates)
+    if not query_text:
+        return candidates
+
+    try:
+        query_vec = generate_embedding(query_text)
+        if not isinstance(query_vec, list) or len(query_vec) == 0:
+            return candidates
+
+        scored: List[Dict[str, Any]] = []
+        for idx, cand in enumerate(candidates):
+            name_text = _candidate_name_text(cand)
+            if not name_text:
+                scored.append({"idx": idx, "score": -1.0})
+                continue
+            cand_vec = generate_embedding(name_text)
+            if not isinstance(cand_vec, list) or len(cand_vec) == 0:
+                scored.append({"idx": idx, "score": -1.0})
+                continue
+            sim = _cosine_similarity(query_vec, cand_vec)
+            # 기존 confidence를 소폭 가중해 동점/근접 점수에서 모델 출력을 존중
+            conf = float(cand.get("confidence") or 0.0)
+            final_score = (sim * 0.8) + (conf * 0.2)
+            scored.append({"idx": idx, "score": final_score})
+
+        scored.sort(key=lambda x: x["score"], reverse=True)
+        return [candidates[s["idx"]] for s in scored]
+    except Exception:
+        return candidates
     try:
         return float(raw)
     except (TypeError, ValueError):
@@ -517,6 +594,12 @@ async def recognize_ingredient_image(
         else:
             pipeline_stage = "unsupported_route"
 
+        embedding_rerank_applied = False
+        if _env_bool("VISION_EMBEDDING_RERANK_ENABLED", EMBEDDING_RERANK_ENABLED_DEFAULT):
+            reordered = rerank_candidates_with_embedding(route=route, candidates=candidates)
+            embedding_rerank_applied = reordered is not candidates
+            candidates = reordered
+
         # 후보가 없으면 Spring Boot가 사용자 수동 입력/확인을 유도할 수 있게 needsReview를 true로 둔다.
         needs_review = route_needs_review or len(candidates) == 0
 
@@ -551,6 +634,7 @@ async def recognize_ingredient_image(
                     "effectiveDetectMultiple": False,
                     "requestedTopK": topK,
                     "effectiveTopK": effective_top_k,
+                    "embeddingRerankApplied": embedding_rerank_applied,
                 },
                 "needsReview": needs_review,
                 "anomalyAnalysis": anomaly_analysis,
