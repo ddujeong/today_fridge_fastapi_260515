@@ -95,25 +95,38 @@ def infer_source_class(image_path: Path, source_root: Path, mapping: Dict[str, s
     return None
 
 
-def split_items(items: List[Path], split: Tuple[float, float, float], seed: int) -> Dict[str, List[Path]]:
-    train_ratio, val_ratio, test_ratio = split
-    total = train_ratio + val_ratio + test_ratio
-    if abs(total - 1.0) > 1e-6:
-        raise ValueError(f"--split 합계는 1.0이어야 합니다. 현재 합계: {total}")
-
+def split_items_by_group(items: List[Path], split: Tuple[float, float, float], seed: int) -> Dict[str, List[Path]]:
+    """
+    이미지들을 부모 폴더명(제품명) 기준으로 그룹화하여 train/val/test로 분할한다.
+    동일 제품의 사진이 여러 세트에 섞이는 것을 방지한다.
+    """
+    groups: Dict[str, List[Path]] = {}
+    for path in items:
+        # GroceryStoreDataset 구조상 부모 폴더명이 제품명임
+        product_name = path.parent.name
+        groups.setdefault(product_name, []).append(path)
+    
+    group_names = sorted(groups.keys())
     rng = random.Random(seed)
-    shuffled = items[:]
-    rng.shuffle(shuffled)
-
-    n = len(shuffled)
+    rng.shuffle(group_names)
+    
+    n = len(group_names)
+    train_ratio, val_ratio, _ = split
     n_train = int(n * train_ratio)
     n_val = int(n * val_ratio)
-
-    return {
-        "train": shuffled[:n_train],
-        "val": shuffled[n_train:n_train + n_val],
-        "test": shuffled[n_train + n_val:],
-    }
+    
+    train_groups = set(group_names[:n_train])
+    val_groups = set(group_names[n_train:n_train + n_val])
+    
+    result = {"train": [], "val": [], "test": []}
+    for group_name, paths in groups.items():
+        if group_name in train_groups:
+            result["train"].extend(paths)
+        elif group_name in val_groups:
+            result["val"].extend(paths)
+        else:
+            result["test"].extend(paths)
+    return result
 
 
 def safe_copy_or_link(src: Path, dst: Path, mode: str) -> None:
@@ -141,6 +154,11 @@ def build_dataset(
     mapping = load_mapping(mapping_path)
 
     target_classes = sorted(set(mapping.values()))
+    # 기존 데이터가 있으면 삭제하여 꼬이지 않게 함
+    if out_root.exists():
+        print(f"Cleaning existing directory: {out_root}")
+        shutil.rmtree(out_root)
+
     for split_name in ["train", "val", "test"]:
         for target_class in target_classes:
             (out_root / split_name / target_class).mkdir(parents=True, exist_ok=True)
@@ -167,14 +185,14 @@ def build_dataset(
     print()
 
     for target_class, class_images in sorted(grouped.items()):
-        split_map = split_items(class_images, split, seed)
-        print(f"[{target_class}] total={len(class_images)}")
+        # 제품 단위 분할 적용
+        split_map = split_items_by_group(class_images, split, seed)
+        print(f"[{target_class}]")
 
         for split_name, split_images in split_map.items():
-            print(f"  {split_name}: {len(split_images)}")
+            print(f"  {split_name}: {len(split_images)} images")
 
-            for idx, src in enumerate(split_images):
-                # 파일명 충돌 방지: 원본 상위 폴더명 + 원본 파일명 사용
+            for src in split_images:
                 class_hint = src.parent.name
                 dst_name = f"{normalize_name(class_hint)}__{src.stem}{src.suffix.lower()}"
                 dst = out_root / split_name / target_class / dst_name
