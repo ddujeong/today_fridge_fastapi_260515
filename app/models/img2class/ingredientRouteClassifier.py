@@ -38,9 +38,23 @@ CLI:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import os
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
+
+# 상세 인식을 위한 모듈 임포트
+try:
+    from app.models.ocr.packagedFoodOcr import recognize_packaged_food_image
+    from app.models.ingredient.rawIngredientClassifier import recognize_raw_ingredient_image
+except ImportError:
+    # 직접 실행 시 sys.path 설정이 필요할 수 있음
+    import sys
+    project_root = Path(__file__).resolve().parents[3]
+    if str(project_root) not in sys.path:
+        sys.path.append(str(project_root))
+    from app.models.ocr.packagedFoodOcr import recognize_packaged_food_image
+    from app.models.ingredient.rawIngredientClassifier import recognize_raw_ingredient_image
 
 
 VALID_ROUTES = {"raw_ingredient", "packaged_food", "other"}
@@ -54,6 +68,7 @@ class RouteClassificationResult:
     needs_user_confirmation: bool
     reason: str
     probabilities: Dict[str, float]
+    recognized_candidates: List[Dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -63,32 +78,13 @@ class RouteClassificationResult:
             "needs_user_confirmation": self.needs_user_confirmation,
             "reason": self.reason,
             "probabilities": self.probabilities,
+            "recognizedCandidates": self.recognized_candidates,
         }
 
 
 class IngredientRouteClassifier:
     """
-    YOLO classification 기반 식재료 라우터.
-
-    Parameters
-    ----------
-    model_path:
-        학습된 YOLO classify best.pt 경로.
-        예: runs/classify/train/weights/best.pt
-
-    confidence_threshold:
-        이 값보다 낮으면 사용자 확인이 필요하다고 표시한다.
-        MVP 시작값은 0.60 추천.
-
-    device:
-        None이면 ultralytics가 자동 선택.
-        CPU: "cpu"
-        Mac MPS: "mps"
-        CUDA: "0"
-
-    imgsz:
-        추론 이미지 크기.
-        학습 때 imgsz=224를 썼다면 추론도 224를 권장.
+    YOLO classification 기반 식재료 라우터 + 상세 인식 통합 모듈.
     """
 
     def __init__(
@@ -106,8 +102,7 @@ class IngredientRouteClassifier:
         if not self.model_path.exists():
             raise FileNotFoundError(
                 f"모델 파일을 찾을 수 없습니다: {self.model_path}\n"
-                "학습 결과 폴더에서 best.pt 경로를 확인하세요.\n"
-                "예: find runs/classify -name best.pt"
+                "학습 결과 폴더에서 best.pt 경로를 확인하세요."
             )
 
         try:
@@ -126,6 +121,7 @@ class IngredientRouteClassifier:
         if not image_path.exists():
             raise FileNotFoundError(f"이미지 파일을 찾을 수 없습니다: {image_path}")
 
+        # 1. 라우팅 분류 (Packaged vs Raw)
         results = self.model.predict(
             source=str(image_path),
             imgsz=self.imgsz,
@@ -134,28 +130,14 @@ class IngredientRouteClassifier:
         )
 
         if not results:
-            return RouteClassificationResult(
-                image_path=str(image_path),
-                route="unknown",
-                confidence=0.0,
-                needs_user_confirmation=True,
-                reason="YOLO classification 결과가 비어 있습니다.",
-                probabilities={},
-            ).to_dict()
+            return self._make_error_result(str(image_path), "YOLO classification 결과가 비어 있습니다.")
 
         result = results[0]
         probs = getattr(result, "probs", None)
         names = getattr(result, "names", None) or getattr(self.model, "names", None)
 
         if probs is None:
-            return RouteClassificationResult(
-                image_path=str(image_path),
-                route="unknown",
-                confidence=0.0,
-                needs_user_confirmation=True,
-                reason="classification 확률 정보(probs)가 없습니다. detect 모델을 넣은 것은 아닌지 확인하세요.",
-                probabilities={},
-            ).to_dict()
+            return self._make_error_result(str(image_path), "classification 확률 정보(probs)가 없습니다.")
 
         top1_id = int(probs.top1)
         top1_conf = float(probs.top1conf)
@@ -168,28 +150,24 @@ class IngredientRouteClassifier:
             label = str(top1_id)
 
         route = self._normalize_route(label)
-
         probabilities = self._extract_probabilities(probs=probs, names=names)
 
         if route not in VALID_ROUTES:
-            return RouteClassificationResult(
-                image_path=str(image_path),
-                route="unknown",
-                confidence=top1_conf,
-                needs_user_confirmation=True,
-                reason=f"모델이 알 수 없는 class를 반환했습니다: {label}",
-                probabilities=probabilities,
-            ).to_dict()
+            return self._make_error_result(str(image_path), f"알 수 없는 class: {label}", route="unknown", conf=top1_conf, probs=probabilities)
 
         needs_user_confirmation = top1_conf < self.confidence_threshold
+        reason = self._build_reason(route, top1_conf, needs_user_confirmation)
 
-        if needs_user_confirmation:
-            reason = (
-                f"{route}로 분류되었지만 confidence가 낮습니다. "
-                f"현재 {top1_conf:.3f}, 기준 {self.confidence_threshold:.3f}"
-            )
-        else:
-            reason = f"{route}로 분류되었습니다."
+        # 2. 라우팅 결과에 따른 상세 인식 수행
+        candidates = []
+        try:
+            if route == "packaged_food":
+                candidates = recognize_packaged_food_image(image_path, top_k=5)
+            elif route == "raw_ingredient":
+                candidates = recognize_raw_ingredient_image(image_path, top_k=5)
+        except Exception as e:
+            # 상세 인식 실패 시 로그 출력 후 빈 결과 유지 (라우팅 정보는 제공)
+            print(f"[RECOGNITION ERROR] {route} 인식 중 오류 발생: {e}")
 
         return RouteClassificationResult(
             image_path=str(image_path),
@@ -198,13 +176,29 @@ class IngredientRouteClassifier:
             needs_user_confirmation=needs_user_confirmation,
             reason=reason,
             probabilities=probabilities,
+            recognized_candidates=candidates,
         ).to_dict()
 
+    def _make_error_result(self, image_path: str, message: str, route: str = "unknown", conf: float = 0.0, probs: Dict[str, float] = None) -> Dict[str, Any]:
+        return RouteClassificationResult(
+            image_path=image_path,
+            route=route,
+            confidence=conf,
+            needs_user_confirmation=True,
+            reason=message,
+            probabilities=probs or {},
+            recognized_candidates=[],
+        ).to_dict()
+
+    def _build_reason(self, route: str, conf: float, needs_review: bool) -> str:
+        if needs_review:
+            return (
+                f"{route}로 분류되었지만 confidence가 낮습니다. "
+                f"현재 {conf:.3f}, 기준 {self.confidence_threshold:.3f}"
+            )
+        return f"{route}로 분류되었습니다."
+
     def _extract_probabilities(self, probs: Any, names: Any) -> Dict[str, float]:
-        """
-        전체 class별 확률을 dict로 반환한다.
-        Ultralytics 내부 tensor가 torch/numpy 어느 쪽이든 처리한다.
-        """
         data = getattr(probs, "data", None)
         if data is None:
             return {}
@@ -221,7 +215,6 @@ class IngredientRouteClassifier:
                     return {}
 
         output: Dict[str, float] = {}
-
         for idx, value in enumerate(values):
             if isinstance(names, dict):
                 label = str(names.get(idx, idx))
@@ -229,9 +222,7 @@ class IngredientRouteClassifier:
                 label = str(names[idx])
             else:
                 label = str(idx)
-
             output[self._normalize_route(label)] = float(value)
-
         return output
 
     @staticmethod
