@@ -363,6 +363,18 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
     ml = item.get("modelLabel", item.get("model_label"))
     if ml is not None and str(ml).strip():
         out["modelLabel"] = str(ml).strip()
+    rml = item.get("resolvedModelLabel", item.get("resolved_model_label"))
+    if rml is not None and str(rml).strip():
+        out["resolvedModelLabel"] = str(rml).strip()
+    if "predictionUncertain" in item:
+        out["predictionUncertain"] = bool(item["predictionUncertain"])
+    if item.get("top1Top2Margin") is not None:
+        try:
+            out["top1Top2Margin"] = float(item["top1Top2Margin"])
+        except (TypeError, ValueError):
+            pass
+    if "ttaAveraged" in item:
+        out["ttaAveraged"] = bool(item["ttaAveraged"])
     return out
 
 
@@ -518,7 +530,9 @@ async def recognize_ingredient_image(
             pipeline_stage = "unsupported_route"
 
         # 후보가 없으면 Spring Boot가 사용자 수동 입력/확인을 유도할 수 있게 needsReview를 true로 둔다.
-        needs_review = route_needs_review or len(candidates) == 0
+        # 비포장 분류: 불확실(1·2위 근접·낮은 신뢰도)도 검토 유도.
+        first_uncertain = bool(candidates[0].get("predictionUncertain")) if candidates else False
+        needs_review = route_needs_review or len(candidates) == 0 or first_uncertain
 
         dl_analysis = compute_dl_anomaly_analysis(temp_path)
         anomaly_analysis = build_anomaly_analysis(
