@@ -3,15 +3,15 @@ version: 1.0.0
 schema: v1
 
 models:
-  - name: Qwen2.5 Coder 32B 16K
+  - name: Autodetect
     provider: ollama
-    model: qwen2.5-coder:32b
+    model: AUTODETECT
     apiBase: http://localhost:11434
     roles:
       - chat
       - edit
       - apply
     defaultCompletionOptions:
-      contextLength: 16384
-      maxTokens: 2048
-      temperature: 0.1
+      contextLength: 16384080808080
+      maxTokens: 2048080808
+      temperature: 0.5
