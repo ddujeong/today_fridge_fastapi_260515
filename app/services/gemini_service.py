@@ -10,7 +10,7 @@ class GeminiService:
         )
 
         self.model = genai.GenerativeModel(
-            "gemini-3.1-flash-lite-preview"
+            "gemini-3.1-flash-lite"
         )
 
     def generate(self, prompt: str) -> str:
