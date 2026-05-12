@@ -787,66 +787,40 @@ async def recognize_ingredient_image(
             tmp.write(content)
             temp_path = Path(tmp.name)
 
-        route_classifier = get_route_classifier()
-        route_result = route_classifier.classify_image(temp_path)
-        route_fields = _extract_route_fields(route_result)
-        route = str(route_fields.get("route", "unknown"))
-        route_confidence = float(route_fields.get("confidence", 0.0) or 0.0)
-        route_needs_review = bool(route_fields.get("needs_user_confirmation", True))
-        route_reason = route_fields.get("reason")
-        probs = route_fields.get("probabilities", {})
-        route_probabilities = probs if isinstance(probs, dict) else {}
+        route = "packaged_food"
+        route_confidence = 1.0
+        route_needs_review = False
+        route_reason = "ocr-first pipeline: packaged_food OCR attempted first."
+        route_probabilities: Dict[str, float] = {}
 
         candidates: List[Dict[str, Any]] = []
-        pipeline_stage = "route_review_required" if route_needs_review else "route"
+        pipeline_stage = "packaged_food_ocr_first"
+        ocr_error: Optional[str] = None
 
-        if route == "packaged_food":
-            pipeline_stage = "packaged_food_ocr"
+        try:
             candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
-            packaged_route_fallback_max_conf = _env_float(
-                "PACKAGED_ROUTE_FALLBACK_MAX_CONF",
-                PACKAGED_ROUTE_FALLBACK_MAX_CONF,
-            )
-            raw_override_min_confidence = _env_float(
-                "RAW_OVERRIDE_MIN_CONFIDENCE",
-                RAW_OVERRIDE_MIN_CONFIDENCE,
-            )
+        except Exception as exc:
+            ocr_error = str(exc)
+            candidates = []
 
-            should_try_raw_fallback = (
-                len(candidates) == 0 or route_confidence <= packaged_route_fallback_max_conf
-            )
-            if should_try_raw_fallback:
-                raw_candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
-                raw_top1_conf = float(raw_candidates[0].get("confidence", 0.0)) if raw_candidates else 0.0
-
-                if raw_candidates and raw_top1_conf >= raw_override_min_confidence:
-                    candidates = raw_candidates
-                    pipeline_stage = "raw_ingredient_classifier_override"
-                    route = "raw_ingredient"
-                    route_reason = (
-                        f"packaged_food route fallback applied: raw top1 confidence "
-                        f"{raw_top1_conf:.3f} >= {raw_override_min_confidence:.3f}"
-                    )
-
-        elif route == "raw_ingredient":
-            pipeline_stage = "raw_ingredient_classifier"
-            candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
-
-        else:
-            # YOLO 가 ing_* 마스터 클래스만 학습된 경우(예: ing_master_124_cls) 라우터는 unknown 이지만
-            # probabilities 에 ing_* softmax 가 있으므로 상위 K → 마스터 JSON으로 후보 생성
-            direct_master = candidates_from_yolo_master_class_probs(route_result, effective_top_k)
-            if direct_master:
-                candidates = direct_master
+        if not candidates:
+            pipeline_stage = "raw_ingredient_classifier_fallback"
+            raw_candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
+            if raw_candidates:
                 route = "raw_ingredient"
-                pipeline_stage = "yolo_master_topk"
-                if not route_reason or "알 수 없는 class" in str(route_reason):
-                    route_reason = (
-                        "YOLO direct ingredient_master classes (ing_*); "
-                        "names from model_label_to_master_train_non_packaged.json"
-                    )
+                route_confidence = float(raw_candidates[0].get("confidence", 0.0) or 0.0)
+                route_reason = (
+                    "ocr-first fallback applied: raw ingredient classifier used because OCR "
+                    f"{'failed' if ocr_error else 'returned empty'}."
+                )
+                candidates = raw_candidates
             else:
-                pipeline_stage = "unsupported_route"
+                route = "unknown"
+                route_confidence = 0.0
+                route_needs_review = True
+                route_reason = (
+                    "ocr-first pipeline: OCR and raw ingredient fallback both produced no candidates."
+                )
 
         embedding_rerank_applied = False
         if _env_bool("VISION_EMBEDDING_RERANK_ENABLED", EMBEDDING_RERANK_ENABLED_DEFAULT):
