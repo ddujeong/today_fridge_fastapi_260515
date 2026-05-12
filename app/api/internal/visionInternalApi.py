@@ -56,8 +56,13 @@ ALLOWED_IMAGE_CONTENT_TYPES = {
 
 DEFAULT_ROUTE_MODEL_PATH = "app/models/img2class/best.pt"
 MAX_RECOGNITION_CANDIDATES = 3
-PACKAGED_ROUTE_FALLBACK_MAX_CONF = 0.90
 RAW_OVERRIDE_MIN_CONFIDENCE = 0.45
+PACKAGED_ROUTE_OCR_MIN_CONFIDENCE = 0.98
+RAW_SUCCESS_MIN_TOP1_CONFIDENCE = 0.40
+RAW_SUCCESS_MIN_TOP1_MARGIN = 0.03
+RAW_ROUTE_OCR_FALLBACK_MAX_CONF = 0.93
+RAW_ROUTE_OCR_FALLBACK_MIN_MARGIN = 0.20
+DIRECT_MASTER_OCR_FALLBACK_MAX_CONF = 0.97
 EMBEDDING_RERANK_ENABLED_DEFAULT = True
 
 # YOLO train 폴더명 ing_00042 형태 → DB 마스터 표시명 매핑 (비포장 124클 등)
@@ -787,40 +792,115 @@ async def recognize_ingredient_image(
             tmp.write(content)
             temp_path = Path(tmp.name)
 
-        route = "packaged_food"
-        route_confidence = 1.0
-        route_needs_review = False
-        route_reason = "ocr-first pipeline: packaged_food OCR attempted first."
-        route_probabilities: Dict[str, float] = {}
+        route_classifier = get_route_classifier()
+        route_result = route_classifier.classify_image(temp_path)
+        route_fields = _extract_route_fields(route_result)
+        route = str(route_fields.get("route", "unknown"))
+        route_confidence = float(route_fields.get("confidence", 0.0) or 0.0)
+        route_needs_review = bool(route_fields.get("needs_user_confirmation", True))
+        route_reason = route_fields.get("reason")
+        probs = route_fields.get("probabilities", {})
+        route_probabilities = probs if isinstance(probs, dict) else {}
 
         candidates: List[Dict[str, Any]] = []
-        pipeline_stage = "packaged_food_ocr_first"
-        ocr_error: Optional[str] = None
+        pipeline_stage = "route_review_required" if route_needs_review else "route"
 
-        try:
+        if route == "packaged_food":
+            packaged_route_ocr_min_confidence = _env_float(
+                "PACKAGED_ROUTE_OCR_MIN_CONFIDENCE",
+                PACKAGED_ROUTE_OCR_MIN_CONFIDENCE,
+            )
+            raw_override_min_confidence = _env_float(
+                "RAW_OVERRIDE_MIN_CONFIDENCE",
+                RAW_OVERRIDE_MIN_CONFIDENCE,
+            )
+
+            # packaged_food로 라우팅된 경우 OCR을 우선한다.
+            pipeline_stage = "packaged_food_ocr"
             candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
-        except Exception as exc:
-            ocr_error = str(exc)
-            candidates = []
 
-        if not candidates:
-            pipeline_stage = "raw_ingredient_classifier_fallback"
-            raw_candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
-            if raw_candidates:
+            should_try_raw_fallback = len(candidates) == 0
+            if should_try_raw_fallback:
+                raw_candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
+                raw_top1_conf = float(raw_candidates[0].get("confidence", 0.0)) if raw_candidates else 0.0
+
+                if raw_candidates and raw_top1_conf >= raw_override_min_confidence:
+                    candidates = raw_candidates
+                    pipeline_stage = "raw_ingredient_classifier_override"
+                    route = "raw_ingredient"
+                    route_reason = (
+                        f"packaged_food route fallback applied: raw top1 confidence "
+                        f"{raw_top1_conf:.3f} >= {raw_override_min_confidence:.3f}"
+                    )
+
+        elif route == "raw_ingredient":
+            pipeline_stage = "raw_ingredient_classifier"
+            candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
+            raw_route_ocr_fallback_max_conf = _env_float(
+                "RAW_ROUTE_OCR_FALLBACK_MAX_CONF",
+                RAW_ROUTE_OCR_FALLBACK_MAX_CONF,
+            )
+            raw_route_ocr_fallback_min_margin = _env_float(
+                "RAW_ROUTE_OCR_FALLBACK_MIN_MARGIN",
+                RAW_ROUTE_OCR_FALLBACK_MIN_MARGIN,
+            )
+            raw_top1_conf = (
+                float(candidates[0].get("confidence", 0.0) or 0.0) if candidates else 0.0
+            )
+            raw_top2_conf = (
+                float(candidates[1].get("confidence", 0.0) or 0.0)
+                if len(candidates) > 1
+                else 0.0
+            )
+            raw_top1_margin = raw_top1_conf - raw_top2_conf
+            should_try_ocr_fallback = (
+                len(candidates) == 0
+                or raw_top1_conf <= raw_route_ocr_fallback_max_conf
+                or raw_top1_margin <= raw_route_ocr_fallback_min_margin
+            )
+            if should_try_ocr_fallback:
+                ocr_candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
+                if ocr_candidates:
+                    candidates = ocr_candidates
+                    pipeline_stage = "packaged_food_ocr_fallback_from_raw"
+                    route = "packaged_food"
+                    route_reason = (
+                        "raw_ingredient confidence/margin was low; switched to OCR fallback "
+                        f"(raw_top1={raw_top1_conf:.3f}, margin={raw_top1_margin:.3f})."
+                    )
+
+        else:
+            # YOLO 가 ing_* 마스터 클래스만 학습된 경우(예: ing_master_124_cls) 라우터는 unknown 이지만
+            # probabilities 에 ing_* softmax 가 있으므로 상위 K → 마스터 JSON으로 후보 생성
+            direct_master = candidates_from_yolo_master_class_probs(route_result, effective_top_k)
+            if direct_master:
+                candidates = direct_master
                 route = "raw_ingredient"
-                route_confidence = float(raw_candidates[0].get("confidence", 0.0) or 0.0)
-                route_reason = (
-                    "ocr-first fallback applied: raw ingredient classifier used because OCR "
-                    f"{'failed' if ocr_error else 'returned empty'}."
+                pipeline_stage = "yolo_master_topk"
+                if not route_reason or "알 수 없는 class" in str(route_reason):
+                    route_reason = (
+                        "YOLO direct ingredient_master classes (ing_*); "
+                        "names from model_label_to_master_train_non_packaged.json"
+                    )
+                direct_master_ocr_fallback_max_conf = _env_float(
+                    "DIRECT_MASTER_OCR_FALLBACK_MAX_CONF",
+                    DIRECT_MASTER_OCR_FALLBACK_MAX_CONF,
                 )
-                candidates = raw_candidates
+                direct_top1_conf = (
+                    float(candidates[0].get("confidence", 0.0) or 0.0) if candidates else 0.0
+                )
+                if direct_top1_conf <= direct_master_ocr_fallback_max_conf:
+                    ocr_candidates = recognize_packaged_food_by_ocr(temp_path, effective_top_k)
+                    if ocr_candidates:
+                        candidates = ocr_candidates
+                        pipeline_stage = "packaged_food_ocr_fallback_from_direct_master"
+                        route = "packaged_food"
+                        route_reason = (
+                            "direct-master top1 confidence was not high enough; switched to OCR fallback "
+                            f"(top1={direct_top1_conf:.3f})."
+                        )
             else:
-                route = "unknown"
-                route_confidence = 0.0
-                route_needs_review = True
-                route_reason = (
-                    "ocr-first pipeline: OCR and raw ingredient fallback both produced no candidates."
-                )
+                pipeline_stage = "unsupported_route"
 
         embedding_rerank_applied = False
         if _env_bool("VISION_EMBEDDING_RERANK_ENABLED", EMBEDDING_RERANK_ENABLED_DEFAULT):
