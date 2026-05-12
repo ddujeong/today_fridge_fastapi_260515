@@ -308,7 +308,7 @@ def _load_master_train_label_map() -> Dict[str, Any]:
 def _canonical_ing_folder_key(label: str) -> str:
     """ing_7 / ing_00007 / ING_00007 → ing_00007 (학습 폴더·CSV·JSON 키 통일)."""
     s = str(label).strip()
-    m = re.match(r"^(?i)ing_(\d+)$", s)
+    m = re.match(r"(?i)^ing_(\d+)$", s)
     if not m:
         return s
     return f"ing_{int(m.group(1)):05d}"
