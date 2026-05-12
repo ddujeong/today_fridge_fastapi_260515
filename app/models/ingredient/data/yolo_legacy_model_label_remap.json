@@ -1,0 +1,4 @@
+{
+  "description": "Empty: YOLO weights now match Neon ingredient_id keys. Set RAW_INGREDIENT_LEGACY_REMAP=1 only if you deploy an old checkpoint that still emits pre-remap class names.",
+  "remap": {}
+}

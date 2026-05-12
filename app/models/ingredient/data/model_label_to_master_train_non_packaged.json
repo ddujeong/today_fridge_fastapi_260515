@@ -2,86 +2,20 @@
   "schema": "model_label_to_master_v2_db_export",
   "description": "YOLO class folder / model output label -> ingredient_master. Keys are zero-padded ing_XXXXX matching ingredient_id. Train/val image folders must use the same names.",
   "generatedAt": "2026-05-03T04:21:52.404892+00:00",
-  "source": "postgresql today_fridge.ingredient_master export (postgresql://postgres:***@127.0.0.1:5432/today_fridge)",
+  "source": "postgresql ingredient_master + ingredient_category (live SELECT)",
   "labelKeyFormat": "ing_{:05d}",
   "labels": {
-    "ing_01716": {
-      "displayName": "쪽파",
-      "normalizedName": "쪽파",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1716
-    },
-    "ing_01722": {
-      "displayName": "미니새송이버섯",
-      "normalizedName": "미니새송이버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1722
-    },
-    "ing_01129": {
-      "displayName": "새송이버섯",
-      "normalizedName": "새송이버섯",
-      "categorySuggestion": "기타",
-      "ingredientId": 1129
-    },
-    "ing_03719": {
-      "displayName": "알배추",
-      "normalizedName": "알배추",
-      "categorySuggestion": "채소",
-      "ingredientId": 3719
-    },
-    "ing_00115": {
-      "displayName": "배추",
-      "normalizedName": "배추",
-      "categorySuggestion": "채소",
-      "ingredientId": 115
-    },
-    "ing_01749": {
-      "displayName": "취나물",
-      "normalizedName": "취나물",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1749
-    },
-    "ing_00163": {
-      "displayName": "닭고기",
-      "normalizedName": "닭고기",
-      "categorySuggestion": "육류",
-      "ingredientId": 163
-    },
-    "ing_01894": {
-      "displayName": "닭다리",
-      "normalizedName": "닭다리",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1894
-    },
-    "ing_00214": {
-      "displayName": "닭가슴살",
-      "normalizedName": "닭가슴살",
-      "categorySuggestion": "육류",
-      "ingredientId": 214
-    },
-    "ing_00234": {
-      "displayName": "닭안심",
-      "normalizedName": "닭안심",
-      "categorySuggestion": "육류",
-      "ingredientId": 234
-    },
-    "ing_00190": {
-      "displayName": "브로콜리",
-      "normalizedName": "브로콜리",
-      "categorySuggestion": "채소",
-      "ingredientId": 190
+    "ing_00007": {
+      "displayName": "샤브용 소고기 목살",
+      "normalizedName": "샤브용소고기목살",
+      "categorySuggestion": "해산물",
+      "ingredientId": 7
     },
     "ing_00008": {
       "displayName": "감자",
       "normalizedName": "감자",
       "categorySuggestion": "채소",
       "ingredientId": 8
-    },
-    "ing_01762": {
-      "displayName": "홍고추",
-      "normalizedName": "홍고추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1762
     },
     "ing_00009": {
       "displayName": "대파",
@@ -90,22 +24,16 @@
       "ingredientId": 9
     },
     "ing_00015": {
-      "displayName": "마늘",
+      "displayName": "다진 마늘",
       "normalizedName": "마늘",
-      "categorySuggestion": "채소",
+      "categorySuggestion": "과일",
       "ingredientId": 15
     },
-    "ing_00048": {
-      "displayName": "무",
-      "normalizedName": "무",
+    "ing_00023": {
+      "displayName": "메추리알",
+      "normalizedName": "달걀",
       "categorySuggestion": "채소",
-      "ingredientId": 48
-    },
-    "ing_00090": {
-      "displayName": "당근",
-      "normalizedName": "당근",
-      "categorySuggestion": "채소",
-      "ingredientId": 90
+      "ingredientId": 23
     },
     "ing_00032": {
       "displayName": "오이",
@@ -119,323 +47,29 @@
       "categorySuggestion": "채소",
       "ingredientId": 33
     },
-    "ing_00865": {
-      "displayName": "방울토마토",
-      "normalizedName": "방울토마토",
-      "categorySuggestion": "기타",
-      "ingredientId": 865
-    },
-    "ing_02357": {
-      "displayName": "완숙토마토",
-      "normalizedName": "완숙토마토",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2357
-    },
-    "ing_01774": {
-      "displayName": "생강",
-      "normalizedName": "생강",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1774
-    },
-    "ing_01747": {
-      "displayName": "느타리버섯",
-      "normalizedName": "느타리버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1747
-    },
-    "ing_01820": {
-      "displayName": "표고버섯",
-      "normalizedName": "표고버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1820
-    },
-    "ing_01781": {
-      "displayName": "양송이버섯",
-      "normalizedName": "양송이버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1781
-    },
-    "ing_02051": {
-      "displayName": "백만송이버섯",
-      "normalizedName": "백만송이버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2051
-    },
-    "ing_02045": {
-      "displayName": "만가닥버섯",
-      "normalizedName": "만가닥버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2045
-    },
-    "ing_02562": {
-      "displayName": "맛타리버섯",
-      "normalizedName": "맛타리버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2562
-    },
-    "ing_02531": {
-      "displayName": "머쉬마루버섯",
-      "normalizedName": "머쉬마루버섯",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2531
-    },
-    "ing_00546": {
-      "displayName": "오리고기",
-      "normalizedName": "오리고기",
-      "categorySuggestion": "기타",
-      "ingredientId": 546
-    },
-    "ing_01809": {
-      "displayName": "오징어",
-      "normalizedName": "오징어",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1809
-    },
-    "ing_00186": {
-      "displayName": "작은오징어",
-      "normalizedName": "작은오징어",
-      "categorySuggestion": "해산물",
-      "ingredientId": 186
-    },
-    "ing_01923": {
-      "displayName": "고등어",
-      "normalizedName": "고등어",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1923
-    },
-    "ing_02013": {
-      "displayName": "굴비",
-      "normalizedName": "굴비",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2013
-    },
-    "ing_00218": {
-      "displayName": "소고기",
-      "normalizedName": "소고기",
-      "categorySuggestion": "육류",
-      "ingredientId": 218
-    },
-    "ing_00007": {
-      "displayName": "샤브용소고기목살",
-      "normalizedName": "샤브용소고기목살",
-      "categorySuggestion": "육류",
-      "ingredientId": 7
-    },
-    "ing_02043": {
-      "displayName": "소고기홍두깨살",
-      "normalizedName": "소고기홍두깨살",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2043
-    },
-    "ing_02246": {
-      "displayName": "소고기등심",
-      "normalizedName": "소고기등심",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2246
-    },
-    "ing_00175": {
-      "displayName": "차돌박이",
-      "normalizedName": "차돌박이",
-      "categorySuggestion": "육류",
-      "ingredientId": 175
-    },
-    "ing_00177": {
-      "displayName": "돼지고기",
-      "normalizedName": "돼지고기",
-      "categorySuggestion": "육류",
-      "ingredientId": 177
-    },
-    "ing_01969": {
-      "displayName": "돼지안심",
-      "normalizedName": "돼지안심",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1969
-    },
-    "ing_02143": {
-      "displayName": "삼겹살",
-      "normalizedName": "삼겹살",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2143
-    },
-    "ing_00358": {
-      "displayName": "대패삼겹살",
-      "normalizedName": "대패삼겹살",
-      "categorySuggestion": "육류",
-      "ingredientId": 358
-    },
-    "ing_01823": {
-      "displayName": "단호박",
-      "normalizedName": "단호박",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1823
-    },
-    "ing_02232": {
-      "displayName": "미니단호박",
-      "normalizedName": "미니단호박",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2232
-    },
-    "ing_03720": {
-      "displayName": "호박",
-      "normalizedName": "호박",
+    "ing_00048": {
+      "displayName": "무",
+      "normalizedName": "무",
       "categorySuggestion": "채소",
-      "ingredientId": 3720
-    },
-    "ing_00089": {
-      "displayName": "애호박",
-      "normalizedName": "애호박",
-      "categorySuggestion": "채소",
-      "ingredientId": 89
-    },
-    "ing_02225": {
-      "displayName": "쥬키니호박",
-      "normalizedName": "쥬키니호박",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2225
-    },
-    "ing_01902": {
-      "displayName": "조선호박",
-      "normalizedName": "조선호박",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1902
-    },
-    "ing_01911": {
-      "displayName": "천수무",
-      "normalizedName": "천수무",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1911
+      "ingredientId": 48
     },
     "ing_00052": {
-      "displayName": "고추",
+      "displayName": "오이고추",
       "normalizedName": "고추",
       "categorySuggestion": "채소",
       "ingredientId": 52
     },
-    "ing_00212": {
-      "displayName": "청양고추",
-      "normalizedName": "청양고추",
-      "categorySuggestion": "채소",
-      "ingredientId": 212
-    },
-    "ing_02128": {
-      "displayName": "청고추",
-      "normalizedName": "청고추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2128
-    },
-    "ing_01715": {
-      "displayName": "오이고추",
-      "normalizedName": "오이고추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1715
-    },
-    "ing_00664": {
-      "displayName": "아삭이고추",
-      "normalizedName": "아삭이고추",
-      "categorySuggestion": "기타",
-      "ingredientId": 664
-    },
-    "ing_00158": {
-      "displayName": "꽈리고추",
-      "normalizedName": "꽈리고추",
-      "categorySuggestion": "채소",
-      "ingredientId": 158
-    },
-    "ing_02189": {
-      "displayName": "피망",
-      "normalizedName": "피망",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2189
-    },
-    "ing_01925": {
-      "displayName": "청피망",
-      "normalizedName": "청피망",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1925
-    },
-    "ing_01897": {
-      "displayName": "홍피망",
-      "normalizedName": "홍피망",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1897
-    },
-    "ing_00161": {
-      "displayName": "파프리카",
-      "normalizedName": "파프리카",
-      "categorySuggestion": "채소",
-      "ingredientId": 161
-    },
-    "ing_01980": {
-      "displayName": "홍파프리카",
-      "normalizedName": "홍파프리카",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1980
-    },
-    "ing_01893": {
-      "displayName": "주황파프리카",
-      "normalizedName": "주황파프리카",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1893
-    },
-    "ing_02420": {
-      "displayName": "미니파프리카",
-      "normalizedName": "미니파프리카",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2420
-    },
-    "ing_02072": {
-      "displayName": "초록파프리카",
-      "normalizedName": "초록파프리카",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2072
-    },
-    "ing_01891": {
-      "displayName": "적채",
-      "normalizedName": "적채",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1891
-    },
     "ing_00060": {
-      "displayName": "양배추",
+      "displayName": "채썬 양배추",
       "normalizedName": "양배추",
-      "categorySuggestion": "채소",
+      "categorySuggestion": "과일",
       "ingredientId": 60
     },
-    "ing_02129": {
-      "displayName": "방울양배추",
-      "normalizedName": "방울양배추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2129
-    },
-    "ing_01900": {
-      "displayName": "순대",
-      "normalizedName": "순대",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1900
-    },
-    "ing_02038": {
-      "displayName": "쑥갓",
-      "normalizedName": "쑥갓",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2038
-    },
-    "ing_00101": {
-      "displayName": "양파",
-      "normalizedName": "양파",
+    "ing_00067": {
+      "displayName": "콩나물",
+      "normalizedName": "콩나물",
       "categorySuggestion": "채소",
-      "ingredientId": 101
-    },
-    "ing_02066": {
-      "displayName": "흰양파",
-      "normalizedName": "흰양파",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2066
-    },
-    "ing_01742": {
-      "displayName": "햇양파",
-      "normalizedName": "햇양파",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1742
+      "ingredientId": 67
     },
     "ing_00078": {
       "displayName": "부추",
@@ -449,227 +83,47 @@
       "categorySuggestion": "채소",
       "ingredientId": 81
     },
-    "ing_00067": {
-      "displayName": "콩나물",
-      "normalizedName": "콩나물",
-      "categorySuggestion": "채소",
-      "ingredientId": 67
-    },
-    "ing_00191": {
-      "displayName": "숙주",
-      "normalizedName": "숙주",
-      "categorySuggestion": "채소",
-      "ingredientId": 191
-    },
-    "ing_01992": {
-      "displayName": "세발나물",
-      "normalizedName": "세발나물",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1992
-    },
-    "ing_01971": {
-      "displayName": "참나물",
-      "normalizedName": "참나물",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1971
-    },
-    "ing_02008": {
-      "displayName": "고수",
-      "normalizedName": "고수",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2008
-    },
-    "ing_00325": {
-      "displayName": "우엉",
-      "normalizedName": "우엉",
-      "categorySuggestion": "채소",
-      "ingredientId": 325
-    },
-    "ing_00147": {
-      "displayName": "고구마",
-      "normalizedName": "고구마",
-      "categorySuggestion": "채소",
-      "ingredientId": 147
-    },
-    "ing_01741": {
-      "displayName": "가시오이",
-      "normalizedName": "가시오이",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1741
-    },
-    "ing_02147": {
-      "displayName": "인삼",
-      "normalizedName": "인삼",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2147
-    },
-    "ing_02167": {
-      "displayName": "얼갈이배추",
-      "normalizedName": "얼갈이배추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2167
-    },
-    "ing_02170": {
-      "displayName": "비트",
-      "normalizedName": "비트",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2170
-    },
-    "ing_02172": {
-      "displayName": "로즈마리",
-      "normalizedName": "로즈마리",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2172
-    },
-    "ing_02216": {
-      "displayName": "양상추",
-      "normalizedName": "양상추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2216
-    },
     "ing_00088": {
       "displayName": "페퍼론치노",
       "normalizedName": "페퍼론치노",
-      "categorySuggestion": "조미료",
+      "categorySuggestion": "채소",
       "ingredientId": 88
     },
-    "ing_02275": {
-      "displayName": "알밤",
-      "normalizedName": "알밤",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2275
+    "ing_00089": {
+      "displayName": "애호박",
+      "normalizedName": "애호박",
+      "categorySuggestion": "채소",
+      "ingredientId": 89
     },
-    "ing_02274": {
-      "displayName": "굴",
-      "normalizedName": "굴",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2274
+    "ing_00090": {
+      "displayName": "당근라페",
+      "normalizedName": "당근",
+      "categorySuggestion": "과일",
+      "ingredientId": 90
     },
-    "ing_02384": {
-      "displayName": "바지락",
-      "normalizedName": "바지락",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2384
-    },
-    "ing_02438": {
-      "displayName": "바지락살",
-      "normalizedName": "바지락살",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2438
-    },
-    "ing_02543": {
-      "displayName": "냉동꽃게",
-      "normalizedName": "냉동꽃게",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2543
+    "ing_00101": {
+      "displayName": "양파\n작은사이즈",
+      "normalizedName": "양파",
+      "categorySuggestion": "과일",
+      "ingredientId": 101
     },
     "ing_00113": {
-      "displayName": "새우",
+      "displayName": "건새우",
       "normalizedName": "새우",
-      "categorySuggestion": "해산물",
+      "categorySuggestion": "유제품",
       "ingredientId": 113
-    },
-    "ing_02561": {
-      "displayName": "새우살",
-      "normalizedName": "새우살",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2561
-    },
-    "ing_02392": {
-      "displayName": "냉동새우살",
-      "normalizedName": "냉동새우살",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2392
-    },
-    "ing_00275": {
-      "displayName": "꼬막",
-      "normalizedName": "꼬막",
-      "categorySuggestion": "해산물",
-      "ingredientId": 275
-    },
-    "ing_00293": {
-      "displayName": "미나리",
-      "normalizedName": "미나리",
-      "categorySuggestion": "채소",
-      "ingredientId": 293
-    },
-    "ing_02337": {
-      "displayName": "비름나물",
-      "normalizedName": "비름나물",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2337
-    },
-    "ing_02350": {
-      "displayName": "도라지채",
-      "normalizedName": "도라지채",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2350
-    },
-    "ing_02363": {
-      "displayName": "돌나물",
-      "normalizedName": "돌나물",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2363
-    },
-    "ing_02032": {
-      "displayName": "매실",
-      "normalizedName": "매실",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2032
-    },
-    "ing_02390": {
-      "displayName": "근대",
-      "normalizedName": "근대",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2390
-    },
-    "ing_02393": {
-      "displayName": "단감",
-      "normalizedName": "단감",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2393
-    },
-    "ing_00239": {
-      "displayName": "가지",
-      "normalizedName": "가지",
-      "categorySuggestion": "채소",
-      "ingredientId": 239
-    },
-    "ing_03721": {
-      "displayName": "완두콩",
-      "normalizedName": "완두콩",
-      "categorySuggestion": "채소",
-      "ingredientId": 3721
-    },
-    "ing_02441": {
-      "displayName": "냉이",
-      "normalizedName": "냉이",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2441
-    },
-    "ing_02444": {
-      "displayName": "속배추",
-      "normalizedName": "속배추",
-      "categorySuggestion": "미분류",
-      "ingredientId": 2444
-    },
-    "ing_01994": {
-      "displayName": "옥수수",
-      "normalizedName": "옥수수",
-      "categorySuggestion": "미분류",
-      "ingredientId": 1994
-    },
-    "ing_00306": {
-      "displayName": "어린잎",
-      "normalizedName": "어린잎",
-      "categorySuggestion": "채소",
-      "ingredientId": 306
     },
     "ing_00114": {
       "displayName": "마늘쫑",
       "normalizedName": "마늘쫑",
       "categorySuggestion": "채소",
       "ingredientId": 114
+    },
+    "ing_00115": {
+      "displayName": "알배추",
+      "normalizedName": "배추",
+      "categorySuggestion": "채소",
+      "ingredientId": 115
     },
     "ing_00117": {
       "displayName": "파슬리",
@@ -683,17 +137,119 @@
       "categorySuggestion": "채소",
       "ingredientId": 137
     },
-    "ing_00263": {
-      "displayName": "케일",
-      "normalizedName": "케일",
+    "ing_00147": {
+      "displayName": "고구마",
+      "normalizedName": "고구마",
       "categorySuggestion": "채소",
-      "ingredientId": 263
+      "ingredientId": 147
+    },
+    "ing_00158": {
+      "displayName": "꽈리고추\n작은거",
+      "normalizedName": "꽈리고추",
+      "categorySuggestion": "과일",
+      "ingredientId": 158
+    },
+    "ing_00161": {
+      "displayName": "파프리카\n노란 빨강",
+      "normalizedName": "파프리카",
+      "categorySuggestion": "과일",
+      "ingredientId": 161
+    },
+    "ing_00163": {
+      "displayName": "닭고기",
+      "normalizedName": "닭고기",
+      "categorySuggestion": "육류",
+      "ingredientId": 163
+    },
+    "ing_00175": {
+      "displayName": "차돌박이",
+      "normalizedName": "차돌박이",
+      "categorySuggestion": "육류",
+      "ingredientId": 175
+    },
+    "ing_00177": {
+      "displayName": "돼지고기 다짐육",
+      "normalizedName": "돼지고기",
+      "categorySuggestion": "해산물",
+      "ingredientId": 177
+    },
+    "ing_00186": {
+      "displayName": "작은오징어",
+      "normalizedName": "작은오징어",
+      "categorySuggestion": "해산물",
+      "ingredientId": 186
+    },
+    "ing_00190": {
+      "displayName": "브로콜리",
+      "normalizedName": "브로콜리",
+      "categorySuggestion": "채소",
+      "ingredientId": 190
+    },
+    "ing_00191": {
+      "displayName": "숙주",
+      "normalizedName": "숙주",
+      "categorySuggestion": "채소",
+      "ingredientId": 191
+    },
+    "ing_00205": {
+      "displayName": "사과",
+      "normalizedName": "사과",
+      "categorySuggestion": "과일",
+      "ingredientId": 205
+    },
+    "ing_00208": {
+      "displayName": "깐 메추리알",
+      "normalizedName": "메추리알",
+      "categorySuggestion": "미분류",
+      "ingredientId": 208
+    },
+    "ing_00212": {
+      "displayName": "청양고추\n매콤하게 먹고싶으면",
+      "normalizedName": "청양고추",
+      "categorySuggestion": "과일",
+      "ingredientId": 212
+    },
+    "ing_00214": {
+      "displayName": "닭가슴살",
+      "normalizedName": "닭가슴살",
+      "categorySuggestion": "육류",
+      "ingredientId": 214
+    },
+    "ing_00215": {
+      "displayName": "레몬",
+      "normalizedName": "레몬",
+      "categorySuggestion": "과일",
+      "ingredientId": 215
+    },
+    "ing_00218": {
+      "displayName": "다진소고기",
+      "normalizedName": "소고기",
+      "categorySuggestion": "해산물",
+      "ingredientId": 218
+    },
+    "ing_00234": {
+      "displayName": "닭안심",
+      "normalizedName": "닭안심",
+      "categorySuggestion": "육류",
+      "ingredientId": 234
+    },
+    "ing_00239": {
+      "displayName": "가지",
+      "normalizedName": "가지",
+      "categorySuggestion": "채소",
+      "ingredientId": 239
     },
     "ing_00261": {
       "displayName": "상추",
       "normalizedName": "상추",
       "categorySuggestion": "채소",
       "ingredientId": 261
+    },
+    "ing_00263": {
+      "displayName": "케일",
+      "normalizedName": "케일",
+      "categorySuggestion": "채소",
+      "ingredientId": 263
     },
     "ing_00264": {
       "displayName": "섬초",
@@ -702,9 +258,9 @@
       "ingredientId": 264
     },
     "ing_00268": {
-      "displayName": "봄동",
+      "displayName": "데쳐서 물기짠 봄동",
       "normalizedName": "봄동",
-      "categorySuggestion": "채소",
+      "categorySuggestion": "과일",
       "ingredientId": 268
     },
     "ing_00270": {
@@ -719,29 +275,439 @@
       "categorySuggestion": "채소",
       "ingredientId": 273
     },
-    "ing_00205": {
-      "displayName": "사과",
-      "normalizedName": "사과",
+    "ing_00275": {
+      "displayName": "꼬막",
+      "normalizedName": "꼬막",
+      "categorySuggestion": "해산물",
+      "ingredientId": 275
+    },
+    "ing_00293": {
+      "displayName": "미나리",
+      "normalizedName": "미나리",
+      "categorySuggestion": "채소",
+      "ingredientId": 293
+    },
+    "ing_00306": {
+      "displayName": "어린잎",
+      "normalizedName": "어린잎",
+      "categorySuggestion": "채소",
+      "ingredientId": 306
+    },
+    "ing_00325": {
+      "displayName": "우엉",
+      "normalizedName": "우엉",
+      "categorySuggestion": "채소",
+      "ingredientId": 325
+    },
+    "ing_00358": {
+      "displayName": "대패 삼겹살",
+      "normalizedName": "대패삼겹살",
+      "categorySuggestion": "육류",
+      "ingredientId": 358
+    },
+    "ing_00546": {
+      "displayName": "오리고기",
+      "normalizedName": "오리고기",
+      "categorySuggestion": "육류",
+      "ingredientId": 546
+    },
+    "ing_00664": {
+      "displayName": "아삭이고추",
+      "normalizedName": "아삭이고추",
+      "categorySuggestion": "채소",
+      "ingredientId": 664
+    },
+    "ing_00865": {
+      "displayName": "방울토마토",
+      "normalizedName": "방울토마토",
+      "categorySuggestion": "채소",
+      "ingredientId": 865
+    },
+    "ing_01129": {
+      "displayName": "새송이버섯 작은것",
+      "normalizedName": "새송이버섯",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1129
+    },
+    "ing_01715": {
+      "displayName": "물엿",
+      "normalizedName": "물엿",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1715
+    },
+    "ing_01716": {
+      "displayName": "잘 익은 김치",
+      "normalizedName": "잘익은김치",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1716
+    },
+    "ing_01740": {
+      "displayName": "미니새송이버섯",
+      "normalizedName": "미니새송이버섯",
+      "categorySuggestion": "채소",
+      "ingredientId": 1740
+    },
+    "ing_02218": {
+      "displayName": "가시오이",
+      "normalizedName": "가시오이",
+      "categorySuggestion": "채소",
+      "ingredientId": 2218
+    },
+    "ing_02190": {
+      "displayName": "햇양파",
+      "normalizedName": "햇양파",
+      "categorySuggestion": "채소",
+      "ingredientId": 2190
+    },
+    "ing_01809": {
+      "displayName": "느타리버섯",
+      "normalizedName": "느타리버섯",
+      "categorySuggestion": "채소",
+      "ingredientId": 1809
+    },
+    "ing_01763": {
+      "displayName": "취나물",
+      "normalizedName": "취나물",
+      "categorySuggestion": "채소",
+      "ingredientId": 1763
+    },
+    "ing_01777": {
+      "displayName": "붉은고추",
+      "normalizedName": "홍고추",
+      "categorySuggestion": "채소",
+      "ingredientId": 1777
+    },
+    "ing_01793": {
+      "displayName": "생강",
+      "normalizedName": "생강",
+      "categorySuggestion": "채소",
+      "ingredientId": 1793
+    },
+    "ing_01781": {
+      "displayName": "튀김가루\n수북이",
+      "normalizedName": "튀김가루",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1781
+    },
+    "ing_01820": {
+      "displayName": "감자 손질 후",
+      "normalizedName": "감자손질후",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1820
+    },
+    "ing_01853": {
+      "displayName": "단호박",
+      "normalizedName": "단호박",
+      "categorySuggestion": "채소",
+      "ingredientId": 1853
+    },
+    "ing_01938": {
+      "displayName": "적채",
+      "normalizedName": "적채",
+      "categorySuggestion": "채소",
+      "ingredientId": 1938
+    },
+    "ing_01893": {
+      "displayName": "오이맛고추",
+      "normalizedName": "오이맛고추",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1893
+    },
+    "ing_05269": {
+      "displayName": "닭다리",
+      "normalizedName": "닭다리",
+      "categorySuggestion": "육류",
+      "ingredientId": 5269
+    },
+    "ing_01999": {
+      "displayName": "홍피망",
+      "normalizedName": "홍피망",
+      "categorySuggestion": "채소",
+      "ingredientId": 1999
+    },
+    "ing_01900": {
+      "displayName": "볶은 통깨",
+      "normalizedName": "볶은통깨",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1900
+    },
+    "ing_01954": {
+      "displayName": "조선호박",
+      "normalizedName": "조선호박",
+      "categorySuggestion": "채소",
+      "ingredientId": 1954
+    },
+    "ing_01965": {
+      "displayName": "천수무\n11개",
+      "normalizedName": "천수무",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1965
+    },
+    "ing_01923": {
+      "displayName": "레몬 독스",
+      "normalizedName": "레몬독스",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1923
+    },
+    "ing_01998": {
+      "displayName": "청피망",
+      "normalizedName": "청피망",
+      "categorySuggestion": "채소",
+      "ingredientId": 1998
+    },
+    "ing_02040": {
+      "displayName": "돼지 안심",
+      "normalizedName": "돼지안심",
+      "categorySuggestion": "채소",
+      "ingredientId": 2040
+    },
+    "ing_01971": {
+      "displayName": "식용류",
+      "normalizedName": "식용류",
+      "categorySuggestion": "미분류",
+      "ingredientId": 1971
+    },
+    "ing_01980": {
+      "displayName": "고등어",
+      "normalizedName": "고등어",
+      "categorySuggestion": "해산물",
+      "ingredientId": 1980
+    },
+    "ing_02069": {
+      "displayName": "세발나물",
+      "normalizedName": "세발나물",
+      "categorySuggestion": "채소",
+      "ingredientId": 2069
+    },
+    "ing_03715": {
+      "displayName": "옥수수",
+      "normalizedName": "옥수수",
+      "categorySuggestion": "곡류",
+      "ingredientId": 3715
+    },
+    "ing_02008": {
+      "displayName": "통들깨",
+      "normalizedName": "통들깨",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2008
+    },
+    "ing_02097": {
+      "displayName": "굴비",
+      "normalizedName": "굴비",
+      "categorySuggestion": "해산물",
+      "ingredientId": 2097
+    },
+    "ing_02622": {
+      "displayName": "매실",
+      "normalizedName": "매실",
       "categorySuggestion": "과일",
-      "ingredientId": 205
+      "ingredientId": 2622
     },
-    "ing_00215": {
-      "displayName": "레몬",
-      "normalizedName": "레몬",
+    "ing_02038": {
+      "displayName": "깨 한 번",
+      "normalizedName": "깨한번",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2038
+    },
+    "ing_02137": {
+      "displayName": "소고기 홍두깨살",
+      "normalizedName": "소고기홍두깨살",
+      "categorySuggestion": "육류",
+      "ingredientId": 2137
+    },
+    "ing_05444": {
+      "displayName": "만가닥버섯",
+      "normalizedName": "만가닥버섯",
+      "categorySuggestion": "채소",
+      "ingredientId": 5444
+    },
+    "ing_03169": {
+      "displayName": "백만송이버섯",
+      "normalizedName": "백만송이버섯",
+      "categorySuggestion": "채소",
+      "ingredientId": 3169
+    },
+    "ing_02170": {
+      "displayName": "흰양파",
+      "normalizedName": "흰양파",
+      "categorySuggestion": "채소",
+      "ingredientId": 2170
+    },
+    "ing_02180": {
+      "displayName": "초록 파프리카",
+      "normalizedName": "초록파프리카",
+      "categorySuggestion": "채소",
+      "ingredientId": 2180
+    },
+    "ing_02128": {
+      "displayName": "쑥갓",
+      "normalizedName": "쑥갓",
+      "categorySuggestion": "채소",
+      "ingredientId": 2128
+    },
+    "ing_02261": {
+      "displayName": "방울양배추",
+      "normalizedName": "방울양배추",
+      "categorySuggestion": "채소",
+      "ingredientId": 2261
+    },
+    "ing_02288": {
+      "displayName": "인삼",
+      "normalizedName": "인삼",
+      "categorySuggestion": "채소",
+      "ingredientId": 2288
+    },
+    "ing_02167": {
+      "displayName": "볶음소금",
+      "normalizedName": "볶음소금",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2167
+    },
+    "ing_02318": {
+      "displayName": "로즈마리",
+      "normalizedName": "로즈마리",
+      "categorySuggestion": "채소",
+      "ingredientId": 2318
+    },
+    "ing_02337": {
+      "displayName": "땡초",
+      "normalizedName": "땡초",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2337
+    },
+    "ing_02377": {
+      "displayName": "양상추",
+      "normalizedName": "양상추",
+      "categorySuggestion": "채소",
+      "ingredientId": 2377
+    },
+    "ing_02387": {
+      "displayName": "쥬키니호박\n애호박1/2개",
+      "normalizedName": "쥬키니호박",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2387
+    },
+    "ing_02396": {
+      "displayName": "미니 단호박",
+      "normalizedName": "미니단호박",
+      "categorySuggestion": "채소",
+      "ingredientId": 2396
+    },
+    "ing_02421": {
+      "displayName": "소고기 등심",
+      "normalizedName": "소고기등심",
+      "categorySuggestion": "육류",
+      "ingredientId": 2421
+    },
+    "ing_02274": {
+      "displayName": "생강소스",
+      "normalizedName": "생강소스",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2274
+    },
+    "ing_02463": {
+      "displayName": "알 밤",
+      "normalizedName": "알밤",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2463
+    },
+    "ing_02570": {
+      "displayName": "도라지채",
+      "normalizedName": "도라지채",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2570
+    },
+    "ing_02581": {
+      "displayName": "완숙토마토",
+      "normalizedName": "완숙토마토",
+      "categorySuggestion": "채소",
+      "ingredientId": 2581
+    },
+    "ing_02363": {
+      "displayName": "계란 노른자",
+      "normalizedName": "계란노른자",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2363
+    },
+    "ing_02618": {
+      "displayName": "바지락",
+      "normalizedName": "바지락",
+      "categorySuggestion": "해산물",
+      "ingredientId": 2618
+    },
+    "ing_02390": {
+      "displayName": "녹말",
+      "normalizedName": "녹말",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2390
+    },
+    "ing_03511": {
+      "displayName": "냉동 새우살",
+      "normalizedName": "냉동새우살",
+      "categorySuggestion": "해산물",
+      "ingredientId": 3511
+    },
+    "ing_02630": {
+      "displayName": "단감",
+      "normalizedName": "단감",
       "categorySuggestion": "과일",
-      "ingredientId": 215
+      "ingredientId": 2630
     },
-    "ing_00208": {
-      "displayName": "메추리알",
-      "normalizedName": "메추리알",
-      "categorySuggestion": "기타",
-      "ingredientId": 208
+    "ing_02664": {
+      "displayName": "미니 파프리카",
+      "normalizedName": "미니파프리카",
+      "categorySuggestion": "채소",
+      "ingredientId": 2664
     },
-    "ing_00023": {
-      "displayName": "달걀",
-      "normalizedName": "달걀",
-      "categorySuggestion": "기타",
-      "ingredientId": 23
+    "ing_02438": {
+      "displayName": "대파 파란부분",
+      "normalizedName": "대파파란부분",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2438
+    },
+    "ing_02441": {
+      "displayName": "매실엑기스",
+      "normalizedName": "매실엑기스",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2441
+    },
+    "ing_02700": {
+      "displayName": "속배추",
+      "normalizedName": "속배추",
+      "categorySuggestion": "채소",
+      "ingredientId": 2700
+    },
+    "ing_02531": {
+      "displayName": "찍어먹을맛간장",
+      "normalizedName": "찍어먹을맛간장",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2531
+    },
+    "ing_02845": {
+      "displayName": "냉동꽃게",
+      "normalizedName": "냉동꽃게",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2845
+    },
+    "ing_02561": {
+      "displayName": "찬밥",
+      "normalizedName": "찬밥",
+      "categorySuggestion": "미분류",
+      "ingredientId": 2561
+    },
+    "ing_02871": {
+      "displayName": "맛타리버섯",
+      "normalizedName": "맛타리버섯",
+      "categorySuggestion": "채소",
+      "ingredientId": 2871
+    },
+    "ing_02682": {
+      "displayName": "완두콩",
+      "normalizedName": "완두콩",
+      "categorySuggestion": "채소",
+      "ingredientId": 2682
     }
-  }
+  },
+  "remapNote": "apply_train_id_remapping_from_candidates (TSV + optional overrides)",
+  "exportedAt": "2026-05-10T13:25:59.867792+00:00"
 }

@@ -6,10 +6,11 @@ vision_internal_api.py
 흐름:
 1. Spring Boot가 /internal/v1/vision/recognize-ingredient-image 호출
 2. FastAPI가 업로드 이미지를 임시 저장
-3. ingredient_route_cls_classifier.py로 raw_ingredient / packaged_food 라우팅
+3. ingredient_route_cls_classifier(YOLO)로 1차 라우팅
 4. packaged_food이면 OCR 모듈 호출
 5. raw_ingredient이면 식재료 세부 classifier 모듈 호출
-6. 문서 계약의 recognizedCandidates 형태로 응답
+6. 모델이 ing_* 마스터 클래스만 학습된 경우(예: ing_master_124_cls): softmax 상위 K + model_label_to_master_train_non_packaged.json 으로 후보 생성
+7. 문서 계약의 recognizedCandidates 형태로 응답
 
 현재 전제:
 - route classifier는 이미 구현되어 있음.
@@ -27,10 +28,12 @@ main.py 연결:
 
 from __future__ import annotations
 
+import json
+import math
 import os
+import re
 import tempfile
 import uuid
-import math
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -57,8 +60,27 @@ PACKAGED_ROUTE_FALLBACK_MAX_CONF = 0.90
 RAW_OVERRIDE_MIN_CONFIDENCE = 0.45
 EMBEDDING_RERANK_ENABLED_DEFAULT = True
 
+# YOLO train 폴더명 ing_00042 형태 → DB 마스터 표시명 매핑 (비포장 124클 등)
+_MASTER_LABEL_JSON_DEFAULT = (
+    Path(__file__).resolve().parents[2]
+    / "models"
+    / "ingredient"
+    / "data"
+    / "model_label_to_master_train_non_packaged.json"
+)
+_TRAIN_CLASS_REF_CSV_DEFAULT = (
+    Path(__file__).resolve().parents[2]
+    / "models"
+    / "ingredient"
+    / "data"
+    / "train_class_reference_new.csv"
+)
+_ING_CLASS_KEY = re.compile(r"^ing_\d+$", re.IGNORECASE)
+
 _route_classifier: Optional[IngredientRouteClassifier] = None
 _route_classifier_load_error: Optional[str] = None
+_master_labels_by_key: Optional[Dict[str, Any]] = None
+_train_class_ref_by_folder: Optional[Dict[str, Dict[str, str]]] = None
 
 
 def common_success(
@@ -260,6 +282,160 @@ def recognize_raw_ingredient_by_classifier(image_path: Path, top_k: int) -> List
     return normalize_candidates(raw_result, default_category=None)
 
 
+def _load_master_train_label_map() -> Dict[str, Any]:
+    """model_label_to_master_train_non_packaged.json 의 labels 맵 (키: ing_00007)."""
+    global _master_labels_by_key
+    if _master_labels_by_key is not None:
+        return _master_labels_by_key
+    path = Path(
+        os.getenv("INGREDIENT_MASTER_TRAIN_LABEL_JSON", str(_MASTER_LABEL_JSON_DEFAULT))
+    )
+    if not path.is_file():
+        _master_labels_by_key = {}
+        return _master_labels_by_key
+    with open(path, encoding="utf-8") as f:
+        root = json.load(f)
+    labels = root.get("labels")
+    _master_labels_by_key = labels if isinstance(labels, dict) else {}
+    return _master_labels_by_key
+
+
+def _canonical_ing_folder_key(label: str) -> str:
+    """ing_7 / ing_00007 / ING_00007 → ing_00007 (학습 폴더·CSV·JSON 키 통일)."""
+    s = str(label).strip()
+    m = re.match(r"^(?i)ing_(\d+)$", s)
+    if not m:
+        return s
+    return f"ing_{int(m.group(1)):05d}"
+
+
+def _load_train_class_reference_map() -> Dict[str, Dict[str, str]]:
+    """train_class_reference_new.csv — JSON에 없는 ing_* 도 표시명 조회."""
+    global _train_class_ref_by_folder
+    if _train_class_ref_by_folder is not None:
+        return _train_class_ref_by_folder
+    import csv
+
+    path = Path(os.getenv("TRAIN_CLASS_REFERENCE_CSV", str(_TRAIN_CLASS_REF_CSV_DEFAULT)))
+    out: Dict[str, Dict[str, str]] = {}
+    if not path.is_file():
+        _train_class_ref_by_folder = out
+        return out
+    # utf-8-sig: Excel/메모장 저장 시 BOM 으로 첫 헤더가 \ufeffclass_folder 가 되어 class_folder 조회가 전부 실패하는 것 방지
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            raw = (row.get("class_folder") or "").strip()
+            if not raw:
+                # BOM 깨진 헤더 대비
+                for k, v in row.items():
+                    if k and k.replace("\ufeff", "").strip().lower() == "class_folder" and v:
+                        raw = str(v).strip()
+                        break
+            if not raw:
+                continue
+            canon = _canonical_ing_folder_key(raw)
+            clean_row = {
+                (k.replace("\ufeff", "").strip() if isinstance(k, str) else k): (
+                    (v or "").strip() if isinstance(v, str) else v
+                )
+                for k, v in row.items()
+            }
+            out[canon] = clean_row
+    _train_class_ref_by_folder = out
+    return out
+
+
+def candidates_from_yolo_master_class_probs(
+    route_result: Dict[str, Any],
+    top_k: int,
+) -> List[Dict[str, Any]]:
+    """
+    라우터 모델이 raw/packaged/other 가 아닌 ing_XXXXX (학습 폴더명) 만 줄 때:
+    softmax `probabilities` 상위 top_k 를 마스터 JSON과 붙여 recognizedCandidates 생성.
+    """
+    probs = route_result.get("probabilities") or {}
+    if not isinstance(probs, dict) or not probs:
+        return []
+
+    ing_like = sum(1 for k in probs if isinstance(k, str) and _ING_CLASS_KEY.match(k.strip()))
+    if ing_like < 1:
+        return []
+
+    # softmax 키를 canonical ing_XXXXX 로 합침 (ing_7 vs ing_00007 중복 방지)
+    merged: Dict[str, float] = {}
+    for k, v in probs.items():
+        if not isinstance(k, str) or not _ING_CLASS_KEY.match(k.strip()):
+            continue
+        ck = _canonical_ing_folder_key(k)
+        try:
+            fv = float(v)
+        except (TypeError, ValueError):
+            continue
+        merged[ck] = merged.get(ck, 0.0) + fv
+
+    ranked = sorted(merged.items(), key=lambda x: x[1], reverse=True)[:top_k]
+    if not ranked:
+        return []
+
+    label_map = _load_master_train_label_map()
+    csv_map = _load_train_class_reference_map()
+    raw: List[Dict[str, Any]] = []
+    for canon_key, conf in ranked:
+        entry = label_map.get(canon_key) if isinstance(label_map, dict) else None
+        if isinstance(entry, dict):
+            iid = entry.get("ingredientId")
+            try:
+                mid = int(iid) if iid is not None else None
+            except (TypeError, ValueError):
+                mid = None
+            raw.append(
+                {
+                    "displayName": str(entry.get("displayName") or canon_key),
+                    "normalizedName": str(
+                        entry.get("normalizedName")
+                        or entry.get("displayName")
+                        or canon_key
+                    ),
+                    "categorySuggestion": str(entry.get("categorySuggestion") or ""),
+                    "confidence": conf,
+                    "modelLabel": canon_key,
+                    "ingredientMasterId": mid,
+                }
+            )
+            continue
+
+        row = csv_map.get(canon_key)
+        if row:
+            try:
+                mid = int(row.get("ingredient_id") or 0) or None
+            except (TypeError, ValueError):
+                mid = None
+            dn = str(row.get("display_name") or canon_key)
+            nn = str(row.get("normalized_name") or dn)
+            raw.append(
+                {
+                    "displayName": dn,
+                    "normalizedName": nn,
+                    "categorySuggestion": "",
+                    "confidence": conf,
+                    "modelLabel": canon_key,
+                    "ingredientMasterId": mid,
+                }
+            )
+        else:
+            raw.append(
+                {
+                    "displayName": canon_key,
+                    "normalizedName": canon_key,
+                    "categorySuggestion": "",
+                    "confidence": conf,
+                    "modelLabel": canon_key,
+                }
+            )
+    return normalize_candidates(raw, default_category=None)
+
+
 def _env_float(name: str, default: float) -> float:
     raw = os.getenv(name)
     if raw is None:
@@ -286,6 +462,20 @@ def _cosine_similarity(a: List[float], b: List[float]) -> float:
     if norm_a == 0.0 or norm_b == 0.0:
         return 0.0
     return dot / (norm_a * norm_b)
+
+
+def _candidate_confidence_value(candidate: Dict[str, Any]) -> float:
+    try:
+        return float(candidate.get("confidence", 0.0) or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def sort_candidates_by_model_confidence(candidates: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """UI는 모델 softmax( confidence ) 높은 순이 자연스러움. 임베딩 리랭크는 순서만 바꾸고 confidence 는 유지되므로 마지막에 정렬."""
+    if len(candidates) <= 1:
+        return candidates
+    return sorted(candidates, key=_candidate_confidence_value, reverse=True)
 
 
 def _candidate_name_text(candidate: Dict[str, Any]) -> str:
@@ -479,6 +669,18 @@ def candidate_dict_to_contract(item: Dict[str, Any], default_category: Optional[
     ml = item.get("modelLabel", item.get("model_label"))
     if ml is not None and str(ml).strip():
         out["modelLabel"] = str(ml).strip()
+    rml = item.get("resolvedModelLabel", item.get("resolved_model_label"))
+    if rml is not None and str(rml).strip():
+        out["resolvedModelLabel"] = str(rml).strip()
+    if "predictionUncertain" in item:
+        out["predictionUncertain"] = bool(item["predictionUncertain"])
+    if item.get("top1Top2Margin") is not None:
+        try:
+            out["top1Top2Margin"] = float(item["top1Top2Margin"])
+        except (TypeError, ValueError):
+            pass
+    if "ttaAveraged" in item:
+        out["ttaAveraged"] = bool(item["ttaAveraged"])
     return out
 
 
@@ -631,7 +833,20 @@ async def recognize_ingredient_image(
             candidates = recognize_raw_ingredient_by_classifier(temp_path, effective_top_k)
 
         else:
-            pipeline_stage = "unsupported_route"
+            # YOLO 가 ing_* 마스터 클래스만 학습된 경우(예: ing_master_124_cls) 라우터는 unknown 이지만
+            # probabilities 에 ing_* softmax 가 있으므로 상위 K → 마스터 JSON으로 후보 생성
+            direct_master = candidates_from_yolo_master_class_probs(route_result, effective_top_k)
+            if direct_master:
+                candidates = direct_master
+                route = "raw_ingredient"
+                pipeline_stage = "yolo_master_topk"
+                if not route_reason or "알 수 없는 class" in str(route_reason):
+                    route_reason = (
+                        "YOLO direct ingredient_master classes (ing_*); "
+                        "names from model_label_to_master_train_non_packaged.json"
+                    )
+            else:
+                pipeline_stage = "unsupported_route"
 
         embedding_rerank_applied = False
         if _env_bool("VISION_EMBEDDING_RERANK_ENABLED", EMBEDDING_RERANK_ENABLED_DEFAULT):
@@ -639,8 +854,13 @@ async def recognize_ingredient_image(
             embedding_rerank_applied = reordered is not candidates
             candidates = reordered
 
+        # 임베딩 리랭크 후에도 표시는 모델 confidence 내림차순 (사용자 기대: 높은 확률이 위)
+        candidates = sort_candidates_by_model_confidence(candidates)[:effective_top_k]
+
         # 후보가 없으면 Spring Boot가 사용자 수동 입력/확인을 유도할 수 있게 needsReview를 true로 둔다.
-        needs_review = route_needs_review or len(candidates) == 0
+        # 비포장 분류: 불확실(1·2위 근접·낮은 신뢰도)도 검토 유도.
+        first_uncertain = bool(candidates[0].get("predictionUncertain")) if candidates else False
+        needs_review = route_needs_review or len(candidates) == 0 or first_uncertain
 
         dl_analysis = compute_dl_anomaly_analysis(temp_path)
         anomaly_analysis = build_anomaly_analysis(

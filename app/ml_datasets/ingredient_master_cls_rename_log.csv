@@ -1,0 +1,40 @@
+timestamp,old_folder,new_folder,reason
+2026-05-06T18:09:12,ing_01740,ing_01722,blank_row_remap label=mini_eryngii_mushroom canonical=미니새송이버섯
+2026-05-06T18:09:12,ing_01793,ing_01774,blank_row_remap label=ginger_root canonical=생강
+2026-05-06T18:09:12,ing_01965,ing_00048,blank_row_remap label=Korean_radish_root canonical=무
+2026-05-06T18:09:12,ing_02218,ing_00032,blank_row_remap label=Kirby_cucumber canonical=오이
+2026-05-06T18:09:12,ing_02318,ing_02172,blank_row_remap label=fresh_rosemary canonical=로즈마리
+2026-05-06T18:09:12,ing_02377,ing_02216,blank_row_remap label=green_lettuce_head canonical=양상추
+2026-05-06T18:09:12,ing_02421,ing_02246,blank_row_remap label=beef_loin canonical=소고기 등심
+2026-05-06T18:09:12,ing_02570,ing_02350,blank_row_remap label=bellflower_root canonical=도라지채
+2026-05-06T18:09:13,ing_02581,ing_00033,blank_row_remap label=red_tomato canonical=토마토
+2026-05-06T18:09:13,ing_02618,ing_02384,blank_row_remap label=baby_clam canonical=바지락
+2026-05-06T18:09:13,ing_02622,ing_02032,blank_row_remap label=Japanese_apricot canonical=매실
+2026-05-06T18:09:13,ing_02630,ing_02393,blank_row_remap label=fuyu_persimmon canonical=단감
+2026-05-06T18:09:13,ing_02682,ing_03718,blank_row_remap label=garden_peas canonical=완두콩
+2026-05-06T18:09:13,ing_02700,ing_03719,blank_row_remap label=Chinese_cabbage_heart canonical=알배추
+2026-05-06T18:09:13,ing_02871,ing_02045,blank_row_remap label=brown_beech_mushroom canonical=만가닥버섯
+2026-05-06T18:09:13,ing_03169,ing_02045,blank_row_remap label=bunapi_mushroom canonical=만가닥버섯
+2026-05-06T18:09:13,ing_05269,ing_01894,blank_row_remap label=chicken_drumstick canonical=닭다리
+2026-05-06T18:09:13,ing_05444,ing_00040,blank_row_remap label=enoki_mushroom canonical=팽이버섯
+2026-05-06T18:15:14,ing_01777,ing_01762,blank_row_remap label=Korean_red_chili canonical=붉은고추
+2026-05-06T18:15:15,ing_01998,ing_00161,blank_row_remap label=green_bell_pepper canonical=None
+2026-05-06T18:15:15,ing_01999,ing_00161,blank_row_remap label=red_bell_pepper canonical=None
+2026-05-06T18:15:15,ing_02180,ing_00161,blank_row_remap label=green_bell_pepper canonical=None
+2026-05-06T18:15:16,ing_02190,ing_00101,blank_row_remap label=fresh_onion canonical=None
+2026-05-06T18:15:16,ing_02387,ing_00089,blank_row_remap label=courgette canonical=애호박
+2026-05-06T18:15:16,ing_02664,ing_00161,blank_row_remap label=baby_bell_pepper canonical=None
+2026-05-06T18:15:16,ing_02845,ing_02543,blank_row_remap label=blue_crab_frozen canonical=냉동꽃게
+2026-05-06T18:15:16,ing_03511,ing_02392,blank_row_remap label=frozen_shrimp canonical=냉동 새우살
+2026-05-06T18:15:16,ing_03715,ing_01994,blank_row_remap label=corn_on_the_cob canonical=삶은옥수수
+2026-05-06T18:16:13,ing_01763,ing_01749,blank_row_remap label=Korean_aster_vegetable canonical=취나물
+2026-05-06T18:16:13,ing_01853,ing_01823,blank_row_remap label=Japanese_pumpkin canonical=단호박
+2026-05-06T18:16:13,ing_01938,ing_01891,blank_row_remap label=purple_cabbage canonical=적채
+2026-05-06T18:16:13,ing_01954,ing_00089,blank_row_remap label=Korean_squash canonical=None
+2026-05-06T18:16:13,ing_02040,ing_00177,blank_row_remap label=lean_pork_loin_strip canonical=None
+2026-05-06T18:16:13,ing_02097,ing_02013,blank_row_remap label=Korean_dried_fish_yellow_corvina canonical=굴비
+2026-05-06T18:16:13,ing_02261,ing_02129,blank_row_remap label=Brussels_sprout_stalk canonical=방울양배추
+2026-05-06T18:16:13,ing_02288,ing_02147,blank_row_remap label=Korean_ginseng canonical=인삼
+2026-05-06T18:16:13,ing_02396,ing_02232,blank_row_remap label=baby_pumpkin canonical=미니 단호박
+2026-05-06T18:17:31,ing_02069,ing_01992,blank_row_remap label=Korean_saltwort_vegetable canonical=세발나물
+2026-05-06T18:17:31,ing_02137,ing_00175,blank_row_remap label=beef_chuck_flap canonical=차돌박이

@@ -26,7 +26,7 @@ raw_ingredient 이미지용 실제 식재료 분류 모듈.
 런타임 라벨 매핑 (우선순위):
 1) `model_label_to_master.json` (기본 RAW_INGREDIENT_LABEL_MAP_PATH)
 2) 같은 디렉터리의 `model_label_to_master_train_non_packaged.json` 가 있으면 그 위에 병합
-   (122클래스 학습 전용 키가 전체 export에 없을 수 있음 → 한글 표시용)
+   (비포장 학습 전용 키; Neon SSOT 동기화 후 가변 → 한글 표시용)
 3) 내장 `BUILTIN_LABEL_FALLBACK`
 
 어휘 검증(선택): `ingredient_normalized_vocab.json` + RAW_INGREDIENT_ENFORCE_VOCAB
@@ -35,6 +35,14 @@ raw_ingredient 이미지용 실제 식재료 분류 모듈.
 - RAW_INGREDIENT_LABEL_MAP_PATH, RAW_INGREDIENT_VOCAB_PATH
 - RAW_INGREDIENT_UNMAPPED_POLICY=passthrough|skip (기본 passthrough)
 - RAW_INGREDIENT_ENFORCE_VOCAB=true|false (기본 false)
+- RAW_INGREDIENT_LEGACY_REMAP=1|0 — 예전 가중치용: YOLO 출력 클래스명→현재 `ing_*` 치환 (기본 0; 파일 있어도 1일 때만 적용)
+- RAW_INGREDIENT_LEGACY_REMAP_PATH — 기본 `data/yolo_legacy_model_label_remap.json`
+- RAW_INGREDIENT_CONFIDENCE_THRESHOLD — 과거 절대 임계값 필터용이었으나, Top-K UI를 위해 **후보 목록에서는 미사용**. 호환만 유지.
+- RAW_INGREDIENT_TTA=1|0 — 좌우 반전 이미지 추론 후 클래스 확률 평균(재학습 전 오분류 완화, 지연 증가). 기본 0.
+- RAW_INGREDIENT_UNCERTAINTY_MARGIN — 1위·2위 확률 차가 이보다 작으면 불확실로 간주. 기본 0.12.
+- RAW_INGREDIENT_MIN_TOP_CONFIDENCE — 1위 확률이 이보다 작으면 불확실. 기본 0.40.
+
+재학습·DB 정렬 후에는 기본값(LEGACY_REMAP=0, 빈 remap 파일)으로 두면 된다.
 """
 
 from __future__ import annotations
@@ -42,9 +50,10 @@ from __future__ import annotations
 import json
 import os
 import re
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 DEFAULT_MODEL_PATH = "app/models/ingredient/weights/raw_ingredient_best.pt"
 _DATA_DIR = Path(__file__).resolve().parent / "data"
@@ -95,6 +104,7 @@ INGREDIENT_LABEL_MAP = BUILTIN_LABEL_FALLBACK
 _label_map_cache: Optional[Dict[str, Dict[str, str]]] = None
 _vocab_loaded: bool = False
 _vocab_allow_set: Optional[Set[str]] = None
+_legacy_remap_cache: Optional[Dict[str, str]] = None
 
 
 def normalize_label(label: str) -> str:
@@ -157,6 +167,61 @@ def get_label_map() -> Dict[str, Dict[str, str]]:
     return _label_map_cache
 
 
+def get_legacy_model_label_remap() -> Dict[str, str]:
+    """YOLO 출력 클래스명(재학습 전 ID) → 현재 라벨 맵 키. 파일 없거나 비활성화면 {}."""
+    global _legacy_remap_cache
+    if _legacy_remap_cache is not None:
+        return _legacy_remap_cache
+
+    flag = os.getenv("RAW_INGREDIENT_LEGACY_REMAP", "0").strip().lower()
+    if flag in ("0", "false", "no", "off"):
+        _legacy_remap_cache = {}
+        return _legacy_remap_cache
+
+    path = Path(
+        os.getenv(
+            "RAW_INGREDIENT_LEGACY_REMAP_PATH",
+            str(_DATA_DIR / "yolo_legacy_model_label_remap.json"),
+        )
+    )
+    if not path.is_file():
+        _legacy_remap_cache = {}
+        return _legacy_remap_cache
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    raw = data.get("remap", data)
+    out: Dict[str, str] = {}
+    if not isinstance(raw, dict):
+        _legacy_remap_cache = {}
+        return _legacy_remap_cache
+
+    for k, v in raw.items():
+        tgt = canonical_ing_label_key(str(v)) or normalize_label(str(v))
+        if not tgt.startswith("ing_"):
+            continue
+        ks = {normalize_label(str(k))}
+        ck = canonical_ing_label_key(str(k))
+        if ck:
+            ks.add(ck)
+        for kk in ks:
+            out[kk] = tgt
+
+    _legacy_remap_cache = out
+    return _legacy_remap_cache
+
+
+def resolve_legacy_model_label(label: str, remap: Dict[str, str]) -> tuple[str, bool]:
+    """Returns (label_for_lookup_in_label_map, did_remap)."""
+    if not remap:
+        return label, False
+    nl = normalize_label(label)
+    ck = canonical_ing_label_key(label)
+    for key in filter(None, [ck, nl]):
+        if key in remap:
+            return remap[key], True
+    return label, False
+
+
 def get_vocab_allow_set() -> Optional[Set[str]]:
     """None = vocab 파일 없음(검증 스킵)."""
     global _vocab_loaded, _vocab_allow_set
@@ -176,10 +241,11 @@ def get_vocab_allow_set() -> Optional[Set[str]]:
 
 
 def reset_ingredient_classifier_caches() -> None:
-    global _label_map_cache, _vocab_loaded, _vocab_allow_set, _classifier
+    global _label_map_cache, _vocab_loaded, _vocab_allow_set, _classifier, _legacy_remap_cache
     _label_map_cache = None
     _vocab_loaded = False
     _vocab_allow_set = None
+    _legacy_remap_cache = None
     _classifier = None
 
 
@@ -191,7 +257,14 @@ class RawIngredientCandidate:
     confidence: float
     bbox: None = None
     modelLabel: Optional[str] = None
+    resolvedModelLabel: Optional[str] = None
     ingredientMasterId: Optional[int] = None
+    predictionUncertain: Optional[bool] = None
+    """첫 후보만 설정: 1·2위 확률 차·절대 신뢰도가 낮아 검토 권장."""
+    top1Top2Margin: Optional[float] = None
+    """원본(또는 TTA 평균) 클래스 확률 벡터에서 1위−2위."""
+    ttaAveraged: Optional[bool] = None
+    """좌우 TTA로 확률을 평균했는지(첫 후보만)."""
 
     def to_dict(self) -> Dict[str, Any]:
         out: Dict[str, Any] = {
@@ -202,8 +275,16 @@ class RawIngredientCandidate:
             "confidence": self.confidence,
             "modelLabel": self.modelLabel,
         }
+        if self.resolvedModelLabel is not None:
+            out["resolvedModelLabel"] = self.resolvedModelLabel
         if self.ingredientMasterId is not None:
             out["ingredientMasterId"] = self.ingredientMasterId
+        if self.predictionUncertain is not None:
+            out["predictionUncertain"] = self.predictionUncertain
+        if self.top1Top2Margin is not None:
+            out["top1Top2Margin"] = self.top1Top2Margin
+        if self.ttaAveraged is not None:
+            out["ttaAveraged"] = self.ttaAveraged
         return out
 
 
@@ -220,6 +301,7 @@ class RawIngredientClassifier:
         self.device = device
         self.imgsz = imgsz
         self._label_map = get_label_map()
+        self._legacy_remap = get_legacy_model_label_remap()
         self._vocab = get_vocab_allow_set()
         self._unmapped_policy = os.getenv("RAW_INGREDIENT_UNMAPPED_POLICY", "passthrough").strip().lower()
         self._enforce_vocab = os.getenv("RAW_INGREDIENT_ENFORCE_VOCAB", "").strip().lower() in (
@@ -240,6 +322,63 @@ class RawIngredientClassifier:
             raise ImportError("ultralytics가 설치되어 있지 않습니다. 설치: pip install ultralytics") from exc
 
         self.model = YOLO(str(self.model_path))
+
+    @staticmethod
+    def _env_bool(name: str, default: bool) -> bool:
+        v = os.getenv(name)
+        if v is None or v == "":
+            return default
+        return v.strip().lower() in ("1", "true", "yes", "on")
+
+    @staticmethod
+    def _top1_top2_margin(prob_values: List[float]) -> Tuple[float, float]:
+        if not prob_values:
+            return 0.0, 0.0
+        s = sorted((float(x) for x in prob_values), reverse=True)
+        if len(s) < 2:
+            return 1.0, s[0]
+        return s[0] - s[1], s[0]
+
+    @staticmethod
+    def _is_prediction_uncertain(margin: float, top1_p: float) -> bool:
+        m_th = float(os.getenv("RAW_INGREDIENT_UNCERTAINTY_MARGIN", "0.12"))
+        abs_th = float(os.getenv("RAW_INGREDIENT_MIN_TOP_CONFIDENCE", "0.40"))
+        return bool(margin < m_th or top1_p < abs_th)
+
+    def _predict_probs_flip(self, image_path: Path) -> Optional[List[float]]:
+        try:
+            from PIL import Image
+        except ImportError:
+            return None
+        try:
+            im = Image.open(image_path).convert("RGB")
+        except OSError:
+            return None
+        im_f = im.transpose(Image.FLIP_LEFT_RIGHT)
+        tmp: Optional[Path] = None
+        try:
+            fd, tmp_s = tempfile.mkstemp(suffix=".jpg")
+            os.close(fd)
+            tmp = Path(tmp_s)
+            im_f.save(str(tmp), format="JPEG", quality=92)
+            r2 = self.model.predict(
+                source=str(tmp),
+                imgsz=self.imgsz,
+                device=self.device,
+                verbose=False,
+            )
+            if not r2:
+                return None
+            pr2 = getattr(r2[0], "probs", None)
+            if pr2 is None:
+                return None
+            return self._prob_values(pr2)
+        finally:
+            if tmp is not None:
+                try:
+                    tmp.unlink()
+                except OSError:
+                    pass
 
     def recognize(self, image_path: str | Path, top_k: int = 5) -> List[Dict[str, Any]]:
         image_path = Path(image_path)
@@ -268,7 +407,29 @@ class RawIngredientClassifier:
                 "classification 확률 정보(probs)가 없습니다. raw ingredient 모델이 detect 모델인지 확인하세요."
             )
 
-        candidates = self._topk_candidates(probs=probs, names=names, top_k=top_k)
+        prob_values = self._prob_values(probs)
+        tta_used = False
+        if self._env_bool("RAW_INGREDIENT_TTA", False) and prob_values:
+            pv2 = self._predict_probs_flip(image_path)
+            if pv2 and len(pv2) == len(prob_values):
+                prob_values = [(a + b) * 0.5 for a, b in zip(prob_values, pv2)]
+                tta_used = True
+
+        margin, top1_p = self._top1_top2_margin(prob_values)
+        uncertain = self._is_prediction_uncertain(margin, top1_p)
+        first_meta = {
+            "margin": margin,
+            "uncertain": uncertain,
+            "tta": tta_used,
+        }
+
+        candidates = self._topk_candidates(
+            probs=probs,
+            names=names,
+            top_k=top_k,
+            prob_values=prob_values,
+            first_rank_meta=first_meta,
+        )
         return [candidate.to_dict() for candidate in candidates]
 
     def _lookup_meta(self, label: str) -> Optional[Dict[str, Any]]:
@@ -288,22 +449,31 @@ class RawIngredientClassifier:
                 return meta
         return None
 
-    def _topk_candidates(self, probs: Any, names: Any, top_k: int) -> List[RawIngredientCandidate]:
-        prob_values = self._prob_values(probs)
+    def _topk_candidates(
+        self,
+        probs: Any,
+        names: Any,
+        top_k: int,
+        prob_values: Optional[List[float]] = None,
+        first_rank_meta: Optional[Dict[str, Any]] = None,
+    ) -> List[RawIngredientCandidate]:
+        prob_values = prob_values if prob_values is not None else self._prob_values(probs)
         if not prob_values:
             return []
 
-        indexed = list(enumerate(prob_values))
+        indexed = [(i, float(v)) for i, v in enumerate(prob_values)]
         indexed.sort(key=lambda item: item[1], reverse=True)
+        # Top-K는 softmax 상위 K개를 그대로 쓴다. (1위가 0.84면 2·3위는 보통 0.2 미만이라
+        # 절대 임계값으로 걸면 후보가 1개만 남는 UI 버그가 난다.)
+        # self.confidence_threshold는 호환용 필드; 불확실도는 RAW_INGREDIENT_MIN_TOP_CONFIDENCE 등으로 판단.
 
         candidates: List[RawIngredientCandidate] = []
         vocab = self._vocab
 
         for class_id, confidence in indexed[:top_k]:
-            confidence = float(confidence)
-
             label = self._label_from_id(names, class_id)
-            meta = self._lookup_meta(label)
+            lookup_label, did_legacy_remap = resolve_legacy_model_label(label, self._legacy_remap)
+            meta = self._lookup_meta(lookup_label)
 
             master_id: Optional[int] = None
             if meta:
@@ -338,6 +508,14 @@ class RawIngredientClassifier:
             if vocab is not None and self._enforce_vocab and normalized_name not in vocab:
                 continue
 
+            pu: Optional[bool] = None
+            tm: Optional[float] = None
+            tt: Optional[bool] = None
+            if first_rank_meta and len(candidates) == 0:
+                pu = bool(first_rank_meta.get("uncertain"))
+                tm = float(first_rank_meta.get("margin", 0.0))
+                tt = bool(first_rank_meta.get("tta"))
+
             candidates.append(
                 RawIngredientCandidate(
                     displayName=display_name,
@@ -346,7 +524,11 @@ class RawIngredientClassifier:
                     confidence=confidence,
                     bbox=None,
                     modelLabel=label,
+                    resolvedModelLabel=lookup_label if did_legacy_remap else None,
                     ingredientMasterId=master_id,
+                    predictionUncertain=pu,
+                    top1Top2Margin=tm,
+                    ttaAveraged=tt,
                 )
             )
 

@@ -37,6 +37,13 @@ import time
 from collections import deque
 from pathlib import Path
 from typing import Any, Deque, Dict, List, Set
+
+# Force UTF-8 stdout so JSON logs preserve Korean in PowerShell/terminal capture.
+# Without this, some environments write mojibake (� / 占싯...) into the log file itself.
+try:  # Python 3.7+
+    sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
+except Exception:
+    pass
 try:
     import httpx
 except ImportError as exc:  # pragma: no cover

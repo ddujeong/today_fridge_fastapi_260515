@@ -1,50 +1,41 @@
-# 식재료 이미지·YOLO 학습 범위 (비포장 확정 122 클래스)
+# 식재료 이미지·YOLO 학습 범위 (비포장)
 
-## 팀 확정 리스트
+## 단일 기준 (SSOT)
 
-- 원본: `data/ingredients_list_without_package.txt` (125줄, **고유 이름 124개** — `무` 중복 1회)
-- **YOLO/이미지 수집에 쓰는 클래스 수: 122** (`distinctIngredientIds` in manifest)
-  - 같은 `ingredient_master` 행을 가리키는 팀 표기가 있음 (예: **알배추·배추 → `ing_00115`**, **홍고추·붉은고추 → `ing_01762`**, **계란 → 달걀 `ing_00023`**).
-- DB에 없던 **`호박`**, **`완두콩`** 은 `ingredient_master`에 **추가 INSERT** 됨 (`build_non_packaged_train_allowlist.py --apply-inserts`). 새 ID는 manifest JSON에 기록됨.
+**팀 공용 DB(Neon)의 `today_fridge.ingredient_master` + `ingredient_category`가 최종 기준이다.**  
+레포에 있는 JSON·문서·클래스 개수는 “과거 스냅샷”일 수 있으며, **DB 스키마/데이터가 바뀌면 아래 export로 레포를 DB에 맞출 것.**
 
-## 이전 상태 vs 현재 (`ingredient_master`)
+권장 절차 (Neon에 붙는 환경에서):
 
-| 구분 | 예전 (이미지 수집·초기 YOLO 작업 시) | 현재 |
-|------|--------------------------------------|------|
-| 행 수 | 대략 수백~수천(레시피 적재·정규화 전) | **609** (비포장 2종 INSERT 후; 기존 607+2) |
-| 정규화 | 보수적 `normalize.sql`만 또는 중간 스냅샷 | **`n1` 적재 + `n2` 공격적 병합 + `n3` CSV 승인 병합** 완료 |
-| `normalized_name` | 옛 스냅샷과 **ID·이름 불일치** 가능 | 레시피 파이프라인 반영 후 기준 |
-| `model_label_to_master.json` (풀) | `generatedAt` 2026-04-30 등 옛 export | **전체 DB export는 별도 갱신** 권장 (`export_yolo_label_assets_from_db.py`) |
-
-**중요:** 예전 `ing_XXXXX` 폴더·옛 JSON은 **현재 DB와 1:1이 아닐 수 있음**. 비포장 학습은 **`model_label_to_master_train_non_packaged.json`** 만 사용한다.
-
-## 레포 산출물 (122 클래스 전용)
-
-| 파일 | 설명 |
-|------|------|
-| `data/ingredient_non_packaged_allowlist_resolved.json` | 팀 이름 → `ingredient_id`, `model_folder`, 수동 매핑 설명 |
-| `data/model_label_to_master_train_non_packaged.json` | YOLO 클래스 키 (`ing_XXXXX`) 122개 |
-| `data/ingredient_normalized_vocab_train_non_packaged.json` | 동일 범위 vocab |
-| `data/ingredient_image_search_aliases_train_non_packaged.json` | DDGS 수집용 별칭/영문 검색어 |
-| `data/ing_train_non_packaged_only_folders.txt` | `fetch_ingredient_images_web.py --only-folders-file` 입력 |
-
-## 웹 이미지 수집 (122만)
-
-```bash
-# backend2 루트
-python app/models/ingredient/tools/fetch_ingredient_images_web.py \
-  --aliases-json app/models/ingredient/data/ingredient_image_search_aliases_train_non_packaged.json \
-  --only-folders-file app/models/ingredient/data/ing_train_non_packaged_only_folders.txt \
-  --out-root data_sources/team_uploads \
-  --max-per-class 100 \
-  --target-per-class 100
+```powershell
+$env:DB_URL="jdbc:postgresql://<호스트>/neondb?sslmode=require"
+$env:DB_USERNAME="..."
+$env:DB_PASSWORD="..."
+Set-Location <project_final_backend_2>
+python app/models/ingredient/tools/export_train_labels_from_db.py
+python app/models/ingredient/tools/build_train_class_reference.py
 ```
 
-(패키지 제외는 이 allowlist가 이미 비포장만 포함하므로 보통 `--apply-packaged-exclude` 불필요.)
+- `export_train_labels_from_db.py`: 현재 JSON에 나온 `ingredient_id`들을 DB에서 조회해 **`displayName` / `normalizedName` / 카테고리 표시명을 DB 값으로 덮어쓴다.** DB에 없는 ID는 **기본적으로 JSON에서 제거(prune)** 한다 (`--no-prune`로 예외 가능).
+- **`ingredient_master`에 행을 INSERT해서 맞추지 않는다.** 레포가 DB를 따라간다.
 
-## 데이터셋 조립 → 학습
+생성·갱신되는 파일 예:
 
-웹 수집이 끝난 **뒤** 조립하는 것이 좋다. `train/` 아래에 없는 `ing_*` 클래스가 있으면 Ultralytics가 **실제 이미지가 있는 클래스 수만** (`nc`) 잡고, `val/` 클래스 수가 맞지 않으면 경고가 난다. **122개 전부** 쓰려면 fetch 후 `train/ing_XXXXX`가 모두 생겼는지 확인하고 다시 assemble한다.
+- `data/model_label_to_master_train_non_packaged.json` — 학습 라벨 매핑 (클래스 개수는 DB와 동기화 후 가변)
+- `data/train_class_reference*.csv|.md|.txt` — 폴더·라벨 참조표 (`train_folder_orphans_on_disk.txt`에 디스크만 남은 폴더 목록)
+
+## 과거 참고 자료 (고정 숫자 아님)
+
+| 자료 | 역할 |
+|------|------|
+| `data/ingredients_list_without_package.txt` | 초기 기획 시 팀이 나열한 목록 (125줄 등 **역사적** 숫자) |
+| `data/ingredient_non_packaged_allowlist_resolved.json` | 그 시점의 이름→ID 매핑 스냅샷; **현재 DB와 개수·행이 다를 수 있음** |
+
+학습에 쓰는 공식 라벨 파일은 **`model_label_to_master_train_non_packaged.json`** 이고, 내용은 위 export로 갱신한다.
+
+## 데이터셋·학습 스크립트
+
+이전 문서의 “122 클래스 고정” 같은 표현은 폐기한다. **`model_label_to_master_train_non_packaged.json`에 남은 키 수 = 현재 동기화된 클래스 수.**
 
 ```bash
 python app/models/ingredient/tools/assemble_ingredient_master_cls_dataset.py \
@@ -52,14 +43,64 @@ python app/models/ingredient/tools/assemble_ingredient_master_cls_dataset.py \
   --team-root data_sources/team_uploads \
   --out ml_datasets/ingredient_master_cls_train_non_packaged \
   --mode copy
-
-yolo classify train model=yolov8n-cls.pt data=ml_datasets/ingredient_master_cls_train_non_packaged \
-  epochs=80 imgsz=224 batch=16 device=0 name=ing_non_packaged_122
 ```
 
-`val/`·`test/`에 오래된 다른 실험 폴더가 남아 있으면 클래스 수가 어긋난다. 필요 시 해당 디렉터리를 비우거나, `train`에서 비율 분할 스크립트로 다시 만든다.
+부가 산출물(`ingredient_normalized_vocab_train_non_packaged.json`, `ingredient_image_search_aliases_train_non_packaged.json` 등)의 행 수·내용은 DB 변경 후 **`export_yolo_label_assets_from_db.py` 등으로 재생성**하는 것이 안전하다.
 
-## 스크립트
+## “DB에 없음”처럼 보일 때 (다른 ID·이름으로 들어간 경우)
 
-- `tools/build_non_packaged_train_allowlist.py` — 팀 txt → manifest, (옵션) INSERT
-- `tools/export_yolo_label_assets_from_db.py` — `--manifest-json` + `--label-map-filename` 로 서브셋 export
+일부 `ingredient_id`는 PK로는 없지만, **병합·정규화·별칭(alias_text)** 때문에 **다른 행 ID**로 존재할 수 있다.
+
+`export` 전에(또는 prune 하기 전 백업 JSON으로) 후보 조회:
+
+```bash
+python app/models/ingredient/tools/find_db_candidates_for_missing_train_ids.py
+```
+
+결과는 `data/missing_train_id_db_candidates.tsv` — 수동 검토 후 폴더명(`ing_XXXXX`)·JSON 키를 실제 DB ID에 맞출지 결정한다.
+
+## 관련 도구
+
+- `tools/export_train_labels_from_db.py` — Neon SSOT → 학습용 JSON 정렬
+- `tools/build_train_class_reference.py` — 참조표·고아 폴더 목록
+- `tools/find_db_candidates_for_missing_train_ids.py` — 누락된 PK에 대한 DB 후보 행 검색
+- `tools/export_yolo_label_assets_from_db.py` — YOLO 자산 전체 export (서브셋 옵션)
+
+---
+
+## 폴더명 ↔ 재료명(DB) 매칭 파일 위치 (현재 Neon 기준 갱신 후)
+
+| 용도 | 경로 |
+|------|------|
+| **공식 라벨 맵** (클래스 `ing_XXXXX` → `ingredientId`, 표시명·정규화명·카테고리) | `app/models/ingredient/data/model_label_to_master_train_non_packaged.json` |
+| **인덱스↔이름 참조표** (Markdown / 간단 텍스트) | `app/models/ingredient/data/train_class_reference.md`, `train_class_reference_simple.txt` |
+| **CSV 참조표** (동일 내용; Excel 잠금 시 `_train_ref_gen_out/train_class_reference.csv`) | `_train_ref_gen_out/train_class_reference.csv` 또는 `data/train_class_reference.csv` |
+| **디스크에만 있는 train 클래스 폴더** (고아 목록) | `data/train_folder_orphans_on_disk.txt` (있을 때만; `build_train_class_reference.py` 생성) |
+| **재학습 전 예전 YOLO 클래스명 → 현재 `ing_*`** (임시) | `app/models/ingredient/data/yolo_legacy_model_label_remap.json` |
+
+갱신 명령은 상단 PowerShell 블록의 `export_train_labels_from_db.py` → `build_train_class_reference.py` 순서를 따른다.
+
+---
+
+## 재학습 전 임시 완화 (YOLO·Neon ID 불일치 대비)
+
+Neon PK 정리로 **클래스 폴더/JSON ID를 바꾼 뒤** 아직 `best.pt`를 다시 학습하지 않은 경우:
+
+1. **레거시 클래스명 치환** — `yolo_legacy_model_label_remap.json` + `rawIngredientClassifier`의 `RAW_INGREDIENT_LEGACY_REMAP` (모델이 예전 `ing_*`를 내도 DB 매칭용 키로 조회).
+2. **TTA** — `RAW_INGREDIENT_TTA=1` 시 좌우 반전 추론 후 클래스 확률 평균(오분류 완화·추론 시간 증가).
+3. **불확실 표시** — 1·2위 확률 차·1위 절대 신뢰도가 낮으면 `predictionUncertain=true`, Vision 응답에서 `needsReview`와 연동.
+
+완전히 “틀린 클래스를 고른 경우”를 확률만으로 바로잡는 것은 불가능에 가깝고, 위 조합은 **완화 + 사람 검토 유도**에 가깝다.
+
+---
+
+## YOLO 재학습 후 정리 (임시 조치 제거 체크리스트)
+
+새 데이터셋으로 **`ing_*` 폴더명 = 현재 DB PK**에 맞춰 재학습하고 `raw_ingredient_best.pt`를 배포한 뒤:
+
+1. **`yolo_legacy_model_label_remap.json` 제거** 또는 빈 `{"remap":{}}` — 모델 출력이 이미 현재 키와 일치하는지 확인 후 삭제.
+2. **환경 변수** — `RAW_INGREDIENT_LEGACY_REMAP=0`, `RAW_INGREDIENT_TTA=0`(성능 우선 시).
+3. **`export_train_labels_from_db.py` + `build_train_class_reference.py`** 로 JSON·참조표만 최신 Neon과 맞으면 됨.
+4. **`rawIngredientClassifier.py`** 안의 레거시/TTA/불확실 로직은 파일 없음·`LEGACY_REMAP=0`이면 사실상 무시되므로 필수 삭제는 아님; 유지해도 동작은 “공식 재학습 후”와 호환된다.
+
+이 체크리스트를 적용한 뒤에는 **임시 대응 없이** 폴더명·라벨 JSON·가중치가 한 줄로 맞는 상태가 된다.
