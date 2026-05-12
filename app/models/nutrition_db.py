@@ -24,8 +24,8 @@ class RecipeNutrition:
     """
     레시피의 영양 정보를 표현합니다.
     """
-    recipe_nutrition_id: int
     recipe_id: int
+    recipe_nutrition_id: Optional[int] = None
     calories: Optional[float] = 0.0
     carbs: Optional[float] = 0.0
     protein: Optional[float] = 0.0

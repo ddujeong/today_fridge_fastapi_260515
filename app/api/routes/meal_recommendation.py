@@ -95,10 +95,14 @@ def get_meal_recommendation(
         raise  # verify_internal_call 에서 발생한 HTTPException 은 그대로 전달
     except Exception as e:
         # Fix #5: 예외도 봉투 형식으로 반환하여 Spring Boot 파싱 실패 방지
-        raise HTTPException(status_code=500, detail={
-            "success": False,
-            "code": "INTERNAL_ERROR",
-            "message": str(e),
-            "data": None,
-            "requestId": x_request_id,
-        })
+        # HTTPException 대신 직접 JSONResponse를 반환하여 nested 'detail' 방지
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "code": "INTERNAL_ERROR",
+                "message": f"FastAPI Error: {str(e)}",
+                "data": None,
+                "requestId": x_request_id,
+            }
+        )

@@ -4,8 +4,8 @@ from psycopg2.extras import RealDictCursor
 import os
 from dotenv import load_dotenv
 
-# .env 파일에서 환경 변수를 로드합니다.
-load_dotenv()
+# .env 파일에서 환경 변수를 로드합니다. (OS 환경변수보다 우선순위를 높임)
+load_dotenv(override=True)
 
 # 데이터베이스 연결 URL을 가져옵니다.
 DATABASE_URL = os.getenv("DATABASE_URL")
