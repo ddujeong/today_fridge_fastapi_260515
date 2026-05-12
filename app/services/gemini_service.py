@@ -18,8 +18,8 @@ class GeminiService:
         return response.text.strip()
 
     def generate_health_report(self, prompt: str) -> str:
-        # Use gemini-2.5-flash and force JSON output
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        # Use gemini-gemini-3.1-flash-lite and force JSON output
+        model = genai.GenerativeModel("gemini-3.1-flash-lite")
         response = model.generate_content(
 
             prompt,
