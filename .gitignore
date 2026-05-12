@@ -26,3 +26,5 @@ scripsts/**
 
 pytest.ini
 Dockerfile
+Dockerfile.dev
+docker-compose.yml
