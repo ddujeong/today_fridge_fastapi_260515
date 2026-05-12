@@ -92,7 +92,33 @@ class MealRecommendationService:
             week_sodium = get_avg(week_history, "total_sodium")
             week_chol = get_avg(week_history, "total_cholesterol")
 
-            # 3 & 4단계: Gemini API를 사용하여 식습관을 분석합니다.
+            # 3단계: 추천 가능한 레시피 목록을 미리 조회합니다.
+            self.db.execute("""
+                SELECT rn.*, r.title, r.thumbnail_url 
+                FROM recipe_nutrition rn
+                JOIN recipes r ON rn.recipe_id = r.recipe_id
+            """)
+            rows = self.db.fetchall()
+            
+            recipe_fields = {f.name for f in fields(RecipeNutrition)}
+            recipes = [
+                RecipeNutrition(**{k: v for k, v in row.items() if k in recipe_fields})
+                for row in rows
+            ]
+            
+            if not recipes:
+                logger.error("No recipes found in database")
+                raise ValueError("추천할 레시피 데이터가 존재하지 않습니다. recipe_nutrition 및 recipes 테이블을 확인해주세요.")
+
+            # 레시피 목록을 프롬프트에 전달할 문자열로 변환합니다.
+            available_recipes_str = "\n".join(
+                f"- {r.title} (칼로리: {r.calories or 0}kcal, 탄수화물: {r.carbs or 0}g, "
+                f"단백질: {r.protein or 0}g, 지방: {r.fat or 0}g, "
+                f"당류: {r.sugar or 0}g, 나트륨: {r.sodium or 0}mg, 콜레스테롤: {r.cholesterol or 0}mg)"
+                for r in recipes
+            )
+
+            # 4단계: Gemini API를 사용하여 식습관을 분석합니다.
             gender_kr = "남성" if request.gender.upper() == "MALE" else "여성"
             
             prompt = get_meal_analysis_prompt(
@@ -113,7 +139,8 @@ class MealRecommendationService:
                 week_fat=week_fat,
                 week_sugar=week_sugar,
                 week_sodium=week_sodium,
-                week_chol=week_chol
+                week_chol=week_chol,
+                available_recipes=available_recipes_str
             )
 
             try:
@@ -139,23 +166,7 @@ class MealRecommendationService:
                     }
                 }
 
-            # 5단계: 레시피 추천 로직
-            self.db.execute("""
-                SELECT rn.*, r.title, r.thumbnail_url 
-                FROM recipe_nutrition rn
-                JOIN recipes r ON rn.recipe_id = r.recipe_id
-            """)
-            rows = self.db.fetchall()
-            
-            recipe_fields = {f.name for f in fields(RecipeNutrition)}
-            recipes = [
-                RecipeNutrition(**{k: v for k, v in row.items() if k in recipe_fields})
-                for row in rows
-            ]
-            
-            if not recipes:
-                logger.error("No recipes found in database")
-                raise ValueError("추천할 레시피 데이터가 존재하지 않습니다. recipe_nutrition 및 recipes 테이블을 확인해주세요.")
+            # 5단계: 레시피 추천 로직 (위에서 이미 조회한 recipes 목록을 재사용합니다)
             
             rice_nutrition = {
                 "calories": 200, "carbs": 45, "protein": 4, "fat": 0.4, 
