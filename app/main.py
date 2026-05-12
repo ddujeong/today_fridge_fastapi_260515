@@ -10,9 +10,12 @@ from app.api.routes.embedding import router as embedding_router
 from app.api.routes.recommendation_llm import router as recommendation_llm_router    
 from app.api.routes.recipe_tag import router as recipe_tag_router
 from app.api.routes.substitution_llm import router as substitution_llm_router
+from app.api.routes.meal_recommendation import router as meal_recommendation_router
+from app.api.routes.health_report import router as health_report_router
 
 app = FastAPI(title="Today Fridge AI Server")
 
+app.include_router(health_report_router, prefix="/api/v1")
 app.include_router(health_router, prefix="/api")
 app.include_router(vision_internal_router)
 app.include_router(ingredient_router, prefix="/api/v1")
@@ -20,3 +23,4 @@ app.include_router(embedding_router, prefix="/api/v1")
 app.include_router(recommendation_llm_router, prefix="/api/v1")
 app.include_router(recipe_tag_router, prefix="/api/v1")
 app.include_router(substitution_llm_router, prefix="/api/v1")
+app.include_router(meal_recommendation_router, prefix="/api/v1")
