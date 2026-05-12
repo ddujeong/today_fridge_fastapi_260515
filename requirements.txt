@@ -20,7 +20,7 @@ python-multipart
 python-dotenv
 psycopg[binary]
 paddleocr
-paddlepaddle
+paddlepaddle==3.2.2
 pillow
 opencv-python
 ultralytics
