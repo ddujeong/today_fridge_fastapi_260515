@@ -1,0 +1,2144 @@
+{
+  "schema": "ingredient_image_search_aliases_v1",
+  "description": "팀 검토용: 이미지 검색·데이터셋 매칭 시 normalized_name은 유지하고, visual_base_ko·synonyms_ko·search_en을 수정한다. 검색은 search_en 순서로 시도하거나, 본재료 영어가 없으면 동의어 쪽 영어를 쓴다.",
+  "generatedAt": "2026-05-01T02:43:29.056632+00:00",
+  "gapOnly": false,
+  "minTrain": 1,
+  "entries": [
+    {
+      "model_folder": "ing_00007",
+      "ingredient_id": 7,
+      "normalized_name": "샤브용소고기목살",
+      "display_name": "샤브용소고기목살",
+      "category_suggestion": "육류",
+      "train_image_count": 80,
+      "visual_base_ko": "샤브용소고기목살",
+      "synonyms_ko": [
+        "샤브용소고기목살"
+      ],
+      "search_en": [],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00008",
+      "ingredient_id": 8,
+      "normalized_name": "감자",
+      "display_name": "감자",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "감자",
+      "synonyms_ko": [
+        "감자"
+      ],
+      "search_en": [
+        "potato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00009",
+      "ingredient_id": 9,
+      "normalized_name": "대파",
+      "display_name": "대파",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "대파",
+      "synonyms_ko": [
+        "대파"
+      ],
+      "search_en": [
+        "leek",
+        "green onion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00015",
+      "ingredient_id": 15,
+      "normalized_name": "마늘",
+      "display_name": "마늘",
+      "category_suggestion": "채소",
+      "train_image_count": 93,
+      "visual_base_ko": "마늘",
+      "synonyms_ko": [
+        "마늘"
+      ],
+      "search_en": [
+        "garlic"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00023",
+      "ingredient_id": 23,
+      "normalized_name": "달걀",
+      "display_name": "달걀",
+      "category_suggestion": "기타",
+      "train_image_count": 146,
+      "visual_base_ko": "달걀",
+      "synonyms_ko": [
+        "달걀"
+      ],
+      "search_en": [
+        "egg",
+        "chicken egg"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00032",
+      "ingredient_id": 32,
+      "normalized_name": "오이",
+      "display_name": "오이",
+      "category_suggestion": "채소",
+      "train_image_count": 91,
+      "visual_base_ko": "오이",
+      "synonyms_ko": [
+        "오이"
+      ],
+      "search_en": [
+        "cucumber"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00033",
+      "ingredient_id": 33,
+      "normalized_name": "토마토",
+      "display_name": "토마토",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "토마토",
+      "synonyms_ko": [
+        "토마토"
+      ],
+      "search_en": [
+        "tomato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00048",
+      "ingredient_id": 48,
+      "normalized_name": "무",
+      "display_name": "무",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "무",
+      "synonyms_ko": [
+        "무"
+      ],
+      "search_en": [
+        "daikon",
+        "white radish"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00052",
+      "ingredient_id": 52,
+      "normalized_name": "고추",
+      "display_name": "고추",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "고추",
+      "synonyms_ko": [
+        "고추"
+      ],
+      "search_en": [
+        "chili pepper",
+        "Korean chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00060",
+      "ingredient_id": 60,
+      "normalized_name": "양배추",
+      "display_name": "양배추",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "양배추",
+      "synonyms_ko": [
+        "양배추"
+      ],
+      "search_en": [
+        "green cabbage",
+        "white cabbage",
+        "head cabbage",
+        "round cabbage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00067",
+      "ingredient_id": 67,
+      "normalized_name": "콩나물",
+      "display_name": "콩나물",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "콩나물",
+      "synonyms_ko": [
+        "콩나물"
+      ],
+      "search_en": [
+        "bean sprouts"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00078",
+      "ingredient_id": 78,
+      "normalized_name": "부추",
+      "display_name": "부추",
+      "category_suggestion": "채소",
+      "train_image_count": 169,
+      "visual_base_ko": "부추",
+      "synonyms_ko": [
+        "부추"
+      ],
+      "search_en": [
+        "garlic chives"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00081",
+      "ingredient_id": 81,
+      "normalized_name": "청경채",
+      "display_name": "청경채",
+      "category_suggestion": "채소",
+      "train_image_count": 176,
+      "visual_base_ko": "청경채",
+      "synonyms_ko": [
+        "청경채"
+      ],
+      "search_en": [
+        "bok choy",
+        "pak choi"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00088",
+      "ingredient_id": 88,
+      "normalized_name": "페퍼론치노",
+      "display_name": "페퍼론치노",
+      "category_suggestion": "조미료",
+      "train_image_count": 0,
+      "visual_base_ko": "페퍼론치노",
+      "synonyms_ko": [
+        "페퍼론치노"
+      ],
+      "search_en": [
+        "peperoncino",
+        "pepperoncini"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00089",
+      "ingredient_id": 89,
+      "normalized_name": "애호박",
+      "display_name": "애호박",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "애호박",
+      "synonyms_ko": [
+        "애호박"
+      ],
+      "search_en": [
+        "zucchini"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00090",
+      "ingredient_id": 90,
+      "normalized_name": "당근",
+      "display_name": "당근",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "당근",
+      "synonyms_ko": [
+        "당근"
+      ],
+      "search_en": [
+        "carrot"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00101",
+      "ingredient_id": 101,
+      "normalized_name": "양파",
+      "display_name": "양파",
+      "category_suggestion": "채소",
+      "train_image_count": 80,
+      "visual_base_ko": "양파",
+      "synonyms_ko": [
+        "양파"
+      ],
+      "search_en": [
+        "onion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00113",
+      "ingredient_id": 113,
+      "normalized_name": "새우",
+      "display_name": "새우",
+      "category_suggestion": "해산물",
+      "train_image_count": 214,
+      "visual_base_ko": "새우",
+      "synonyms_ko": [
+        "새우"
+      ],
+      "search_en": [
+        "dried shrimp"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00114",
+      "ingredient_id": 114,
+      "normalized_name": "마늘쫑",
+      "display_name": "마늘쫑",
+      "category_suggestion": "채소",
+      "train_image_count": 202,
+      "visual_base_ko": "마늘쫑",
+      "synonyms_ko": [
+        "마늘쫑"
+      ],
+      "search_en": [
+        "garlic scapes"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00115",
+      "ingredient_id": 115,
+      "normalized_name": "배추",
+      "display_name": "배추",
+      "category_suggestion": "채소",
+      "train_image_count": 231,
+      "visual_base_ko": "배추",
+      "synonyms_ko": [
+        "배추"
+      ],
+      "search_en": [
+        "napa cabbage",
+        "Chinese cabbage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00117",
+      "ingredient_id": 117,
+      "normalized_name": "파슬리",
+      "display_name": "파슬리",
+      "category_suggestion": "채소",
+      "train_image_count": 193,
+      "visual_base_ko": "파슬리",
+      "synonyms_ko": [
+        "파슬리"
+      ],
+      "search_en": [
+        "parsley"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00137",
+      "ingredient_id": 137,
+      "normalized_name": "깻잎",
+      "display_name": "깻잎",
+      "category_suggestion": "채소",
+      "train_image_count": 269,
+      "visual_base_ko": "깻잎",
+      "synonyms_ko": [
+        "깻잎"
+      ],
+      "search_en": [
+        "perilla leaf"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00147",
+      "ingredient_id": 147,
+      "normalized_name": "고구마",
+      "display_name": "고구마",
+      "category_suggestion": "채소",
+      "train_image_count": 269,
+      "visual_base_ko": "고구마",
+      "synonyms_ko": [
+        "고구마"
+      ],
+      "search_en": [
+        "sweet potato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00158",
+      "ingredient_id": 158,
+      "normalized_name": "꽈리고추",
+      "display_name": "꽈리고추",
+      "category_suggestion": "채소",
+      "train_image_count": 237,
+      "visual_base_ko": "꽈리고추",
+      "synonyms_ko": [
+        "꽈리고추"
+      ],
+      "search_en": [
+        "shishito pepper",
+        "Korean chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00161",
+      "ingredient_id": 161,
+      "normalized_name": "파프리카",
+      "display_name": "파프리카",
+      "category_suggestion": "채소",
+      "train_image_count": 123,
+      "visual_base_ko": "파프리카",
+      "synonyms_ko": [
+        "파프리카"
+      ],
+      "search_en": [
+        "bell pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00163",
+      "ingredient_id": 163,
+      "normalized_name": "닭고기",
+      "display_name": "닭고기",
+      "category_suggestion": "육류",
+      "train_image_count": 288,
+      "visual_base_ko": "닭고기",
+      "synonyms_ko": [
+        "닭고기"
+      ],
+      "search_en": [
+        "chicken"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00175",
+      "ingredient_id": 175,
+      "normalized_name": "차돌박이",
+      "display_name": "차돌박이",
+      "category_suggestion": "육류",
+      "train_image_count": 280,
+      "visual_base_ko": "차돌박이",
+      "synonyms_ko": [
+        "차돌박이"
+      ],
+      "search_en": [
+        "beef brisket slices"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00177",
+      "ingredient_id": 177,
+      "normalized_name": "돼지고기",
+      "display_name": "돼지고기",
+      "category_suggestion": "육류",
+      "train_image_count": 100,
+      "visual_base_ko": "돼지고기",
+      "synonyms_ko": [
+        "돼지고기"
+      ],
+      "search_en": [
+        "pork"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00186",
+      "ingredient_id": 186,
+      "normalized_name": "작은오징어",
+      "display_name": "작은오징어",
+      "category_suggestion": "해산물",
+      "train_image_count": 211,
+      "visual_base_ko": "작은오징어",
+      "synonyms_ko": [
+        "작은오징어"
+      ],
+      "search_en": [
+        "small squid"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00190",
+      "ingredient_id": 190,
+      "normalized_name": "브로콜리",
+      "display_name": "브로콜리",
+      "category_suggestion": "채소",
+      "train_image_count": 253,
+      "visual_base_ko": "브로콜리",
+      "synonyms_ko": [
+        "브로콜리"
+      ],
+      "search_en": [
+        "broccoli"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00191",
+      "ingredient_id": 191,
+      "normalized_name": "숙주",
+      "display_name": "숙주",
+      "category_suggestion": "채소",
+      "train_image_count": 259,
+      "visual_base_ko": "숙주",
+      "synonyms_ko": [
+        "숙주"
+      ],
+      "search_en": [
+        "bean sprouts",
+        "mung bean sprouts"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00205",
+      "ingredient_id": 205,
+      "normalized_name": "사과",
+      "display_name": "사과",
+      "category_suggestion": "과일",
+      "train_image_count": 129,
+      "visual_base_ko": "사과",
+      "synonyms_ko": [
+        "사과"
+      ],
+      "search_en": [
+        "apple"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00208",
+      "ingredient_id": 208,
+      "normalized_name": "메추리알",
+      "display_name": "메추리알",
+      "category_suggestion": "기타",
+      "train_image_count": 274,
+      "visual_base_ko": "메추리알",
+      "synonyms_ko": [
+        "메추리알"
+      ],
+      "search_en": [
+        "quail egg"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00212",
+      "ingredient_id": 212,
+      "normalized_name": "청양고추",
+      "display_name": "청양고추",
+      "category_suggestion": "채소",
+      "train_image_count": 287,
+      "visual_base_ko": "청양고추",
+      "synonyms_ko": [
+        "청양고추"
+      ],
+      "search_en": [
+        "green chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00214",
+      "ingredient_id": 214,
+      "normalized_name": "닭가슴살",
+      "display_name": "닭가슴살",
+      "category_suggestion": "육류",
+      "train_image_count": 286,
+      "visual_base_ko": "닭가슴살",
+      "synonyms_ko": [
+        "닭가슴살"
+      ],
+      "search_en": [
+        "chicken breast"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00215",
+      "ingredient_id": 215,
+      "normalized_name": "레몬",
+      "display_name": "레몬",
+      "category_suggestion": "과일",
+      "train_image_count": 127,
+      "visual_base_ko": "레몬",
+      "synonyms_ko": [
+        "레몬"
+      ],
+      "search_en": [
+        "lemon"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00218",
+      "ingredient_id": 218,
+      "normalized_name": "소고기",
+      "display_name": "소고기",
+      "category_suggestion": "육류",
+      "train_image_count": 274,
+      "visual_base_ko": "소고기",
+      "synonyms_ko": [
+        "소고기"
+      ],
+      "search_en": [
+        "beef",
+        "raw beef"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00234",
+      "ingredient_id": 234,
+      "normalized_name": "닭안심",
+      "display_name": "닭안심",
+      "category_suggestion": "육류",
+      "train_image_count": 255,
+      "visual_base_ko": "닭안심",
+      "synonyms_ko": [
+        "닭안심"
+      ],
+      "search_en": [
+        "chicken tenderloin"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00239",
+      "ingredient_id": 239,
+      "normalized_name": "가지",
+      "display_name": "가지",
+      "category_suggestion": "채소",
+      "train_image_count": 119,
+      "visual_base_ko": "가지",
+      "synonyms_ko": [
+        "가지"
+      ],
+      "search_en": [
+        "eggplant"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00261",
+      "ingredient_id": 261,
+      "normalized_name": "상추",
+      "display_name": "상추",
+      "category_suggestion": "채소",
+      "train_image_count": 278,
+      "visual_base_ko": "상추",
+      "synonyms_ko": [
+        "상추"
+      ],
+      "search_en": [
+        "lettuce",
+        "green leaf lettuce"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00263",
+      "ingredient_id": 263,
+      "normalized_name": "케일",
+      "display_name": "케일",
+      "category_suggestion": "채소",
+      "train_image_count": 259,
+      "visual_base_ko": "케일",
+      "synonyms_ko": [
+        "케일"
+      ],
+      "search_en": [
+        "kale"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00264",
+      "ingredient_id": 264,
+      "normalized_name": "섬초",
+      "display_name": "섬초",
+      "category_suggestion": "채소",
+      "train_image_count": 295,
+      "visual_base_ko": "섬초",
+      "synonyms_ko": [
+        "섬초"
+      ],
+      "search_en": [
+        "seaweed vegetable"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00268",
+      "ingredient_id": 268,
+      "normalized_name": "봄동",
+      "display_name": "봄동",
+      "category_suggestion": "채소",
+      "train_image_count": 285,
+      "visual_base_ko": "봄동",
+      "synonyms_ko": [
+        "봄동"
+      ],
+      "search_en": [
+        "baby bok choy",
+        "spring cabbage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00270",
+      "ingredient_id": 270,
+      "normalized_name": "아스파라거스",
+      "display_name": "아스파라거스",
+      "category_suggestion": "채소",
+      "train_image_count": 130,
+      "visual_base_ko": "아스파라거스",
+      "synonyms_ko": [
+        "아스파라거스"
+      ],
+      "search_en": [
+        "asparagus"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00273",
+      "ingredient_id": 273,
+      "normalized_name": "달래",
+      "display_name": "달래",
+      "category_suggestion": "채소",
+      "train_image_count": 267,
+      "visual_base_ko": "달래",
+      "synonyms_ko": [
+        "달래"
+      ],
+      "search_en": [
+        "wild chive"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00275",
+      "ingredient_id": 275,
+      "normalized_name": "꼬막",
+      "display_name": "꼬막",
+      "category_suggestion": "해산물",
+      "train_image_count": 263,
+      "visual_base_ko": "꼬막",
+      "synonyms_ko": [
+        "꼬막"
+      ],
+      "search_en": [
+        "blood cockle"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00293",
+      "ingredient_id": 293,
+      "normalized_name": "미나리",
+      "display_name": "미나리",
+      "category_suggestion": "채소",
+      "train_image_count": 278,
+      "visual_base_ko": "미나리",
+      "synonyms_ko": [
+        "미나리"
+      ],
+      "search_en": [
+        "water dropwort",
+        "minari"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00306",
+      "ingredient_id": 306,
+      "normalized_name": "어린잎",
+      "display_name": "어린잎",
+      "category_suggestion": "채소",
+      "train_image_count": 282,
+      "visual_base_ko": "어린잎",
+      "synonyms_ko": [
+        "어린잎"
+      ],
+      "search_en": [
+        "microgreens",
+        "baby greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00325",
+      "ingredient_id": 325,
+      "normalized_name": "우엉",
+      "display_name": "우엉",
+      "category_suggestion": "채소",
+      "train_image_count": 293,
+      "visual_base_ko": "우엉",
+      "synonyms_ko": [
+        "우엉"
+      ],
+      "search_en": [
+        "burdock root"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00358",
+      "ingredient_id": 358,
+      "normalized_name": "대패삼겹살",
+      "display_name": "대패삼겹살",
+      "category_suggestion": "육류",
+      "train_image_count": 0,
+      "visual_base_ko": "대패삼겹살",
+      "synonyms_ko": [
+        "대패삼겹살"
+      ],
+      "search_en": [
+        "thin sliced pork belly",
+        "Korean BBQ pork belly slices",
+        "samgyeopsal slices",
+        "frozen pork belly slices"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00546",
+      "ingredient_id": 546,
+      "normalized_name": "오리고기",
+      "display_name": "오리고기",
+      "category_suggestion": "기타",
+      "train_image_count": 192,
+      "visual_base_ko": "오리고기",
+      "synonyms_ko": [
+        "오리고기"
+      ],
+      "search_en": [
+        "duck meat"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00664",
+      "ingredient_id": 664,
+      "normalized_name": "아삭이고추",
+      "display_name": "아삭이고추",
+      "category_suggestion": "기타",
+      "train_image_count": 274,
+      "visual_base_ko": "아삭이고추",
+      "synonyms_ko": [
+        "아삭이고추"
+      ],
+      "search_en": [
+        "Korean pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_00865",
+      "ingredient_id": 865,
+      "normalized_name": "방울토마토",
+      "display_name": "방울토마토",
+      "category_suggestion": "기타",
+      "train_image_count": 271,
+      "visual_base_ko": "방울토마토",
+      "synonyms_ko": [
+        "방울토마토"
+      ],
+      "search_en": [
+        "cherry tomato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01129",
+      "ingredient_id": 1129,
+      "normalized_name": "새송이버섯",
+      "display_name": "새송이버섯",
+      "category_suggestion": "기타",
+      "train_image_count": 286,
+      "visual_base_ko": "새송이버섯",
+      "synonyms_ko": [
+        "새송이버섯"
+      ],
+      "search_en": [
+        "king oyster mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01715",
+      "ingredient_id": 1715,
+      "normalized_name": "오이고추",
+      "display_name": "오이고추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "오이고추",
+      "synonyms_ko": [
+        "오이고추"
+      ],
+      "search_en": [
+        "Korean green chili pepper",
+        "long green pepper",
+        "Korean chili pepper mild"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01716",
+      "ingredient_id": 1716,
+      "normalized_name": "쪽파",
+      "display_name": "쪽파",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "쪽파",
+      "synonyms_ko": [
+        "쪽파"
+      ],
+      "search_en": [
+        "chives"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01722",
+      "ingredient_id": 1722,
+      "normalized_name": "미니새송이버섯",
+      "display_name": "미니새송이버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "미니새송이버섯",
+      "synonyms_ko": [
+        "미니새송이버섯"
+      ],
+      "search_en": [
+        "mini king oyster mushroom",
+        "mini eryngii mushroom",
+        "small king oyster mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01741",
+      "ingredient_id": 1741,
+      "normalized_name": "가시오이",
+      "display_name": "가시오이",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "가시오이",
+      "synonyms_ko": [
+        "가시오이"
+      ],
+      "search_en": [
+        "pickling cucumber",
+        "Kirby cucumber",
+        "spiny cucumber",
+        "small cucumber"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01742",
+      "ingredient_id": 1742,
+      "normalized_name": "햇양파",
+      "display_name": "햇양파",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "햇양파",
+      "synonyms_ko": [
+        "햇양파"
+      ],
+      "search_en": [
+        "fresh onion",
+        "new onion",
+        "sweet onion raw",
+        "yellow onion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01747",
+      "ingredient_id": 1747,
+      "normalized_name": "느타리버섯",
+      "display_name": "느타리버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "느타리버섯",
+      "synonyms_ko": [
+        "느타리버섯"
+      ],
+      "search_en": [
+        "oyster mushroom",
+        "pleurotus mushroom",
+        "grey oyster mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01749",
+      "ingredient_id": 1749,
+      "normalized_name": "취나물",
+      "display_name": "취나물",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "취나물",
+      "synonyms_ko": [
+        "취나물"
+      ],
+      "search_en": [
+        "aster scaber",
+        "Korean aster vegetable",
+        "chwinamul",
+        "edible aster greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01762",
+      "ingredient_id": 1762,
+      "normalized_name": "홍고추",
+      "display_name": "홍고추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "홍고추",
+      "synonyms_ko": [
+        "홍고추"
+      ],
+      "search_en": [
+        "red chili pepper",
+        "red hot pepper",
+        "Korean red chili",
+        "large red chili"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01774",
+      "ingredient_id": 1774,
+      "normalized_name": "생강",
+      "display_name": "생강",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "생강",
+      "synonyms_ko": [
+        "생강"
+      ],
+      "search_en": [
+        "ginger root"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01781",
+      "ingredient_id": 1781,
+      "normalized_name": "양송이버섯",
+      "display_name": "양송이버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "양송이버섯",
+      "synonyms_ko": [
+        "양송이버섯"
+      ],
+      "search_en": [
+        "white button mushroom",
+        "champignon mushroom",
+        "table mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01809",
+      "ingredient_id": 1809,
+      "normalized_name": "오징어",
+      "display_name": "오징어",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "오징어",
+      "synonyms_ko": [
+        "오징어"
+      ],
+      "search_en": [
+        "squid",
+        "whole squid",
+        "fresh squid",
+        "calamari raw"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01820",
+      "ingredient_id": 1820,
+      "normalized_name": "표고버섯",
+      "display_name": "표고버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "표고버섯",
+      "synonyms_ko": [
+        "표고버섯"
+      ],
+      "search_en": [
+        "shiitake mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01823",
+      "ingredient_id": 1823,
+      "normalized_name": "단호박",
+      "display_name": "단호박",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "단호박",
+      "synonyms_ko": [
+        "단호박"
+      ],
+      "search_en": [
+        "kabocha squash",
+        "Japanese pumpkin",
+        "green pumpkin squash",
+        "winter squash green"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01891",
+      "ingredient_id": 1891,
+      "normalized_name": "적채",
+      "display_name": "적채",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "적채",
+      "synonyms_ko": [
+        "적채"
+      ],
+      "search_en": [
+        "red cabbage",
+        "purple cabbage",
+        "red cabbage head"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01893",
+      "ingredient_id": 1893,
+      "normalized_name": "주황파프리카",
+      "display_name": "주황파프리카",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "주황파프리카",
+      "synonyms_ko": [
+        "주황파프리카"
+      ],
+      "search_en": [
+        "orange bell pepper",
+        "orange capsicum",
+        "orange sweet pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01894",
+      "ingredient_id": 1894,
+      "normalized_name": "닭다리",
+      "display_name": "닭다리",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "닭다리",
+      "synonyms_ko": [
+        "닭다리"
+      ],
+      "search_en": [
+        "chicken drumstick",
+        "chicken leg piece",
+        "raw chicken leg"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01897",
+      "ingredient_id": 1897,
+      "normalized_name": "홍피망",
+      "display_name": "홍피망",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "홍피망",
+      "synonyms_ko": [
+        "홍피망"
+      ],
+      "search_en": [
+        "red bell pepper",
+        "red capsicum",
+        "red sweet pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01900",
+      "ingredient_id": 1900,
+      "normalized_name": "순대",
+      "display_name": "순대",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "순대",
+      "synonyms_ko": [
+        "순대"
+      ],
+      "search_en": [
+        "Korean blood sausage",
+        "sundae sausage",
+        "Korean soondae"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01902",
+      "ingredient_id": 1902,
+      "normalized_name": "조선호박",
+      "display_name": "조선호박",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "조선호박",
+      "synonyms_ko": [
+        "조선호박"
+      ],
+      "search_en": [
+        "Korean squash",
+        "Korean zucchini",
+        "long green squash Korea"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01911",
+      "ingredient_id": 1911,
+      "normalized_name": "천수무",
+      "display_name": "천수무",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "천수무",
+      "synonyms_ko": [
+        "천수무",
+        "천수 무",
+        "제주 천수무"
+      ],
+      "search_en": [
+        "Cheonso radish",
+        "Cheonso mu radish",
+        "Korean radish Cheonso variety",
+        "white Korean radish Cheonso",
+        "Korean winter radish variety",
+        "large Korean radish Cheonso"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01923",
+      "ingredient_id": 1923,
+      "normalized_name": "고등어",
+      "display_name": "고등어",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "고등어",
+      "synonyms_ko": [
+        "고등어"
+      ],
+      "search_en": [
+        "mackerel fish",
+        "Atlantic mackerel",
+        "whole mackerel"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01925",
+      "ingredient_id": 1925,
+      "normalized_name": "청피망",
+      "display_name": "청피망",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "청피망",
+      "synonyms_ko": [
+        "청피망"
+      ],
+      "search_en": [
+        "green bell pepper",
+        "green capsicum",
+        "green sweet pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01969",
+      "ingredient_id": 1969,
+      "normalized_name": "돼지안심",
+      "display_name": "돼지안심",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "돼지안심",
+      "synonyms_ko": [
+        "돼지안심"
+      ],
+      "search_en": [
+        "pork tenderloin",
+        "pork fillet",
+        "lean pork loin strip"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01971",
+      "ingredient_id": 1971,
+      "normalized_name": "참나물",
+      "display_name": "참나물",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "참나물",
+      "synonyms_ko": [
+        "참나물"
+      ],
+      "search_en": [
+        "minari",
+        "Korean water dropwort",
+        "Oenanthe javanica"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01980",
+      "ingredient_id": 1980,
+      "normalized_name": "홍파프리카",
+      "display_name": "홍파프리카",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "홍파프리카",
+      "synonyms_ko": [
+        "홍파프리카"
+      ],
+      "search_en": [
+        "red paprika pepper",
+        "red bell pepper",
+        "sweet red pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01992",
+      "ingredient_id": 1992,
+      "normalized_name": "세발나물",
+      "display_name": "세발나물",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "세발나물",
+      "synonyms_ko": [
+        "세발나물"
+      ],
+      "search_en": [
+        "glasswort",
+        "Suaeda japonica",
+        "Korean saltwort vegetable"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_01994",
+      "ingredient_id": 1994,
+      "normalized_name": "옥수수",
+      "display_name": "옥수수",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "옥수수",
+      "synonyms_ko": [
+        "옥수수"
+      ],
+      "search_en": [
+        "corn on the cob",
+        "sweet corn",
+        "fresh corn",
+        "yellow corn"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02008",
+      "ingredient_id": 2008,
+      "normalized_name": "고수",
+      "display_name": "고수",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "고수",
+      "synonyms_ko": [
+        "고수"
+      ],
+      "search_en": [
+        "cilantro",
+        "coriander leaves",
+        "fresh cilantro bunch"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02013",
+      "ingredient_id": 2013,
+      "normalized_name": "굴비",
+      "display_name": "굴비",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "굴비",
+      "synonyms_ko": [
+        "굴비"
+      ],
+      "search_en": [
+        "dried yellow croaker",
+        "Korean dried fish yellow corvina",
+        "gulbi fish"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02032",
+      "ingredient_id": 2032,
+      "normalized_name": "매실",
+      "display_name": "매실",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "매실",
+      "synonyms_ko": [
+        "매실"
+      ],
+      "search_en": [
+        "Japanese apricot",
+        "green ume plum",
+        "ume fruit"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02038",
+      "ingredient_id": 2038,
+      "normalized_name": "쑥갓",
+      "display_name": "쑥갓",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "쑥갓",
+      "synonyms_ko": [
+        "쑥갓"
+      ],
+      "search_en": [
+        "crown daisy",
+        "garland chrysanthemum greens",
+        "ssukgat greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02043",
+      "ingredient_id": 2043,
+      "normalized_name": "소고기홍두깨살",
+      "display_name": "소고기홍두깨살",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기홍두깨살",
+      "synonyms_ko": [
+        "소고기홍두깨살"
+      ],
+      "search_en": [
+        "beef chuck flap",
+        "chuck eye roll beef",
+        "beef shoulder thin slice"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02045",
+      "ingredient_id": 2045,
+      "normalized_name": "만가닥버섯",
+      "display_name": "만가닥버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "만가닥버섯",
+      "synonyms_ko": [
+        "만가닥버섯"
+      ],
+      "search_en": [
+        "enoki mushroom",
+        "enokitake",
+        "golden needle mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02051",
+      "ingredient_id": 2051,
+      "normalized_name": "백만송이버섯",
+      "display_name": "백만송이버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "백만송이버섯",
+      "synonyms_ko": [
+        "백만송이버섯"
+      ],
+      "search_en": [
+        "white beech mushroom",
+        "bunapi mushroom",
+        "white shimeji"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02066",
+      "ingredient_id": 2066,
+      "normalized_name": "흰양파",
+      "display_name": "흰양파",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "흰양파",
+      "synonyms_ko": [
+        "흰양파"
+      ],
+      "search_en": [
+        "white onion",
+        "yellow onion bulb",
+        "cooking onion"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02072",
+      "ingredient_id": 2072,
+      "normalized_name": "초록파프리카",
+      "display_name": "초록파프리카",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "초록파프리카",
+      "synonyms_ko": [
+        "초록파프리카"
+      ],
+      "search_en": [
+        "green paprika",
+        "green bell pepper",
+        "green sweet pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02128",
+      "ingredient_id": 2128,
+      "normalized_name": "청고추",
+      "display_name": "청고추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "청고추",
+      "synonyms_ko": [
+        "청고추"
+      ],
+      "search_en": [
+        "Korean green chili",
+        "small green hot pepper",
+        "green Korean pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02129",
+      "ingredient_id": 2129,
+      "normalized_name": "방울양배추",
+      "display_name": "방울양배추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "방울양배추",
+      "synonyms_ko": [
+        "방울양배추"
+      ],
+      "search_en": [
+        "Brussels sprouts",
+        "baby cabbage sprouts",
+        "Brussels sprout stalk"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02143",
+      "ingredient_id": 2143,
+      "normalized_name": "삼겹살",
+      "display_name": "삼겹살",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "삼겹살",
+      "synonyms_ko": [
+        "삼겹살"
+      ],
+      "search_en": [
+        "pork belly slices"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02147",
+      "ingredient_id": 2147,
+      "normalized_name": "인삼",
+      "display_name": "인삼",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "인삼",
+      "synonyms_ko": [
+        "인삼"
+      ],
+      "search_en": [
+        "ginseng root",
+        "Korean ginseng",
+        "fresh ginseng"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02167",
+      "ingredient_id": 2167,
+      "normalized_name": "얼갈이배추",
+      "display_name": "얼갈이배추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "얼갈이배추",
+      "synonyms_ko": [
+        "얼갈이배추"
+      ],
+      "search_en": [
+        "young napa cabbage",
+        "summer napa cabbage",
+        "baby napa cabbage"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02170",
+      "ingredient_id": 2170,
+      "normalized_name": "비트",
+      "display_name": "비트",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "비트",
+      "synonyms_ko": [
+        "비트"
+      ],
+      "search_en": [
+        "beetroot",
+        "red beet"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02172",
+      "ingredient_id": 2172,
+      "normalized_name": "로즈마리",
+      "display_name": "로즈마리",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "로즈마리",
+      "synonyms_ko": [
+        "로즈마리"
+      ],
+      "search_en": [
+        "rosemary herb",
+        "fresh rosemary",
+        "rosemary sprig"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02189",
+      "ingredient_id": 2189,
+      "normalized_name": "피망",
+      "display_name": "피망",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "피망",
+      "synonyms_ko": [
+        "피망"
+      ],
+      "search_en": [
+        "bell pepper",
+        "paprika vegetable",
+        "sweet pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02216",
+      "ingredient_id": 2216,
+      "normalized_name": "양상추",
+      "display_name": "양상추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "양상추",
+      "synonyms_ko": [
+        "양상추"
+      ],
+      "search_en": [
+        "lettuce",
+        "leaf lettuce",
+        "green lettuce head"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02225",
+      "ingredient_id": 2225,
+      "normalized_name": "쥬키니호박",
+      "display_name": "쥬키니호박",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "쥬키니호박",
+      "synonyms_ko": [
+        "쥬키니호박"
+      ],
+      "search_en": [
+        "zucchini",
+        "courgette",
+        "green zucchini"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02232",
+      "ingredient_id": 2232,
+      "normalized_name": "미니단호박",
+      "display_name": "미니단호박",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "미니단호박",
+      "synonyms_ko": [
+        "미니단호박"
+      ],
+      "search_en": [
+        "mini pumpkin",
+        "small pumpkin",
+        "baby pumpkin"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02246",
+      "ingredient_id": 2246,
+      "normalized_name": "소고기등심",
+      "display_name": "소고기등심",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "소고기등심",
+      "synonyms_ko": [
+        "소고기등심"
+      ],
+      "search_en": [
+        "beef sirloin steak",
+        "beef loin",
+        "sirloin beef raw"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02274",
+      "ingredient_id": 2274,
+      "normalized_name": "굴",
+      "display_name": "굴",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "굴",
+      "synonyms_ko": [
+        "굴"
+      ],
+      "search_en": [
+        "oyster shellfish",
+        "raw oyster",
+        "fresh oysters"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02275",
+      "ingredient_id": 2275,
+      "normalized_name": "알밤",
+      "display_name": "알밤",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "알밤",
+      "synonyms_ko": [
+        "알밤"
+      ],
+      "search_en": [
+        "chestnut",
+        "sweet chestnut",
+        "Korean chestnut"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02337",
+      "ingredient_id": 2337,
+      "normalized_name": "비름나물",
+      "display_name": "비름나물",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "비름나물",
+      "synonyms_ko": [
+        "비름나물"
+      ],
+      "search_en": [
+        "amaranth greens",
+        "Korean amaranth vegetable",
+        "pigweed greens"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02350",
+      "ingredient_id": 2350,
+      "normalized_name": "도라지채",
+      "display_name": "도라지채",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "도라지채",
+      "synonyms_ko": [
+        "도라지채"
+      ],
+      "search_en": [
+        "bellflower root",
+        "doraji root strips",
+        "platycodon root"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02357",
+      "ingredient_id": 2357,
+      "normalized_name": "완숙토마토",
+      "display_name": "완숙토마토",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "완숙토마토",
+      "synonyms_ko": [
+        "완숙토마토"
+      ],
+      "search_en": [
+        "ripe tomato",
+        "vine ripe tomato",
+        "red tomato"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02363",
+      "ingredient_id": 2363,
+      "normalized_name": "돌나물",
+      "display_name": "돌나물",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "돌나물",
+      "synonyms_ko": [
+        "돌나물"
+      ],
+      "search_en": [
+        "stonecrop edible",
+        "sedum greens",
+        "Korean stonecrop herb"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02384",
+      "ingredient_id": 2384,
+      "normalized_name": "바지락",
+      "display_name": "바지락",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "바지락",
+      "synonyms_ko": [
+        "바지락"
+      ],
+      "search_en": [
+        "manila clam",
+        "clam shellfish",
+        "baby clam"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02390",
+      "ingredient_id": 2390,
+      "normalized_name": "근대",
+      "display_name": "근대",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "근대",
+      "synonyms_ko": [
+        "근대"
+      ],
+      "search_en": [
+        "Swiss chard",
+        "chard greens",
+        "silver beet"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02392",
+      "ingredient_id": 2392,
+      "normalized_name": "냉동새우살",
+      "display_name": "냉동새우살",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "냉동새우살",
+      "synonyms_ko": [
+        "냉동새우살"
+      ],
+      "search_en": [
+        "peeled shrimp",
+        "shrimp meat",
+        "frozen shrimp raw"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02393",
+      "ingredient_id": 2393,
+      "normalized_name": "단감",
+      "display_name": "단감",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "단감",
+      "synonyms_ko": [
+        "단감"
+      ],
+      "search_en": [
+        "persimmon fruit",
+        "fuyu persimmon",
+        "sweet persimmon"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02420",
+      "ingredient_id": 2420,
+      "normalized_name": "미니파프리카",
+      "display_name": "미니파프리카",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "미니파프리카",
+      "synonyms_ko": [
+        "미니파프리카"
+      ],
+      "search_en": [
+        "mini bell pepper",
+        "small sweet pepper",
+        "baby bell pepper"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02438",
+      "ingredient_id": 2438,
+      "normalized_name": "바지락살",
+      "display_name": "바지락살",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "바지락살",
+      "synonyms_ko": [
+        "바지락살"
+      ],
+      "search_en": [
+        "clam meat",
+        "clam strips",
+        "shelled clam"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02441",
+      "ingredient_id": 2441,
+      "normalized_name": "냉이",
+      "display_name": "냉이",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "냉이",
+      "synonyms_ko": [
+        "냉이"
+      ],
+      "search_en": [
+        "shepherds purse",
+        "shepherd's purse greens",
+        "Capsella bursa-pastoris"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02444",
+      "ingredient_id": 2444,
+      "normalized_name": "속배추",
+      "display_name": "속배추",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "속배추",
+      "synonyms_ko": [
+        "속배추"
+      ],
+      "search_en": [
+        "napa cabbage inner leaves",
+        "Chinese cabbage heart",
+        "napa cabbage core"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02531",
+      "ingredient_id": 2531,
+      "normalized_name": "머쉬마루버섯",
+      "display_name": "머쉬마루버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "머쉬마루버섯",
+      "synonyms_ko": [
+        "머쉬마루버섯"
+      ],
+      "search_en": [
+        "brown beech mushroom",
+        "buna shimeji",
+        "brown clamshell mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02543",
+      "ingredient_id": 2543,
+      "normalized_name": "냉동꽃게",
+      "display_name": "냉동꽃게",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "냉동꽃게",
+      "synonyms_ko": [
+        "냉동꽃게"
+      ],
+      "search_en": [
+        "frozen crab",
+        "blue crab frozen",
+        "swimming crab frozen"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02561",
+      "ingredient_id": 2561,
+      "normalized_name": "새우살",
+      "display_name": "새우살",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "새우살",
+      "synonyms_ko": [
+        "새우살"
+      ],
+      "search_en": [
+        "shrimp peeled",
+        "prawn meat",
+        "raw shrimp no shell"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_02562",
+      "ingredient_id": 2562,
+      "normalized_name": "맛타리버섯",
+      "display_name": "맛타리버섯",
+      "category_suggestion": "미분류",
+      "train_image_count": 0,
+      "visual_base_ko": "맛타리버섯",
+      "synonyms_ko": [
+        "맛타리버섯"
+      ],
+      "search_en": [
+        "hon shimeji mushroom",
+        "brown beech mushroom",
+        "shimeji mushroom"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_03720",
+      "ingredient_id": 3720,
+      "normalized_name": "호박",
+      "display_name": "호박",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "호박",
+      "synonyms_ko": [
+        "호박"
+      ],
+      "search_en": [
+        "zucchini",
+        "squash"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_03721",
+      "ingredient_id": 3721,
+      "normalized_name": "완두콩",
+      "display_name": "완두콩",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "완두콩",
+      "synonyms_ko": [
+        "완두콩"
+      ],
+      "search_en": [
+        "green peas",
+        "garden peas",
+        "peas vegetable"
+      ],
+      "notes": ""
+    },
+    {
+      "model_folder": "ing_03719",
+      "ingredient_id": 3719,
+      "normalized_name": "알배추",
+      "display_name": "알배추",
+      "category_suggestion": "채소",
+      "train_image_count": 0,
+      "visual_base_ko": "알배추",
+      "synonyms_ko": [
+        "알배추",
+        "절임용 배추",
+        "어린 배추"
+      ],
+      "search_en": [
+        "young napa cabbage",
+        "small napa cabbage",
+        "baby napa cabbage",
+        "Korean napa cabbage young",
+        "napa cabbage small head",
+        "early napa cabbage"
+      ],
+      "notes": ""
+    }
+  ],
+  "searchEnGapFill": {
+    "tool": "patch_train_non_packaged_search_en_gaps.py",
+    "updated_entries": 63
+  }
+}
