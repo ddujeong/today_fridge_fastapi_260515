@@ -43,3 +43,19 @@ jobs:
             --port 8000 \
             --max-instances=1 \
             --timeout=300
+
+      - name: Notify Discord Success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content":"✅ [오늘 냉장고] FastAPI Cloud Run 배포 완료"}' \
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
+
+      - name: Notify Discord Failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"content":"❌ [오늘 냉장고] FastAPI Cloud Run 배포 실패"}' \
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
