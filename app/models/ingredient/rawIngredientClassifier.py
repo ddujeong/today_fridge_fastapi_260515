@@ -318,8 +318,8 @@ class RawIngredientClassifier:
 
         try:
             from ultralytics import YOLO
-        except ImportError as exc:
-            raise ImportError("ultralytics가 설치되어 있지 않습니다. 설치: pip install ultralytics") from exc
+        except Exception as exc:
+            raise ImportError(f"ultralytics import 실패: {repr(exc)}") from exc
 
         self.model = YOLO(str(self.model_path))
 
